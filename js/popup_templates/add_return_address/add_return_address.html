@@ -1,0 +1,94 @@
+<script type="text/template" id="add_return_address_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+			<h3>{{translationsData.Editreturnaddress}}</h3>
+		{{else}}
+			<h3>{{translationsData.Addreturnaddress}}</h3>
+		{{/js_if}}
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_return_address_form" method="post" accept-charset="utf-8">
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+						<div class="controls">
+							{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+								<input name="name" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Name}}" id="name" type="text" value="{{partnerReturnAddress.PartnerReturnAddress.name}}">
+							{{else}}
+								<input name="name" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Name}}" id="name" type="text">
+							{{/js_if}}
+						</div>
+					</div>
+
+					<div class="control-group">	
+						<div class="controls">
+							{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+								<input name="address1" class="m-wrap span9" maxlength="80" value="{{partnerReturnAddress.PartnerReturnAddress.address1}}" placeholder="{{translationsData.Address1}}" id="address1" type="text">
+							{{else}}
+								<input name="address1" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Address1}}" id="address1" type="text">
+							{{/js_if}}
+
+						</div>
+					</div>
+
+					<div class="control-group">	
+						<div class="controls">
+							{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+								<input name="address2" class="m-wrap span9" maxlength="80" value="{{partnerReturnAddress.PartnerReturnAddress.address2}}" placeholder="{{translationsData.Address2}}" id="address2" type="text">
+							{{else}}
+								<input name="address2" class="m-wrap span9" maxlength="80" value="" placeholder="{{translationsData.Address2}}" id="address2" type="text">
+							{{/js_if}}
+							
+						</div>
+					</div>
+
+					<div class="control-group">	
+						<div class="controls">
+							<div class="span">
+								<div class="span3">
+								{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+									<input name="zip" class="m-wrap span12" maxlength="80" value="{{partnerReturnAddress.PartnerReturnAddress.zip}}" placeholder="{{translationsData.Zip}}" id="zip" type="text">
+								{{else}}
+									<input name="zip" class="m-wrap span12" maxlength="80" value="" placeholder="{{translationsData.Zip}}" id="zip" type="text">
+								{{/js_if}}
+									
+								</div>
+								<div class="span9">
+								{{#js_if "this.partnerReturnAddress.PartnerReturnAddress != undefined"}} 
+									<input name="city" class="m-wrap span12" maxlength="80" value="{{partnerReturnAddress.PartnerReturnAddress.city}}" placeholder="{{translationsData.City}}" id="city" type="text">
+								{{else}}
+									<input name="city" class="m-wrap span12" maxlength="80" value="" placeholder="{{translationsData.City}}" id="city" type="text">
+								{{/js_if}}
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="add_return_address_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div#uniform-penalty,div#uniform-deduct_hours{
+	margin-top: 8px;
+}
+#popups .form-horizontal .control-group{
+	margin-bottom:5px;
+}
+</style>
+</script>

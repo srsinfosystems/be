@@ -1,0 +1,1071 @@
+<script type="text/template" id="mass_communication_list_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Communications}}</a>
+						</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i><span>{{translationsData.Masscommunication}}</span>
+					</li>
+				</ul>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<div class="portlet box blue" id="form_wizard_1">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-reorder"></i> {{translationsData.Masscommunication}} - <span class="step-title">{{translationsData.Step}} 1 {{translationsData.of}} 4</span>
+			</div>				
+		</div>
+		<div class="portlet-body form">
+			<form action="/" class="form-horizontal" id="mss_comm_lst_template_from" onsubmit="event.returnValue = false; return false;" method="post" accept-charset="utf-8" novalidate="novalidate">
+				<div class="form-wizard">
+					<div class="navbar steps">
+						<div class="navbar-inner">
+							<ul class="row-fluid nav nav-pills">
+								<li class="span3 active">
+									<a href="#tab1" data-toggle="tab" class="step ">
+									<span class="number">1</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Selectrecipients}}</span>   
+									<span class="small_triangle"></span></a>
+								</li>
+								<li class="span4">
+									<a href="#tab2" data-toggle="tab" class="step">
+									<span class="number">2</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Selectdistributionproperties}}</span>   
+									</a>
+								</li>
+								<li class="span3">
+									<a href="#tab3" data-toggle="tab" class="step active">
+									<span class="number">3</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Composemessage}}</span>   
+									</a>
+								</li>	
+								<li class="span2">
+									<a href="#tab4" data-toggle="tab" class="step">
+									<span class="number">4</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Summary}}</span>   
+									</a>
+								</li>													
+							</ul>
+						</div>
+					</div>
+					<div id="bar" class="progress progress-success progress-striped">
+						<div class="bar_wizard" style="width: 25%;"></div>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1">
+							<div class="tabbable tabbable-custom">
+								<ul class="nav nav-tabs">
+									
+									<li class="showtab_customers active">
+										<a onclick="mass_communication_list.showTab('tab_1_customers')">
+											{{translationsData.Customergroups}}
+										</a>
+									</li>
+									<li class="showtab_groups">
+										<a onclick="mass_communication_list.showTab('tab_2_groups')" >
+											{{translationsData.Customlists}}
+										</a>
+									</li>
+									<li class="showtab_queries ">
+										<a onclick="mass_communication_list.showTab('tab_3_queries')" >
+											{{translationsData.Queries}}
+										</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab_1_customers">
+										<div id="customer_groups">
+											<div class="row-fluid">
+												<div class="span12" style="margin-left:0">	
+													<div class="table-responsive" >
+														<!-- Customer group table -->							
+														<table class="table table-striped table-hover table-bordered" id="customer_groups_table" style="">
+															<thead class="">
+																<tr>
+																	<th style="text-align:left !important;">
+																		<label class="checkbox line">
+																			<input name="allGroup" id="all_group" class="all_group" type="checkbox">
+																		</label>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp; 
+																			{{translationsData.Groupname}}
+																		</span>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp;
+																			{{translationsData.Customers}}
+																		</span></th>
+																	<th style="text-align:left !important;">
+																		<i class="icon-ok"></i>&nbsp;
+																		{{translationsData.Action}}
+																		
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																{{#js_if "this.getCustomerGroups.length != 0"}} 
+																	{{#each getCustomerGroups}}
+																			{{CustomerGroupListHelper this}}								
+																	{{/each}}
+																	<tr id="mss_comm_lst_customer_empty_tr" style="display:none">
+																		<td colspan="4">{{translationsData.Nogroupfound}}</td>
+																	</tr>
+																{{else}}
+																	<tr id="mss_comm_lst_customer_empty_tr">
+																		<td colspan="4">{{translationsData.Nogroupfound}}</td>
+																	</tr>
+																{{/js_if}}
+															</tbody>
+														</table>
+													</div>	
+												</div>	
+											</div>	
+										</div>
+									</div>	
+
+									<div class="tab-pane" id="tab_2_groups">
+										<div id="customer_custom_groups">
+											<div class="row-fluid">
+												<div class="btn-group pull-right">
+													<button class="btn blue" onclick="new_custom_popup2(800,'popups','add_custom_group',{from:'add'})">
+														<i class="icon-plus"></i>
+														{{translationsData.Addgroup}}
+													</button>
+												</div>
+											</div>
+											<div class="row-fluid">
+												<div class="span12" style="margin-left:0">	
+													<div class="table-responsive" >
+														<!-- Customer group table -->							
+														<table class="table table-striped table-hover table-bordered" id="custom_groups_table" style="">
+															<thead class="">
+																<tr>
+																	<th style="text-align:left !important;">
+																		<label class="checkbox line">
+																			<input name="allCustomGroup" id="all_custom_group" class="all_custom_group" type="checkbox">
+																		</label>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp; 
+																			{{translationsData.Groupname}}
+																		</span>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp;
+																			{{translationsData.Customers}}
+																		</span></th>
+																	<th style="text-align:left !important;">
+																		<i class="icon-ok"></i>&nbsp;
+																		{{translationsData.Action}}
+																		
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																{{#js_if "this.partnerCommunicationGroup.length != 0"}} 
+																	{{#each partnerCommunicationGroup}}
+																			{{CustomerCustomGroupListHelper this}}								
+																	{{/each}}
+																	<tr id="mss_comm_lst_cust_custom_empty_tr" style="display:none">
+																		<td colspan="4">{{translationsData.Nogroupfound}}</td>
+																	</tr>
+																{{else}}
+																	<tr id="mss_comm_lst_cust_custom_empty_tr">
+																		<td colspan="4">{{translationsData.Nogroupfound}}</td>
+																	</tr>
+																{{/js_if}}
+															</tbody>
+														</table>
+													</div>	
+												</div>	
+											</div>	
+										</div>
+									</div>
+
+									<div class="tab-pane " id="tab_3_queries">
+										<div class="row-fluid">
+											<div class="span12 text-right">
+												<button class="btn blue" onclick="mass_communication_list.create_query()">
+													<i class="icon-plus"></i> 
+													{{translationsData.Createquery}} 
+													
+												</button>
+											</div>
+										</div>
+										<div class="row-fluid">
+											<div class="span12 query_list_w table-responsive">
+											
+											</div>
+										</div>
+
+										<div id="builder" class="buid" style="display:none"></div>
+
+										<div class="row-fluid buid" style="display:none">
+											<div class="span12 text-right">
+												<button class="btn blue" onclick="mass_communication_list.get_query()">
+													
+													{{translationsData.Runquery}} 
+													<i class="m-icon-swapright m-icon-white"></i> 
+												</button>
+											</div>
+										</div>
+
+										<div class="row-fluid">
+											<div class="span12">
+												<div class="table-responsive query_customer_t">
+
+												</div>
+											</div>
+										</div>
+										<div class="row-fluid">
+										</div>
+									</div>
+								</div>
+							</div>							
+						</div>	
+						<div class="span12" style="display:none">
+							<div class="span6" style="margin-bottom:10px">
+								<div class="control-group">
+									<label class="control-label" style="width:auto;margin-right:5px">Label</label>
+									<div class="controls" style="margin:0">
+										<select id="masscust" class="m-wrap span4">
+											<option value="customer_groups" selected>Customer custom group</option>
+											<option value="custom_groups">Customer group</option>
+											<option value="queries">Queries</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="tab2">
+							<h3 class="block" style="margin:0">{{translationsData.Distributionproperties}}</h3>
+							<div class="row-fluid">
+							  	<div class="span12">
+							  		<div class="control-group">
+									<label class="control-label">{{translationsData.Distribution}} <span class="required">*</span></label>
+										<div class="controls">
+											<select name="TriggerAction" class="m-wrap span8" id="TriggerAction">
+												<option value="send_email">{{translationsData.Sendemail}}</option>
+												<option value="send_sms">{{translationsData.SendSMS}}</option>
+												<option value="both">{{translationsData.Both}}</option>
+											</select>
+										</div>
+									</div>		
+
+									<div class="control-group">
+									<label class="control-label">{{translationsData.Recipients}} <span class="required">*</span></label>
+										<div class="controls">
+											<select name="TriggerTo" class="m-wrap span8" id="TriggerTo">
+												<option value="default_cust_contact">{{translationsData.Defaultcustomercontact}}</option>
+												<option value="address_on_customer_card">{{translationsData.Addresslistedonthecustomercard}}</option>
+												<option value="all_contact_person">{{translationsData.Allcontactpersons}}</option>														
+											</select>
+										</div>
+									</div>	
+
+									<div class="control-group sms_sender_wrapper hide">
+										<label class="control-label">{{translationsData.SMSsender}} <span class="required">*</span></label>
+										<div class="controls">
+											<select name="data[Trigger][sender]" class="m-wrap span8" id="TriggerSender" tabindex="-1">													
+											</select>
+										</div>
+									</div>	
+
+							  	</div>
+							</div>
+						</div>
+						
+
+						<div class="tab-pane " id="tab3">
+							<h3 class="block">{{translationsData.Messagedetails}}</h3>
+							<div class="row-fluid">
+								<div class="span12">
+									<div class="table-responsive profile">
+										<table class="table table-striped table-bordered table-hover" id="table_file">
+											<tbody>
+												<tr class="email_text_wrapper">
+													<td colspan="2" style="background: none no-repeat scroll right center #f0f6fa !important;color: #666666 !important;font-size: 14px;font-weight: 400;">{{translationsData.$email}}</td>
+												</tr>
+												<tr class="email_text_wrapper">
+													<td>{{translationsData.Subject}}</td>
+													<td>
+														<input name="data[Trigger][custom_subject]" class="m-wrap span12" style="float:left" id="TriggerCustomSubject" type="text"  placeholder="{{translationsData.Subject}}" >
+													</td>
+												</tr>
+												<tr class="email_text_wrapper">
+													<td>{{translationsData.Emailtext}}</td>
+													<td>
+														<textarea placeholder="" id="custom_text" class="m-wrap span12" style="height:200px"></textarea>
+													</td>
+												</tr>
+												<tr class="email_text_wrapper">
+													<td>{{translationsData.Attachments}}</td>
+													<td>
+														<div class="inbox-compose-attachment">
+															<div class="row-fluid fileupload-buttonbar pull-right">
+																<span class="btn green fileinput-button">
+																	<i class="icon-plus icon-white"></i>
+																	<span>{{translationsData.$add_files}}</span>
+																	<input type="file" name="files[]" id="filess" multiple>
+																</span>
+															</div>
+															
+														</div>
+													</td>
+												</tr>
+												<tr class="attachments" style="display:none">
+													<td colspan="2">
+														<div id="progress">
+															<div class="bar" style="width: 0%;"></div>
+														</div>
+													</td>
+												</tr>
+												<tr class="attach" style="display:none;">
+													<td></td>
+													<td class="add_attach" style="display:flex;flex-wrap: wrap;">
+
+													</td>
+												</tr>
+												<tr class="sms_text_wrapper">
+													<td colspan="2" style="background: none no-repeat scroll right center #f0f6fa !important;color: #666666 !important;font-size: 14px;font-weight: 400;">{{translationsData.SMS}}</td>
+												</tr>
+												
+												<tr class="sms_text_wrapper">
+													<td>{{translationsData.Placeholders}}</td>
+													<td>
+														<select id="PartnerEmailPlaceholders" class="m-wrap span4" name="data[Trigger][placeholders]" tabindex="-1">
+														</select>
+														<button type="button" name="btn_placeholder_add" id="btn_placeholder_add" class="btn blue" style="margin-left:2%;" onclick="add_trigger_email_placeholder()">
+															<i class="icon-plus" ></i>&nbsp;{{translationsData.Add}}
+														</button>
+													</td>
+												</tr>
+
+												<tr class="sms_text_wrapper">
+													<td>{{translationsData.SMStext}}</td>
+													<td>
+														<textarea name="data[Trigger][custom_text_sms]" class="m-wrap span11" rows="3" placeholder="{{translationsData.SMStext}}" style="height:150px;" id="TriggerCustomTextSms"></textarea>
+														<input name="data[Trigger][cnt]" readonly="readonly" class="m-wrap span2" style="width:70px !important" id="TriggerCnt" type="text">
+														<input id="fc_holder_div" value="#TriggerCustomTextSms" name="fc_holder_div" type="hidden">
+													</td>
+												</tr>
+
+												</select>
+												
+											</tbody>
+										</table>
+									</div>
+
+									<div class="control-group" id="custom_text_desc" >	
+										<ul id="placeholder-toolbar" style="display:none;">
+											<li class='dropdown'>
+												<a class='btn dropdown-toggle' data-toggle='dropdown' href='#'>
+													<i class='icon-puzzle-piece'></i>&nbsp;<span class='current-font'>{{translationsData.Placeholders}}</span>&nbsp;<b class='caret'></b>
+												</a>
+												<ul class='dropdown-menu email_placeholders'>
+													
+												</ul>
+											</li>
+										</ul>
+									</div>
+
+
+																	
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="tab-pane" id="tab4">
+							<h3 class="block div_msg_sent generate_summary hide">
+							  {{translationsData.Messagessent}}
+							</h3>
+							<div class="row-fluid generate_summary hide">
+								<div class="span12">
+									<span style="font-size: 13px; font-family: open sans,sans-serif;">{{translationsData.$mass_is_distr}}</span>
+								</div>
+							</div>
+							<div class="row-fluid generate_summary hide" style="margin-top:10px;"> 
+								<div class="span12">
+									<div class="table-responsive">	
+										<table class="table table-striped table-hover table-bordered" id="customer_groups">
+											<thead class="">
+												<tr>
+													<th><span style="margin-right:10px;"><i class="icon-asterisk"></i> {{translationsData.Description}}</span></th>
+													<th><span style="margin-right:10px;"><i class="icon-asterisk"></i> {{translationsData.Quantity}}</span></th>
+												</tr>
+											</thead>
+												<tr>
+													<td>
+														{{translationsData.Customersreached}}
+													</td>
+													<td id="customer_reached">
+														
+													</td>
+												</tr>
+												<tr class="hide">
+													<td>
+														{{translationsData.Emailssent}}
+													</td>
+													<td id="email_sent">
+														
+													</td>
+												</tr>
+												<tr class="hide">    
+													<td>
+														{{translationsData.$sms_sent}}
+													</td>
+													<td id="sms_sent">
+														
+													</td>
+												</tr>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+					<div class="form-actions clearfix" style="padding-left:12px !important; text-align:center;">	
+							<ul>		
+								
+								<li>
+									<a href="javascript:;" style="float: left; margin-left: -0.5%; display: none;" id="btn_back" class="btn button-previous">
+										<i class="m-icon-swapleft"></i> {{translationsData.Back}} 
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" style="float: right;" class="btn blue button-next" id="btn_continue">
+										{{translationsData.Continue1}} 
+										<i class="m-icon-swapright m-icon-white"></i>
+									</a>
+								</li>
+								<li style="float: right;display:none" class="save_and_continue">
+									<div class="btn-group" style="float: right;">
+										<button class="btn blue dropdown-toggle" data-toggle="dropdown">
+											{{translationsData.Continue1}}  
+											<i class="icon-angle-down"></i>
+										</button>
+										<ul class="dropdown-menu" style="min-width: 120px;">
+											<li><a onclick="mass_communication_list.cont()" class="text-left" href="javascript:;">{{translationsData.Continue1}}</a></li>
+											<li><a onclick="mass_communication_list.saveandc()" class="text-left" href="javascript:;">{{translationsData.Saveandcontinue}}</a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<a href="javascript:;" style="float: right;display: none;" class="btn blue button-send" id="btn_send">
+										{{translationsData.Send}} 
+										<i class="m-icon-swapright m-icon-white"></i>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" style="float: right;display:none" class="btn blue button-again" id="button-again">
+										{{translationsData.Sendanothermessage}} 
+										<i class="m-icon-swapright m-icon-white"></i>
+									</a>
+								</li>
+							<ul>
+						</div>
+			</form>												 
+		
+		</div>
+	</div>
+	<div class="modal hide fade in modal-overflow" id="saveandcpop" style="display: none; margin-top: 0px;" aria-hidden="false">
+		<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.SaveQuery}}</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="portlet-body form">
+						<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add-f" method="post" accept-charset="utf-8">
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+								<div class="controls">
+									<input name="qry_name" class="m-wrap span9" placeholder="{{translationsData.Name}}" id="qry_name" type="text">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Saveas}}</label>	
+								<div class="controls">
+									<select name="qry_type" id="qry_type" class="span9 m-wrap">
+										<option value="query">{{translationsData.Aquery}}</option>
+										<option value="list">{{translationsData.Acustomlist}}</option>
+									</select>
+								</div>
+							</div>
+							<input name="qry_id" id="qry_id" type="hidden">
+						</form>					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<button class="btn blue" type="button" id="qry_save">
+					{{translationsData.Save}}
+					<i class="m-icon-swapright m-icon-white"></i>
+				</button>		
+				<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+					{{translationsData.Cancel}}
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal hide fade in modal-overflow" id="mss_comm_lst_customer_popup" style="display: none; margin-top: 0px;" aria-hidden="false">
+		<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.Searchcustomer}}</h3>
+		</div>
+		<div class="row-fluid">
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="row-fluid">
+							<div class="span4">
+								<input name="customer_name" id="customer_name" placeholder="{{translationsData.Customername}} / {{translationsData.Customernumber}}" class="span12 m-wrap ui-autocomplete-input" value="" onkeypress="" style="margin-bottom:10px" autocomplete="off" type="text">
+							</div>
+							
+							<div class="span4">
+								<a class="btn green new_tab" href="javascript:;" id="btn_search"><i class="icon-search m-icon-white"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="portlet-body form profile">					
+							<div style="clear:both;padding-top:10px;"></div>					
+							
+													
+								<table class="table table-striped table-hover table-new-advance table-bordered no-more-tables cf" id="customer_list_table" style="width:100%">
+									<thead id="cf">
+										<tr>
+											<th>
+												<input class="all_customer" id="all_customers" name="allCustomer" checked="checked" type="checkbox">
+											</th>
+											<th style="width:20%;"><i class="icon-list"></i> 
+											{{translationsData.Customernumber}} 
+											</th>
+											<th><i class="icon-user"></i> 
+											{{translationsData.Customername}}
+											</th>
+											<th><i class="icon-user"></i> 
+												{{translationsData.Email}}
+											</th>																		
+										</tr>
+									</thead>	
+									<tbody id="mss_comm_lst_customer_table">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+
+					<button data-dismiss="modal" class="btn blue customer_save" type="button"><i class="icon-check"></i> {{translationsData.Save}}</button>
+					<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="m-icon-swapright m-icon-white"></i> {{translationsData.Cancel}}</button>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<style>
+	.query-builder .rules-list > :first-child::before{
+		border-width:0 0 2px 0px;
+	}
+	/*> .btn:last-child*/
+	#builder .btn-group.group-conditions {
+		visibility:hidden !important;
+	}
+	input.form-control{
+		height: 30px !important;
+	}
+		button[data-not="group"],button[data-invert="group"],button[data-add="group"]{
+			display:none !important;
+		}
+
+		.innerrows table td,innerrows table th {
+			padding:2px !important;
+		}
+		.iconplus{
+			cursor:pointer;
+			background: rgba(0, 0, 0, 0) url("/img/datatable-row-openclose.png") no-repeat scroll 0 0;
+		}
+		.iconminus{
+			cursor:pointer;
+			background: rgba(0, 0, 0, 0) url("/img/datatable-row-openclose.png") no-repeat scroll 0 -23px !important;
+		}
+		.navbar-inner{
+			padding-right:0px !important;
+			padding-left:0px !important;
+		}
+		#content .navbar-inner a{
+			padding:10px 4px 10px !important;
+		}
+		.progress-success.progress-striped .bar_wizard, .progress-striped .bar_wizard-success {
+			background-color: #62c462;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+		}
+		.progress-success .bar_wizard, .progress-danger .bar_wizard, .progress-info .bar_wizard, .progress-warning .bar_wizard {
+			background-image: none !important;
+			filter: none !important;
+		}
+		.progress-success .bar_wizard, .progress .bar_wizard-success {
+			background-color: #5eb95e;
+			background-image: linear-gradient(to bottom, #62c462, #57a957);
+			background-repeat: repeat-x;
+		}
+		.progress-striped .bar_wizard {
+			background-color: #149bdf;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+			background-size: 40px 40px;
+		}
+		.progress .bar_wizard {
+			background-color: #0e90d2;
+			background-image: linear-gradient(to bottom, #149bdf, #0480be);
+			background-repeat: repeat-x;
+			box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+			box-sizing: border-box;
+			color: #fff;
+			float: left;
+			font-size: 12px;
+			height: 100%;
+			text-align: center;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			transition: width 0.6s ease 0s;
+			width: 0;
+		}
+		.bar_wizard {
+			background: #c0cfdd none repeat scroll 0 0;
+			height: 14px;
+		}
+		.validate-inline{
+			color: #b94a48;
+		}
+		.bar {
+			height: 14px;
+			background: #c0cfdd;
+		}	
+		.form-actions.clearfix li{
+			display: inline;
+			list-style: outside none none;
+		}
+		.btn-group{
+			margin-bottom:10px;
+		}
+		#info_bill_once i.icon-question-sign:before{
+			cursor:pointer;
+		}
+		.form-wizard .progress{
+			margin-bottom:15px !important;
+		}
+		/*ul.wysihtml5-toolbar li:nth-child(3) div.btn-group a.btn{
+			padding:8.5px 14px;
+		}
+		a[data-wysihtml5-command="insertUnorderedList"],
+		a[data-wysihtml5-command="insertOrderedList"],
+		a[data-wysihtml5-command="Outdent"],
+		a[data-wysihtml5-command="Indent"],
+		a[data-wysihtml5-command="createLink"],
+		a[data-wysihtml5-command="insertImage"]{
+			box-sizing:border-box;
+
+		}*/
+
+		.wysihtml5-sandbox{
+			width:100% !important;
+			box-sizing:border-box;
+		}
+
+		.attach_wrap{
+			width: 19%;
+			position: relative;
+			height: 100px;
+			border: 1px solid #e5e5e5;
+			box-sizing: border-box;
+			margin: 0.5%;
+		}
+		.triangles{
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			z-index: 3;
+			height: 20px;
+			width: 20px;
+			border-right: solid 20px transparent;
+		}
+		.triangles:before{
+			content: "";
+			font-size: 0;
+			position: absolute;
+			bottom: 19px;
+			right: -20px;
+			width: 20px;
+			border-top: 1px #e5e5e5 solid;
+			z-index: 4;
+			opacity: .2;
+		}
+		.triangles:after{
+			content: "";
+			font-size: 0;
+			position: absolute;
+			bottom: 0;
+			right: -20px;
+			background: no-repeat url('/img/attachsprite.png') -129px -88px;
+			height: 20px;
+			width: 40px;
+			z-index: 4;
+		}
+		.triangles_img{
+			position: absolute;
+			width: 0;
+			height: 0;
+			bottom: 0;
+			right: -20px;
+			border-width: 10px;
+			border-style: solid;
+			z-index: 3;
+		}
+		.triangles_img:after{
+	    content: "";
+	    font-size: 0;
+	    width: 0;
+	    height: 0;
+	    border-color: #eee;
+	    border-width: 10px;
+	    border-style: solid;
+	    position: absolute;
+	    top: -10px;
+	    right: -9px;
+	    z-index: 3;
+	    cursor:pointer;
+		}
+		.triangles_img_pdf:after{
+	    border-color: #fb4c2f !important;
+		}
+		.triangles_img_txt:after{
+			border-color: #4986e7 !important;
+		}
+
+		.triangles_img_doc:after{
+			border-color: #0082ef !important;
+		}
+		.triangles_img_xlsx:after{
+			border-color: #00a953 !important;
+		}
+		.second_else{
+			background-color: #f5f5f5 !important;
+		}
+		.second{
+			position: absolute;
+			top: 0;
+			width: 100%;
+			background-color: rgba(0,0,0,0.4);
+			display:none;
+			color:#fff;
+			cursor:pointer;
+			height:100%;
+		}
+		.attach_wrap:hover .second{
+			display:block;
+		}
+		.attach_wrap:hover .attach_name{
+			color:#777;
+		}
+		.attach_wrap:hover .attach_name_img{
+			color:#fff !important;
+		}
+	
+		.attach_wrap:hover .attach_size{
+			color:#aaa;
+		}
+		.attach_wrap:hover .attach_size_img{
+			color:#fff !important;
+		}
+
+		.attach_name{
+			font-size: 12px;
+			color: #fff;
+			font-weight: bold;
+			line-height: 1.2em;
+			white-space: normal;
+			word-wrap: normal;
+			word-break: break-all;
+			padding: 5px 5px 0 5px;
+
+		}
+		.attach_size{
+	    font-size: 11px;
+	    color: #fff;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: normal;
+	    word-wrap: normal;
+	    word-break: break-all;
+	    padding: 0px 5px 0 5px;
+		}
+		.hover_cont{
+			display:flex;
+			height:75%
+		}
+		.first{
+			width: 100%;
+			height: 100%;
+		}
+		.hover_cont_one{
+			width: 100%;
+			position: relative;
+			height: 70%;
+		}
+		.hover_cont_two{
+			width: 100%;
+			position: relative;
+			height: 30%;
+	
+			padding-left:5px;
+			background-color: #f5f5f5;
+			border-top: 1px solid #e5e5e5;
+			color:#777;
+			box-sizing:border-box
+		}
+		.hover_cont_two_one{
+			float:left;
+			width:10%;
+			padding-right:5px;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.hover_cont_two_two{
+			float:left;
+			width:68%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.hover_detail{
+			display:flex;
+			height:25%;
+		}
+		.attach_icon{
+			margin-right:2px;
+		}
+		.hover_remove{
+			position: absolute;
+			right: -10px;
+			top: -10px;
+			border-radius: 50px !important;
+			padding: 0px 5px !important;
+		}
+		.attach_img{
+			width: 100%;
+			max-height: 100%;
+			margin: auto;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.attach_pdf{
+			background: no-repeat url('/img/attachsprite.png') -162px -47px;
+			width: 40px;
+			height: 40px;
+		}
+		.attach_text{
+			background: no-repeat url('/img/attachsprite.png') -121px -47px;
+			width: 40px;
+			height: 40px;
+		}
+		.attach_zip{
+			background: no-repeat url('/img/attachsprite.png') -88px -88px;
+			width: 40px;
+			height: 40px;
+		}
+		.attach_doc{
+			background: no-repeat url('/img/attachsprite.png')  0 -88px;
+			width: 40px;
+			height: 40px;
+		}
+		.attach_xls{
+			background: no-repeat url('/img/attachsprite.png')  0 0;
+			width: 40px;
+			height: 40px;
+		}
+	
+		/*!
+ * jQuery QueryBuilder 2.5.2
+ * Copyright 2014-2018 Damien "Mistic" Sorel (http://www.strangeplanet.fr)
+ * Licensed under MIT (https://opensource.org/licenses/MIT)
+ */
+
+  .query-builder, .query-builder * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .query-builder {
+    font-family: sans-serif;
+  }
+
+  .query-builder .hide {
+    display: none;
+  }
+
+  .query-builder .pull-right {
+    float: right !important;
+  }
+
+  .query-builder .btn {
+    text-transform: none;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .query-builder .btn.focus, .query-builder .btn:focus, .query-builder .btn:hover {
+    color: #333;
+    text-decoration: none;
+  }
+
+  .query-builder .btn.active, .query-builder .btn:active {
+    background-image: none;
+    outline: 0px none;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.125) inset;
+    color: #fff;
+  background-color: green !important;
+  border-color: green;
+  }
+
+
+  .query-builder .btn-success {
+    color: #FFF;
+    background-color: #5CB85C;
+    border-color: #4CAE4C;
+  }
+
+  .query-builder .btn-primary {
+    color: #FFF;
+    background-color: #337AB7;
+    border-color: #2E6DA4;
+  }
+
+  .query-builder .btn-danger {
+    color: #FFF;
+    background-color: #D9534F;
+    border-color: #D43F3A;
+  }
+
+  .query-builder .btn-success.active, .query-builder .btn-success.focus,
+  .query-builder .btn-success:active, .query-builder .btn-success:focus,
+  .query-builder .btn-success:hover {
+    color: #FFF;
+    background-color: #449D44 !important;
+    border-color: #398439 !important;
+  }
+
+  .query-builder .btn-primary.active, .query-builder .btn-primary.focus,
+  .query-builder .btn-primary:active, .query-builder .btn-primary:focus,
+  .query-builder .btn-primary:hover {
+    color: #FFF;
+    background-color: #286090 !important;
+    border-color: #204D74 !important;
+  }
+
+  .query-builder .btn-danger.active, .query-builder .btn-danger.focus,
+  .query-builder .btn-danger:active, .query-builder .btn-danger:focus,
+  .query-builder .btn-danger:hover {
+    color: #FFF;
+    background-color: #C9302C !important;
+    border-color: #AC2925 !important;
+  }
+
+  .query-builder .btn-group {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .query-builder .btn-group > .btn {
+    position: relative;
+    float: left;
+  }
+
+  .query-builder .btn-group > .btn:first-child {
+    margin-left: 0px;
+  }
+
+  .query-builder .btn-group > .btn:first-child:not(:last-child) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .query-builder .btn-group > .btn:last-child:not(:first-child) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+
+  .query-builder .btn-group .btn + .btn, .query-builder .btn-group .btn + .btn-group,
+  .query-builder .btn-group .btn-group + .btn, .query-builder .btn-group .btn-group + .btn-group {
+    margin-left: -1px;
+  }
+
+  .query-builder .btn-xs, .query-builder .btn-group-xs > .btn {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  .query-builder .rule-container,.query-builder .rule-placeholder,.query-builder .rules-group-container{position:relative;margin:4px 0;border-radius:5px;padding:5px;border:1px solid #eee;background:rgba(255,255,255,.9)}.query-builder .drag-handle,.query-builder .error-container,.query-builder .rule-container .rule-filter-container,.query-builder .rule-container .rule-operator-container,.query-builder .rule-container .rule-value-container{display:inline-block;margin:0 5px 0 0;vertical-align:middle}.query-builder .rules-group-container{padding:10px;padding-bottom:6px;border:1px solid #ddd;background:#f0f6fa}.query-builder .rules-group-header{margin-bottom:10px}.query-builder .rules-group-header .group-conditions .btn.readonly:not(.active),.query-builder .rules-group-header .group-conditions input[name$='_cond']{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap}.query-builder .rules-group-header .group-conditions .btn.readonly{border-radius:3px}.query-builder .rules-list{list-style:none;padding:0 0 0 15px;margin:0}.query-builder .rule-value-container{border-left:1px solid #ddd;padding-left:5px}.query-builder .rule-value-container label{margin-bottom:0;font-weight:400}.query-builder .rule-value-container label.block{display:block}.query-builder .rule-value-container input[type=number],.query-builder .rule-value-container input[type=text],.query-builder .rule-value-container select{padding:1px}.query-builder .error-container{display:none;cursor:help;color:red}.query-builder .has-error{background-color:#fdd;border-color:#f99}.query-builder .has-error .error-container{display:inline-block!important}.query-builder .rules-list>::after,.query-builder .rules-list>::before{content:'';position:absolute;left:-10px;width:10px;height:calc(50% + 4px);border-color:#ccc;border-style:solid}.query-builder .rules-list>::before{top:-4px;border-width:0 0 2px 2px}.query-builder .rules-list>::after{top:50%;border-width:0 0 0 2px}.query-builder .rules-list>:first-child::before{top:-12px;height:calc(50% + 14px)}.query-builder .rules-list>:last-child::before{border-radius:0 0 0 4px}.query-builder .rules-list>:last-child::after{display:none}.query-builder.bt-checkbox-glyphicons .checkbox input[type=checkbox]:checked+label::after{font-family:'Glyphicons Halflings';content:'\e013'}.query-builder.bt-checkbox-glyphicons .checkbox label::after{padding-left:4px;padding-top:2px;font-size:9px}.query-builder .error-container+.tooltip .tooltip-inner{color:#f99!important}.query-builder p.filter-description{margin:5px 0 0 0;background:#d9edf7;border:1px solid #bce8f1;color:#31708f;border-radius:5px;padding:2.5px 5px;font-size:.8em}.query-builder .rules-group-header [data-invert]{margin-left:5px}.query-builder .drag-handle{cursor:move;vertical-align:middle;margin-left:5px}.query-builder .dragging{position:fixed;opacity:.5;z-index:100}.query-builder .dragging::after,.query-builder .dragging::before{display:none}.query-builder .rule-placeholder{border:1px dashed #bbb;opacity:.7}
+
+	</style>
+</script>

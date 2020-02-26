@@ -1,0 +1,26 @@
+<script type="text/template" id="comm_sent_template">
+
+<div class="row-fluid portfolio-block" style="background:#fff;">
+	<table id="sorting_product_sent" class="table" style="width:100%;">
+	</table>
+</div>
+
+<input type="hidden" id="next_page" value="1">
+<input type="hidden" id="start" value="1">
+<input type="hidden" id="end" value="0">
+<input type="hidden" id="total_records" value="">
+<div class="portlet-body form">
+	<div id="delete_email" title="Alert message" class="hide">
+		{{translationsData.$del_this_email}} <br><br>		
+	</div>
+	<div id="delete_mass_email" title="Alert message" class="hide">
+		{{translationsData.$del_this_emails}} <br><br>		
+	</div>
+	<div id="delete_mass_email_one" title="Alert message" class="hide">
+		{{translationsData.$del_this_sel_email}} <br><br>		
+	</div>
+</div>
+<input type="hidden" name="json_data" id="json_data" value="">
+<input id="attachments" type="hidden" value="" name="attachments">
+
+</script>

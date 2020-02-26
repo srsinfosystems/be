@@ -1,0 +1,857 @@
+<script type="text/template" id="add_new_customer_template">
+    <div class="modal-header">
+		<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{# if add_new_customer }}
+			<h3>{{add_new_customer}}</h3>
+		{{else}}
+			<h3>{{getTranlationData.add_new_customer }}</h3>
+		{{/if}}	
+	</div>
+
+	<div class="modal-body">
+		<div class="row-fluid">
+			<form action="" class="form-horizontal form-view" id="customer_register_form" method="post" accept-charset="utf-8" onsubmit="return false">
+				<div style="display:none;"><input name="_method" value="POST" type="hidden"></div>		
+				<div class="span12 boxed" id="show_ein_information">
+					<div id="einphone" class="span12" style="margin: 0 auto;float:none">
+						<div class="control-group">
+							<!--{{# if ein_or_phone_number }}				
+								<label class="control-label label-customer"><span class="required">*</span>{{ein_or_phone_number}}</label>
+							{{else}}
+								<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.ein_or_phone_number }}</label>
+							{{/if}} -->
+							<div class="controls controls-customer-ein">
+								<input name="data[EIN][ein]" class="m-wrap span10" tabindex="1" id="EINEin" type="text" placeholder="{{ein_or_phone_number}}"><a id="btn_search_breg_customer" class="btn blue resize" data-original-title="Avansert søk" data-placement="right" onclick="getEinPhone();">&nbsp;<i class="icon-search m-icon-white"></i></a>
+							</div>
+						</div>
+					</div>
+					<div id="einphoneresult" class="row-fluid">
+						<div class="span10" style="margin: 0 auto;float:none;margin-left:50px !important;" id="show_ein_details">
+							<div id="show_ein_details_duplicate"></div>
+							<div id="show_ein_details_data"></div>
+						</div>
+					</div>
+				</div>
+				{{#if host_url}}
+					<img id="hiddenNewCustomerImg" src="{{host_url}}app/webroot/img/loading.gif"; style="visibility: hidden;margin-left:50%;" />
+				{{/if}}
+				{{#if show_html_data}}
+					<div class="span12 boxed" style="display:none;" id="show_customer_details">
+						<div id="business_title">
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group modal_bottom_line">
+										<h4>{{getTranlationData.general_information}}</h4>
+									</div>	
+								</div>
+								<div class="span6">
+									<div class="control-group modal_bottom_line">
+										<h4>{{getTranlationData.contact_details}}</h4>
+									</div>
+								</div>
+							</div>
+						</div>		
+						<div id="consumer_title" style="display:none;">
+							<h4 class="general_inf">{{getTranlationData.contact_details}}:</h4>
+							<div class="modal_bottom_line"></div>
+						</div>	
+						
+						<div class="row-fluid">
+							<div class="span6">
+								<div class="control-group">
+									<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.customer_type}}</label>
+									<div class="controls controls-customer">
+										<select name="user_group_id" class="m-wrap span12" tabindex="1" id="CustomerUserGroupId">
+											{{#each customer_types}}
+												<option value="{{id}}">{{name}}</option>
+											{{/each}}
+										</select>						
+									</div>
+								</div>
+							</div>
+							<div class="span6" id="show_business">
+								<div class="control-group">
+									<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.first_name}}</label>
+									<div class="controls controls-customer">
+										<input name="first_name" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.first_name}}" style="" maxlength="50" tabindex="9" id="CustomerFirstName" type="text">						
+									</div>
+								</div>
+							</div>
+							<div class="span6" id="show_consumer" style="display:none;">
+								<!-- #044 03-11-2015 #0032715: Booking engine > Customer groups -->	
+								<div class="control-group">
+									<label class="control-label label-customer">{{getTranlationData.customer_group}}</label>
+									<div class="controls controls-customer">
+										<select name="data[Customer][consumer_customer_group_id]" class="m-wrap span12" onchange="change_consumer_group_val(this.value);" tabindex="11" id="CustomerConsumerCustomerGroupId">
+											<option value="0">-- {{getTranlationData.cust_none}} --</option>
+											{{#each allCustomerGroups}}
+												<option value="{{id}}" price_group="{{default_price_group}}" id="consumer_customer_group_{{id}}">{{name}}</option>
+											{{/each}}
+										</select>							
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row-fluid">
+							<div class="span6">
+								<div class="control-group">
+									<div class="row-fluid">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_country}}</label>
+										<div class="controls controls-customer">								
+											<select name="data[Customer][home_country]" class="span12 select2 m-wrap span12" onchange="fill_from_home_country(this.value)" tabindex="2" id="CustomerHomeCountry">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryLists}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>							
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="span6" id="consumer_type_one" style="display:none">						
+								<div class="control-group">
+									<label class="control-label label-customer">{{getTranlationData.price_group}}</label>
+									<div class="controls controls-customer">
+										<select name="data[Customer][consumer_price_group]" class="m-wrap span12" tabindex="12" id="CustomerConsumerPriceGroup">
+											{{#each allPriceGroups}}
+												<option value="{{id}}">{{name}}</option>
+											{{/each}}
+										</select>									
+									</div>
+								</div>						
+								<input name="consumer_price_group_val" id="consumer_price_group_val" value="" type="hidden">
+								<!--#044 16-feb-2016 0033954: BE > customer card > price group-->
+							</div>
+								
+							<div class="span6" id="business_type_one" style="">
+								<div class="control-group">
+									<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.last_name}}</label>
+									<div class="controls controls-customer">
+										<input name="last_name" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.last_name}}" style="" maxlength="50" tabindex="10" id="CustomerLastName" type="text">
+									</div>
+								</div>
+							</div>		
+						</div>		
+
+						<div id="business_type" style="">
+							<div class="row-fluid">
+								{{#js_if "this.default_fields.customer_ein_required!=0"}}
+									<div class="span6">		
+										<div class="control-group">
+											<label class="control-label label-customer">{{#js_if "this.default_fields.customer_ein_required==2"}}<span class="required">*</span>{{/js_if}}{{getTranlationData.EIN}}</label>
+											<div class="controls controls-customer">
+												<input name="ein" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12 show_ein" placeholder="{{getTranlationData.EIN}}" maxlength="30" tabindex="3" id="CustomerEin" type="text" readonly="readonly">
+												<input name="customer_ein" autocomplete="off" style="display: none;" class="m-wrap placeholder-no-fix span12 hide_ein" placeholder="{{getTranlationData.EIN}}" id="CustomerNormalEin" tabindex="4" maxlength="30" type="text">									
+											</div>
+										</div>					
+									</div>
+								{{/js_if}}
+									
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_cellphone}}</label>
+										<div class="controls controls-customer">
+											<select id="CustomerCcCode" class="m-wrap placeholder-no-fix span6 phone-code" tabindex="-1" name="cc_code">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryListWithPhone}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>								
+											<input name="cc_code_val" id="CustomerCcCodeVal" value="+47" type="hidden">
+											<input name="cellphone" autocomplete="off" class="m-wrap placeholder-no-fix span6 span6_cc" placeholder="{{getTranlationData.cust_cellphone}}" style="margin-left:2%;" maxlength="20" tabindex="11" id="CustomerCellphone" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.customer_name}}</label>
+										<div class="controls controls-customer">
+											<input name="customer_name" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.customer_name}}" maxlength="60" tabindex="4" id="CustomerCustomerName" type="text">							
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"> {{#if customer_email_required }}<span class="required">*</span> {{else}} <span class="required emailReq">*</span> {{/if}}{{getTranlationData.customer_email}}</label>
+										<div class="controls controls-customer">
+											<input name="email" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.email}}" style="" tabindex="11" id="CustomerEmail" type="email">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.customer_land_line}}</label>
+										<div class="controls controls-customer">
+											<select id="CustomerPhCode" class="m-wrap placeholder-no-fix span6 phone-code" tabindex="-1" name="ph_code">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryListWithPhone}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>
+											<input name="ph_code_val" id="CustomerPhCodeVal" value="+47" type="hidden">													
+											<input name="phone" autocomplete="off" class="m-wrap placeholder-no-fix span6 span6_cc" placeholder="{{getTranlationData.cust_phone}}" style="margin-left:2%" maxlength="20" tabindex="6" id="CustomerPhone" type="tel">								
+										</div>	
+									</div>
+								</div>
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label phone-checkbox-block label-customer">{{getTranlationData.send_login_details}}</label>
+										<div class="controls phone-checkbox-block phone-checkbox-margin controls-customer" style="margin-top:8px">
+											<input name="data[User][send_contact_details]" value="y" class="m-wrap span1 " tabindex="11" id="UserSendContactDetails" type="checkbox">
+										</div>
+									</div>
+								</div>
+							</div>
+								
+							<div class="row-fluid">
+								<div class="span6">
+								<!-- #044 03-11-2015 #0032715: Booking engine > Customer groups -->	
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.customer_group}}</label>
+										<div class="controls controls-customer">
+											<select name="data[Customer][customer_group_id]" class="m-wrap span12" tabindex="7" onchange="changegroup_val(this.value);" id="CustomerCustomerGroupId">
+												<option value="0">-- {{getTranlationData.cust_none}} --</option>
+												{{#each allCustomerGroups}}
+													<option value="{{id}}" price_group="{{default_price_group}}" id="customer_group_{{id}}">{{name}}</option>
+												{{/each}}
+											</select>									
+										</div>
+									</div> 
+								</div>
+								<div class="span6">								
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.price_group}}</label>
+										<div class="controls controls-customer">							
+											<select name="data[Customer][price_group]" class="m-wrap span12" tabindex="8" id="CustomerPriceGroup">
+												{{#each allPriceGroups}}
+													<option value="{{id}}">{{name}}</option>
+												{{/each}}
+											</select>									
+										</div>
+									</div>
+									<input name="price_group_val" id="price_group_val" value="" type="hidden">
+									<!--#044 16-feb-2016 0033954: BE > customer card > price group-->
+								</div>
+							</div>					
+								
+								
+							<div class="row-fluid">
+								<div class="span6 modal_bottom_line">
+									<div class="control-group">
+										<h4>{{getTranlationData.postal_address}}</h4>
+									</div>	
+								</div>
+								{{#js_if "this.default_fields.customer_delivery_address_required!=0"}}
+								<div class="span6 modal_bottom_line">
+									<div class="span6">
+										<div class="control-group">
+											<h4>{{getTranlationData.delivery_address}}</h4>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group" style="margin-top: 25px;">
+											<label class="control-label phone-checkbox-block label-customer">{{getTranlationData.cust_activate}}</label>
+											<div class="controls phone-checkbox-block phone-checkbox-margin controls-customer" style="margin-top:8px">
+												<input name="data[Customer][same_postal_address]" value="1" tabindex="19" class="m-wrap span1 " id="CustomerSamePostalAddress" type="checkbox">
+											</div>
+										</div>
+									</div>
+								</div>
+								{{/js_if}} 
+							</div>
+							<br>
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_address1}}</label>
+										<div class="controls controls-customer">
+											<input name="address1" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.cust_address1}}" maxlength="150" tabindex="14" id="CustomerAddress1" type="text">	
+										</div>
+									</div>
+								</div>
+								<div class="span6 same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.delivery_address1}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][delivery_address1]" class="m-wrap span12" tabindex="20" maxlength="100" placeholder="{{getTranlationData.delivery_address1}}" id="CustomerDeliveryAddress1" type="text">	
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_address2}}</label>
+										<div class="controls controls-customer">
+											<input name="address2" autocomplete="off" style="" class="m-wrap placeholder-no-fix valid span12" placeholder="{{getTranlationData.cust_address2}}" maxlength="150" tabindex="15" id="CustomerAddress2" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6 same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.delivery_address2}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][delivery_address2]" class="m-wrap span12" maxlength="100" tabindex="21" placeholder="{{getTranlationData.delivery_address2}}" id="CustomerDeliveryAddress2" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_zip}}</label>
+										<div class="controls controls-customer">
+												<input name="zip" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12 phone-code show_zip" placeholder="{{getTranlationData.cust_zip}}" tabindex="16" onblur="getCityFromZip(this.value,'business',$('#CustomerCountry').val())" id="CustomerZip" type="text">
+												<input name="customer_zip" autocomplete="off" style="display: none;" class="m-wrap placeholder-no-fix span12 phone-code hide_zip" placeholder="{{getTranlationData.cust_zip}}" id="CustomerNormalZIp" tabindex="16" onblur="getCityFromZip(this.value,'business',$('#CustomerCountry').val())" type="text">									
+																					
+										</div>
+									</div>
+								</div>
+								<div class="span6 same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_zip}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][delivery_zip]" class="m-wrap span12" tabindex="22" placeholder="{{getTranlationData.delivery_zip}}" onblur="getCityFromZip(this.value,'business',$(&quot;#CustomerDeliveryCountry&quot;).val(),&quot;CustomerDeliveryCity&quot;);" id="CustomerDeliveryZip" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_city}}</label>
+										<div class="controls controls-customer">
+											<input name="city" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.cust_city}}" maxlength="20" tabindex="17" id="CustomerCity" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6 same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_city}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][delivery_city]" class="m-wrap span12" placeholder="{{getTranlationData.delivery_city}}" tabindex="23" id="CustomerDeliveryCity" type="text">	
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<div class="row-fluid">
+											<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_country}}</label>
+											<div class="controls controls-customer">
+												<select name="country" class="span12 select2 m-wrap span12" tabindex="18" id="CustomerCountry">
+													<option value="">-- {{getTranlationData.select}} --</option>
+													{{#each countryLists}}
+														<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+													{{/each}}
+												</select>								
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="span6 same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_country}}</label>
+										<div class="controls controls-customer">
+											<select name="data[Customer][delivery_country]" class="m-wrap span12" tabindex="24" id="CustomerDeliveryCountry">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryLists}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>							
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group modal_bottom_line" style="margin-bottom: 10px;">
+										<h4>{{getTranlationData.sales_and_communication}}</h4>
+									</div>	
+
+									<div class="row-fluid" style="margin:0">
+										<div class="span12">
+											<div class="control-group">
+												<label class="control-label label-customer">{{getTranlationData.cust_distribution}}</label>
+												<div class="controls controls-customer">
+													<select name="data[Customer][business_default_distribution]" class="m-wrap span12" tabindex="25" id="CustomerBusinessDefaultDistribution">
+														<option></option>
+														{{#each defaultMethods}}
+															<option value="{{id}}" {{#js_if "this.is_default == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+														{{/each}}
+													</select>										
+												</div>
+											</div>
+										</div>
+									</div>
+							
+									<div class="row-fluid" style="margin:0">
+										<div class="span12">
+											<div class="control-group" id="business_distribution_contact">
+												<label class="control-label label-customer">{{getTranlationData.invoice_contact}}</label>
+												<div class="controls controls-customer">
+													<select name="data[Customer][business_default_contact]" class="m-wrap span12" tabindex="26" id="CustomerBusinessDefaultContact">
+														{{#each invContactDetails}}
+															<option value="{{id}}">{{name}}</option>
+														{{/each}}
+													</select>										
+												</div>
+											</div>
+											<!-- #589: Fwd: Minor improvement suggestions, BE -->
+											{{#if show_mass_communication}}
+												<div class="control-group">
+													<label class="control-label label-customer">{{getTranlationData.newsletters_and_updates}}</label>
+													<div class="controls controls-customer">
+														<select name="data[Customer][receive_mass_sms_emails]" class="m-wrap span12" tabindex="26" id="CustomerReceiveMassSmsEmails">
+															{{#each newsLetterUpdates}}
+																<option value="{{id}}">{{name}}</option>
+															{{/each}}
+														</select>													
+													</div>
+												</div>
+											{{/if}}		
+											<!-- #589: Fwd: Minor improvement suggestions, BE -->
+											<div class="control-group" id="business_distribution_email" style="display: none;">
+												<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.custom_invoice_email}}</label>
+												<div class="controls controls-customer">
+													<input name="data[Customer][business_custom_email]" autocomplete="off" value="" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.custom_invoice_email}}" style="" tabindex="27" id="CustomerBusinessCustomEmail" type="text">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- IN PRogress -->
+								<div class="span6">
+									<div class="control-group modal_bottom_line">
+										<h4>{{getTranlationData.other_information}}</h4>
+									</div>
+									{{#each showCustomFields}}
+										{{#if show_on_registration }}
+											{{businessCustomFields custom_field_name custom_field_value custom_field_type mandatory}}
+										{{/if}}
+									{{/each}}	
+								</div>
+							</div>
+						</div>
+
+												
+						<div id="consumer_type" style="display:none">
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.first_name}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_first_name" autocomplete="off" tabindex="3" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.first_name}}" style="" id="CustomerConsumerFirstName" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label phone-checkbox-block label-customer">{{getTranlationData.send_login_details}}</label>
+										<div class="controls phone-checkbox-block phone-checkbox-margin controls-customer" style="margin-top:8px">
+											<input name="data[User][send_contact_details]" value="y" class="m-wrap span1 " tabindex="12" id="UserSendContactDetails" type="checkbox">
+										</div>
+									</div>
+								</div>
+												
+							</div>
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.last_name}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_last_name" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.last_name}}" style="" tabindex="4" id="CustomerConsumerLastName" type="text">							
+										</div>
+									</div>
+								</div>
+								<div class="span6">&nbsp;</div>
+							</div>	
+							{{#js_if "this.default_fields.customer_birth_date_required!=0"}}
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{#js_if "this.default_fields.customer_birth_date_required==2"}}<span class="required">*</span>
+											{{/js_if}}{{getTranlationData.date_of_birth}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_date_of_birth" autocomplete="off" value="" class="m-wrap placeholder-no-fix span8" placeholder="{{getTranlationData.date_of_birth}}" tabindex="5" id="CustomerConsumerDateOfBirth" type="text"> <span class="help-inline">(dd.mm.yy)</span>
+										</div>
+									</div>
+								</div>
+								<div class="span6">&nbsp;</div>
+							</div>
+							{{/js_if}} 
+							
+							{{#js_if "this.default_fields.customer_phone_required!=0"}}
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{#js_if "this.default_fields.customer_phone_required==2"}}<span class="required">*</span>{{getTranlationData.customer_land_line}}</label>
+										<div class="controls controls-customer">
+											<select id="CustomerConsumerPhCode" class="m-wrap placeholder-no-fix span6 phone-code" tabindex="6" name="consumer_ph_code">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryListWithPhone}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>	
+											<input name="consumer_ph_code_val" id="CustomerConsumerPhCodeVal" value="+47" type="hidden">								
+											<input name="consumer_phone" autocomplete="off" class="m-wrap placeholder-no-fix span6" placeholder="{{getTranlationData.customer_land_line}}" style="margin-left:2%" maxlength="20" tabindex="7" id="CustomerConsumerPhone" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6">&nbsp;</div>
+							</div>
+							{{/js_if}}
+
+							{{#js_if "this.default_fields.customer_cellphone_required!=0"}}
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{#js_if "this.default_fields.customer_cellphone_required==2"}}<span class="required">*</span>{{getTranlationData.cust_cellphone}}</label>
+										<div class="controls controls-customer">
+											<select id="CustomerConsumerCcCode" class="m-wrap placeholder-no-fix span6 phone-code" tabindex="8" name="consumer_cc_code">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryListWithPhone}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}	
+											</select>                             
+											<input name="consumer_cc_code_val" id="CustomerConsumerCcCodeVal" value="+47" type="hidden">
+											<input name="consumer_cellphone" autocomplete="off" class="m-wrap placeholder-no-fix span6" placeholder="{{getTranlationData.cust_cellphone}}" style="margin-left:2%" maxlength="20" tabindex="9" id="CustomerConsumerCellphone" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6">&nbsp;</div>
+							</div>
+							{{/js_if}}
+
+
+							{{#js_if "this.default_fields.customer_email_required!=0"}}
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+										<label class="control-label label-customer">{{#js_if "this.default_fields.customer_email_required==2"}}<span class="required">*</span>{{/js_if}} {{getTranlationData.customer_email}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_email" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="E-mail" style="" tabindex="10" id="CustomerConsumerEmail" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6">&nbsp;</div>
+							</div>
+							{{/js_if}}
+
+							
+							<div class="row-fluid">
+								<div class="span6 modal_bottom_line">
+									<div class="control-group">
+										<h4>{{getTranlationData.postal_address}}</h4>
+									</div>	
+								</div>
+								{{#js_if "this.default_fields.customer_delivery_address_required!=0"}}
+								<div class="span6 modal_bottom_line">
+									<div class="span6">
+										<div class="control-group">
+											<h4>{{getTranlationData.delivery_address}}</h4>
+										</div>
+									</div>
+									<div class="span6">
+										<div class="control-group" style="margin-top:25px;">
+											<label class="control-label phone-checkbox-block label-customer">{{getTranlationData.cust_activate}}</label>
+											<div class="controls phone-checkbox-block phone-checkbox-margin controls-customer" style="margin-top:8px">
+												<input name="data[Customer][consumer_same_postal_address]" value="1" class="m-wrap span1 " tabindex="17" id="CustomerConsumerSamePostalAddress" type="checkbox">
+											</div>
+										</div>
+									</div>
+								</div>
+								{{/js_if}}
+							</div>
+							<br>
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_address1}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_address1" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="Address1" style="" tabindex="12" id="CustomerConsumerAddress1" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6 consumer_same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_address1}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][consumer_delivery_address1]" class="m-wrap span12" maxlength="100" tabindex="18" placeholder="{{getTranlationData.delivery_address1}}" id="CustomerConsumerDeliveryAddress1" type="text">
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_address2}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_address2" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="Address2" style="" tabindex="13" id="CustomerConsumerAddress2" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="span6 consumer_same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer">{{getTranlationData.cust_address2}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][consumer_delivery_address2]" class="m-wrap span12" maxlength="100" tabindex="19" placeholder="{{getTranlationData.delivery_address2}}" id="CustomerConsumerDeliveryAddress2" type="text">	
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_zip}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_zip" autocomplete="off" class="m-wrap placeholder-no-fix span12 phone-code show_consumer_zip" placeholder="{{getTranlationData.cust_zip}}" style="" tabindex="14" onblur="getCityFromZip(this.value,'consumer',$('#CustomerConsumerCountry').val())" id="CustomerConsumerZip" type="text">																			  
+											<input name="customer_consumer_zip" autocomplete="off" class="m-wrap placeholder-no-fix span12 phone-code hide_consumer_zip" placeholder="{{getTranlationData.cust_zip}}" style="" id="CustomerConsumerNormalZip" tabindex="14" onblur="getCityFromZip(this.value,'consumer',$('#CustomerConsumerCountry').val())" type="text">																			  
+										</div>
+									</div>
+								</div>
+								<div class="span6 consumer_same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.delivery_zip}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][consumer_delivery_zip]" class="m-wrap span12" tabindex="20" placeholder="{{getTranlationData.delivery_zip}}" onblur="getCityFromZip(this.value,'consumer',$(&quot;#CustomerConsumerDeliveryCountry&quot;).val(),&quot;CustomerConsumerDeliveryCity&quot;);" id="CustomerConsumerDeliveryZip" type="text">							</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_city}}</label>
+										<div class="controls controls-customer">
+											<input name="consumer_city" autocomplete="off" class="m-wrap placeholder-no-fix span12" placeholder="{{getTranlationData.cust_city}}" style="" tabindex="15" id="CustomerConsumerCity" type="text">							</div>
+									</div>
+								</div>
+								<div class="span6 consumer_same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.delivery_city}}</label>
+										<div class="controls controls-customer">
+											<input name="data[Customer][consumer_delivery_city]" class="m-wrap span12" placeholder="{{getTranlationData.delivery_city}}" tabindex="21" id="CustomerConsumerDeliveryCity" type="text">							</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group">
+										<div class="row-fluid">
+											<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.cust_country}}</label>
+											<div class="controls controls-customer">
+												<select name="consumer_country" class="select2 m-wrap span12" tabindex="16" id="CustomerConsumerCountry">
+													<option value="">-- {{getTranlationData.select}} --</option>
+													{{#each countryLists}}
+														<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+													{{/each}}
+												</select>								
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="span6 consumer_same_postal_address" style="display:none;">
+									<div class="control-group">
+										<label class="control-label label-customer"><span class="required">*</span>{{getTranlationData.delivery_country}}</label>
+										<div class="controls controls-customer">
+											<select name="data[Customer][consumer_delivery_country]" class="m-wrap span12" tabindex="22" id="CustomerConsumerDeliveryCountry">
+												<option value="">-- {{getTranlationData.select}} --</option>
+												{{#each countryLists}}
+													<option value="{{id}}" {{#js_if "this.default_country == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+												{{/each}}
+											</select>							
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 590: Fwd: Minor improvement suggestions, BE > Custom Fields  -->
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="control-group modal_bottom_line">
+										<h4>{{getTranlationData.sales_and_communication}}</h4>
+									</div>	
+									<div class="span12" style="margin: 0">
+										<div class="control-group">
+											<label class="control-label label-customer">{{getTranlationData.cust_distribution}}</label>
+											<div class="controls controls-customer">
+												<select name="data[Customer][consumer_default_distribution]" class="m-wrap span12" tabindex="23" id="CustomerConsumerDefaultDistribution">
+														<option></option>
+													{{#each defaultMethods}}
+														<option value="{{id}}" {{#js_if "this.is_default == '1'"}} selected="selected" {{/js_if}}>{{name}}</option>
+													{{/each}}
+												</select>								
+											</div>
+										</div>
+									</div>
+									
+									<div class="span12" style="margin: 0" id="consumer_distribution_contact">
+										<div class="control-group">
+											<label class="control-label label-customer">{{getTranlationData.invoice_contact}}</label>
+											<div class="controls controls-customer">
+												<select name="data[Customer][default_contact]" class="m-wrap span12" tabindex="24" id="CustomerDefaultContact">
+													{{#each invContactDetails}}
+														<option value="{{id}}">{{name}}</option>
+													{{/each}}
+												</select>								
+											</div>
+										</div>
+										
+										<div class="control-group" id="consumer_distribution_email">
+											<label class="control-label label-customer">
+											<span class="required">*</span>{{getTranlationData.custom_invoice_email}}</label>
+											<div class="controls controls-customer">
+												<input name="data[Customer][consumer_custom_email]" autocomplete="off" value="" class="m-wrap placeholder-no-fix span11" placeholder="Custom invoice email" style="" tabindex="25" id="CustomerConsumerCustomEmail" type="text">
+											</div>
+										</div>
+									</div>
+									{{#if show_mass_communication}}
+										<div class="control-group">
+											<label class="control-label label-customer">{{getTranlationData.newsletters_and_updates}}</label>
+											<div class="controls controls-customer">
+												<select name="data[Customer][consumer_receive_mass_sms_emails]" class="m-wrap span12" tabindex="26" id="CustomerConsumerReceiveMassSmsEmails">
+													{{#each newsLetterUpdates}}
+														<option value="{{id}}">{{name}}</option>
+													{{/each}}
+												</select>									
+											</div>
+										</div>
+									{{/if}}	
+								</div>
+								<div class="span6">
+									<div class="control-group modal_bottom_line">
+										<h4>{{getTranlationData.other_information}}</h4>
+									</div>
+									{{#each showCustomFields}}
+										{{#if show_on_registration }}
+											{{consumerCustomFields custom_field_name custom_field_value custom_field_type mandatory}}
+										{{/if}}
+									{{/each}}
+								</div>
+							</div>							
+						</div>
+									
+						<input name="data[Customer][send_trigger_session_new_customer]" id="send_trigger_session_new_customer" class="m-wrap span2" value="2" type="hidden">	
+						<input name="chk_dup_customers" id="chk_dup_customers" value="y" type="hidden">
+						<input name="partner_country" id="partner_country" value="NO" type="hidden">
+						{{# if alert_message }}
+							<input name="alert_message" id="alert_message" value="{{alert_message}}" type="hidden">
+						{{else}}
+							<input name="alert_message" id="alert_message" value="{{getTranlationData.alert_message }}" type="hidden">
+						{{/if}}
+						{{# if ein_error }}
+							<input name="ein_error" id="ein_error" value="{{ein_error}}" type="hidden">		
+						{{else}}
+							<input name="ein_error" id="ein_error" value="{{getTranlationData.ein_error }}" type="hidden">
+						{{/if}}
+						{{# if no_record_found }}
+							<input name="no_record_found" id="no_record_found" value="{{no_record_found}}" type="hidden">		
+						{{else}}
+							<input name="no_record_found" id="no_record_found" value="{{getTranlationData.no_record_found }}" type="hidden">
+						{{/if}}
+						
+						<input name="customer_task_name" id="customer_task_name" value="{{customer_task_name}}" type="hidden">
+						<a id="open_new_task"  class="hide" onclick="show_modal(this,'popups1');" data-width="800px" href="javascript:;" data-url=""><i class="icon-search"></i>&nbsp;</a>			
+						<a id="open_dup_customer_list" style="display:none;" onclick="show_modal(this,'popups3');" data-width="800px" href="javascript:;" data-url=""></a>
+					</div><!-- end span12 -->
+				{{/if}}	
+				</form>
+			</div><!-- End row-fluid -->
+		</div>	
+		<div class="modal-footer">
+			<div class="btn-group">
+				<button class="btn black update span" id="back_submit" style="display:none;"><i class="m-icon-swapleft m-icon-white"></i> {{# if back_button }}{{back_button}}{{else}}{{getTranlationData.back_button }}{{/if}}</button>
+				<button class="btn green update span" id="add_new_task_submit" ><i class="icon-pencil"></i> {{# if manual_registration }}{{manual_registration}}{{else}}{{getTranlationData.manual_registration }}{{/if}}</button>
+				<button class="btn purple update span" id="proceed_to_sales_documnet" onclick="proceedCustomer('salesDocument')" style="display:none;"><i class="icon-ok"></i> {{# if save_and_create_new_sales_document }}{{save_and_create_new_sales_document}}{{else}}{{getTranlationData.save_and_create_new_sales_document }}{{/if}}</button>
+				<button class="btn green update span" id="proceed_to_save_task" onclick="proceedCustomer('openTasks')" style="display:none;"><i class="icon-ok"></i> {{# if save_and_create_new_task }}{{save_and_create_new_task}}{{else}}{{getTranlationData.save_and_create_new_task }}{{/if}}</button>
+				<button class="btn blue update span" id="proceed_to_customer" onclick="proceedCustomer()" style="display:none;"><i class="icon-plus"></i> {{# if save_button }}{{save_button}}{{else}}{{getTranlationData.save_button }}{{/if}}</button>
+				<button class="btn btn_clear" id="" data-dismiss="modal"><i class="icon-remove"></i> {{# if close_button }}{{close_button}}{{else}}{{getTranlationData.close_button }}{{/if}}</button>
+			</div>
+		</div>
+		<div id="ungrouped_data" style="display:none"></div>
+		<div id="grouped_data" style="display:none"></div>
+	<style>
+		.large_customer{
+			width: 1000px;
+		}
+		.label-mass{width:220px !important;}
+			.controls-mass{margin-left:235px !important;}
+		
+			.label-customer{width:185px !important;}
+			.controls-customer{margin-left:200px !important;}
+			.controls-customer-ein{margin-left:50px !important;}
+			.span8_cc{width:66.812% !important;}
+		}
+		.modal_bottom_line{
+			border-bottom: 1px solid #efefef;
+			margin-bottom: 2em;
+			margin-top: 0;
+		}
+		.general_inf{margin-top: 0 !important;}
+		#business_title h4{margin-top: 0 !important;}	
+		#business_title{padding-bottom: 5px;}
+		.radioadj label{
+			display: inline-block;
+			margin: 9px 17px 0 3px;
+		}
+		.controls > .radio, .controls > .checkbox{
+			margin : 0 15px 0 0 !important;
+		}
+		.checkadjust .checker{
+			margin-top: 7px;
+		}
+		
+		.box{
+			border:solid 1px #e5eff6;
+			padding: 4px;
+			margin:4px 0 !important;
+			background: #fcfcfc;
+		}
+		.boxed{
+			padding: 4px;
+			margin:4px 0 !important;
+		}
+		.box:hover{
+			background: #f5fafd;
+			border-color: #e5eff6;
+			cursor: pointer;
+		}
+		.ungrouped p {
+			width:33%;
+			float:left;
+		}
+		.ungrouped div:first-child {
+			width:33%;
+			float:left;
+		}
+		.ungrouped div:nth-child(2) {
+			width:62%;
+			float:left;
+		}
+		.ungrouped div:last-child{
+			width:5%;
+			float:left;
+		}
+		.ungrouped li {
+			float: left;	
+			width: 100%;
+		}
+	</style>
+</script>

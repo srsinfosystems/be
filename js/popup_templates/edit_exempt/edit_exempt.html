@@ -1,0 +1,73 @@
+<script type="text/template" id="edit_exempt_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Editcustomer}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="edit_exempt_form" method="post" accept-charset="utf-8">
+				
+				<div class="control-group participant_cust_show">
+					<label class="control-label">
+						{{translationsData.$customerh}}
+					</label>	
+					<div class="controls">
+						<input type="text" id="customer_h" name="customer_h" placeholder="{{translationsData.$cust_name_num}}" class="m-wrap span9">
+					</div>
+				</div>
+
+				<div class="control-group participant_data">
+					<label class="control-label"><span class="required">*</span>
+						{{translationsData.Status}}
+					</label>	
+					<div class="controls">
+						<select class="m-wrap span10" id="CustomerVolunteerType" name="CustomerVolunteerType">
+							<option value="participant">{{translationsData.Participant}}</option>
+							<option value="exempt">{{translationsData.Exempt}}</option>
+							<option value="specialty_work">{{translationsData.Specialtywork}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group participant_data exempt_reason" style="display:none">
+					<label class="control-label">
+						{{translationsData.Exemptreason}}
+					</label>	
+					<div class="controls">
+						<select class="m-wrap span10" id="CustomerVoluntaryExempt" name="CustomerVoluntaryExempt">
+							<option value=""></option>
+							{{#each partnerExemptReasons}}
+								<option value="{{this.PartnerExemptReason.id}}">{{this.PartnerExemptReason.name}}</option>
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				 
+				<div class="control-group participant_data specialty_work" style="display:none">
+					<label class="control-label">
+						{{translationsData.Specialtyworkregarding}}
+					</label>	
+					<div class="controls">
+						<textarea rows="5" cols="30" class="m-wrap span10" id="CustomerVoluntaryNote" name="CustomerVoluntaryNote"></textarea>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="edit_exempt_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button">
+			<i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+</script>

@@ -1,0 +1,682 @@
+<script type="text/template" id="marina_billing_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Marina}}</a>
+						</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i><span>{{translationsData.Billing}}</span>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar reviewdata">
+					<button  class="btn btn_clear" id="expcol"  onclick="marina_billing.expcol()" style="margin-right:5px;display:none" type="button"><i class="icon-plus"></i> <span>{{translationsData.Expandall}}</span></button>
+
+					<button  class="btn btn_clear dis_billing" style="margin-right:5px;display:none" type="button"><i class="icon-remove"></i> {{translationsData.DiscardBilling}}</button>
+					<button  class="btn blue send_billing" style="display:none" type="button"><i class="m-icon-swapright m-icon-white"></i> {{translationsData.SendInvoices}}</button>
+					</li>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<div class="portlet box blue" id="form_wizard_1">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="icon-reorder"></i> {{translationsData.Marina}} {{translationsData.Billing}} - <span class="step-title">{{translationsData.Step}} 1 {{translationsData.of}} 4</span>
+			</div>				
+		</div>
+		<div class="portlet-body form">
+			<form action="/" class="form-horizontal" id="marina_billing_template_from" onsubmit="event.returnValue = false; return false;" method="post" accept-charset="utf-8" novalidate="novalidate">
+				<div class="form-wizard">
+					<div class="navbar steps">
+						<div class="navbar-inner">
+							<ul class="row-fluid nav nav-pills">
+								<li class="span3 active">
+									<a href="#tab1" data-toggle="tab" class="step ">
+									<span class="number">1</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Selectrecipients}}</span>   
+									<span class="small_triangle"></span></a>
+								</li>
+								<li class="span4">
+									<a href="#tab2" data-toggle="tab" class="step">
+									<span class="number">2</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Selectinvoiceproperties}}</span>   
+									</a>
+								</li>
+								<li class="span3">
+									<a href="#tab3" data-toggle="tab" class="step active">
+									<span class="number">3</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Productlines}}</span>   
+									</a>
+								</li>	
+								<li class="span2">
+									<a href="#tab4" data-toggle="tab" class="step">
+									<span class="number">4</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Summary}}</span>   
+									</a>
+								</li>													
+							</ul>
+						</div>
+					</div>
+					<div id="bar" class="progress progress-success progress-striped">
+						<div class="bar_wizard" style="width: 25%;"></div>
+					</div>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab1">
+							<div class="tabbable tabbable-custom">
+								<ul class="nav nav-tabs">
+									<li class="showtab_docks active">
+										<a onclick="marina_billing.showTab('tab_1_docks')" >
+											{{translationsData.Docks}}
+										</a>
+									</li>
+									<li class="showtab_customers ">
+										<a onclick="marina_billing.showTab('tab_2_customers')">
+											{{translationsData.Customers}}
+										</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+
+									<div class="tab-pane active" id="tab_1_docks">
+										<div id="customer_docks">
+											<div class="row-fluid"> 
+												<div class="span12" style="display:none">
+													<div class="span6" style="margin-bottom:10px">
+														<div class="control-group">
+															<label class="control-label" style="width:auto;margin-right:5px">Label</label>
+															<div class="controls" style="margin:0">
+																	<select id="dockcust" class="m-wrap span4">
+																		<option value="docks" selected>{{translationsData.Docks}}</option>
+																		<option value="groups">{{translationsData.Customergroup}}</option>
+																	</select>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="span12" style="margin-left:0">	
+
+													<div class="table-responsive" >			
+														<!-- Dock table -->
+														<table class="table table-striped table-hover table-bordered" id="docks_table">
+															<thead class="">
+																<tr>
+																	<th style="text-align:left !important;">
+																		<label class="checkbox line">
+																			<input name="allGroup" id="all_docks" class="all_docks" type="checkbox">
+																		</label>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp; 
+																			{{translationsData.Dockname}}
+																		</span>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp; 
+																			{{translationsData.Initial}}
+																		</span>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp;
+																			{{translationsData.Customers}}
+																		</span></th>
+																	<th style="text-align:left !important;">
+																		<i class="icon-ok"></i>&nbsp;
+																		{{translationsData.Action}}
+																		
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																{{#js_if "this.getCustomerGroups.length != 0"}} 
+																	{{#each getPartnerDocks}}
+																			{{DockListHelper this}}								
+																	{{/each}}
+																	<tr id="docks_empty_tr" style="display:none">
+																		<td colspan="5">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{else}}
+																	<tr id="docks_empty_tr">
+																		<td colspan="5">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{/js_if}}
+															</tbody>
+														</table>
+													</div>	
+												</div>	
+											</div>	
+										</div>	
+									</div>
+
+									<div class="tab-pane" id="tab_2_customers">
+										<div id="customer_groups">
+											<div class="row-fluid">
+												<div class="span12" style="margin-left:0">	
+													<div class="table-responsive" >
+														<!-- Customer group table -->							
+														<table class="table table-striped table-hover table-bordered" id="customer_groups_table" style="">
+															<thead class="">
+																<tr>
+																	<th style="text-align:left !important;">
+																		<label class="checkbox line">
+																			<input name="allGroup" id="all_group" class="all_group" type="checkbox">
+																		</label>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp; 
+																			{{translationsData.Groupname}}
+																		</span>
+																	</th>
+																	<th>
+																		<span style="margin-right:10px;">
+																			<i class="icon-asterisk"></i>&nbsp;
+																			{{translationsData.Customers}}
+																		</span></th>
+																	<th style="text-align:left !important;">
+																		<i class="icon-ok"></i>&nbsp;
+																		{{translationsData.Action}}
+																		
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																{{#js_if "this.getCustomerGroups.length != 0"}} 
+																	{{#each getCustomerGroups}}
+																			{{CustomerGroupListHelper this}}								
+																	{{/each}}
+																	<tr id="marina_billing_customer_empty_tr" style="display:none">
+																		<td colspan="4">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{else}}
+																	<tr id="marina_billing_customer_empty_tr">
+																		<td colspan="4">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{/js_if}}
+															</tbody>
+														</table>
+													</div>	
+												</div>	
+											</div>	
+										</div>
+									</div>	
+																				
+								</div>
+							</div>							
+						</div>	
+
+						<div class="tab-pane" id="tab2">
+							<div class="tab-pane active" id="tab2">
+								<h3 class="block" style="margin:0">{{translationsData.Invoiceproperties}}</h3>
+								<div class="row-fluid">
+								  	<div class="span12">
+								  		<div class="span6">
+											<div class="control-group">
+											  <label class="control-label">{{translationsData.Salesdate}}<span class="required">*</span></label>
+											  <div class="controls">
+											      <div class="input-append date date-picker" data-date-format="{{date_format_partner}}" data-date-viewmode="years">
+											          <input name="sales_date" class="m-wrap span10 placeholder-no-fix" data-date-format="{{date_format_partner}}" placeholder="{{translationsData.Salesdate}}" id="sales_date" type="text"> 
+											          	<span class="add-on "  ><i class="icon-calendar"></i></span>
+											      </div>
+											      <span class="help-inline" style="margin-bottom:8px">({{date_format_partner}})</span>
+											      <div id="form_sales_date_error"></div>
+											  </div>
+											</div>
+
+											<div class="control-group">
+											  <label class="control-label">{{translationsData.Duedate}}<span class="required">*</span></label>
+											  <div class="controls">
+											      <div class="input-append date date-picker" data-date-format="{{date_format_partner}}" data-date-viewmode="years">
+											          <input name="due_date" class="m-wrap span10 placeholder-no-fix" data-date-format="{{date_format_partner}}" placeholder="{{translationsData.Duedate}}" id="due_date" type="text"> <span class="add-on"><i class="icon-calendar"></i></span>
+											      </div>
+											      <span class="help-inline" style="margin-bottom:8px">({{date_format_partner}})</span>
+											      <div id="form_due_date_error"></div>
+											  </div>
+											</div>
+
+											<div class="control-group">
+											  <label class="control-label">{{translationsData.Ourref}}</label>
+											  <div class="controls">
+											      <select name="our_ref" class="m-wrap span12" id="our_ref">
+											      {{#js_if "this.getPartnerContactList.length != 0"}} 
+															{{#each getPartnerContactList}}
+																	{{OurRefHelper @key this}}								
+															{{/each}}
+														
+														{{/js_if}}
+											      </select>
+											  </div>
+											</div>
+								      </div>
+
+								      <div class="span6">
+									      <div class="control-group">
+									          <label class="control-label">{{translationsData.Messageinownwords}}</label>
+									          <div class="controls">
+									             
+									                  <textarea name="MessageInOwnWords" class="m-wrap span11" rows="4"  placeholder="{{translationsData.Messageinownwords}}" cols="30" id="MessageInOwnWords"></textarea>
+									              
+									          </div>
+									      </div>
+								      </div>
+
+								      
+								  	</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="tab3">
+							<!--<h3 class="block">{{translationsData.Insertproductlines}}</h3>-->
+							<div class="row-fluid">
+								<div class="span12">
+
+									<div class="control-group">
+										<label class="switch-small" style="width:auto;float:left;margin:0 5px 0 0">{{translationsData.Wouldyouliketoaddotherproductlines1que1}}</label>
+										<div class="switch switch-small" id="shwprdline" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+											<input type="checkbox" class="toggle" id="" name="insertProductLine"/>
+										</div>
+									</div>
+
+									<div class="control-group hwprcs_wrapper" style="display:none">
+										<label class="switch-small" style="width:auto;float:left;margin:0 5px 0 0">{{translationsData.Wouldyouliketodefinepricesmanually1que1}}</label>
+										<div class="switch switch-small" id="hwprcs" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+											<input type="checkbox" class="toggle" name="insertProductLine"/>
+										</div>
+									</div>
+
+								</div>
+								<div class="span12" style="margin-left:0;display:none" id="product_lines_wrapper">
+									<div style="" class="portlet-body  profile" id="sale_temp_line">	
+										<div class="table-responsive">	
+											<table class="table table-striped table-bordered table-hover" id="product_lines">			
+												<thead class="">
+													<tr id="product_line_page_manually" style="display: table-row;">
+														<th style="width:2%"><input type="checkbox" class="all_products" name="all_products" id="all_products"></th>
+														<th style="width:10%"><i class="icon-list"></i> {{translationsData.Product}}</th>
+														<th><i class="icon-list"></i> {{translationsData.Description}}</th>
+														<th style="width:8%;text-align:left;"><i class="icon-asterisk"></i> {{translationsData.Quantity}}</th>
+														<th class="default_hide" style="width:11%;text-align:left;"><i class="icon-money"></i> {{translationsData.UnitPrice}}</th>
+														<th class="default_hide" style="width:10%;text-align:left;" class="hidden-phone"><i class=" icon-cog"></i> {{translationsData.Unit}}</th>
+														
+														{{#js_if "this.getPartnerCustomSettings.PartnerSetting.vat_required == 'y'"}} 
+
+															<th class="class_sale_product_tax tax_hide default_hide" style="width: 8%; display: table-cell;">
+																<i class="icon-asterisk"></i> {{translationsData.MVA}} %
+															</th>
+
+														{{else}}
+															<th class="class_sale_product_tax tax_hide default_hide" style="width: 8%; display: none;">
+																<i class="icon-asterisk"></i> {{translationsData.MVA}} %
+															</th>
+														{{/js_if}}
+
+														<th style="width:11%;text-align:left;" class="default_hide"><i class="icon-asterisk"></i> {{translationsData.Discount}} ({{CUR_SYM}})</th>
+														<th style="width:10%;text-align:left;" class="default_hide"><i class="icon-money"></i> {{translationsData.TotalPrice}}</th>
+													</tr>
+												</thead>
+												<tbody>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="btn-group" style="float:left">
+										<button class="btn blue" type="button" id="marina_billing_btn_delete" style="display:none">
+											<i class="icon-plus"></i>
+											{{translationsData.Deleteproduct}}
+										</button>
+
+										<button class="btn blue" type="button" id="marina_billing_btn_new">
+											<i class="icon-plus"></i>
+											{{translationsData.Addproduct}}									
+										</button>
+
+
+									</div>
+									<div style="float:left;width:40%;margin-left:1%;line-height:30px">
+										
+											{{translationsData.Theseproductsarebeingbilledoncepercustomer}}
+										
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="tab-pane" id="tab4">
+							<h3 class="block div_msg_sent" style="display:none;">
+							  {{translationsData.Invoicecreated}}
+							</h3>
+							<span class="div_msg_sent" style="display:none;font-size: 13px; font-family: open sans,sans-serif;">
+								 {{translationsData.Yourinvoicehasnowbeendistributedtotheselectedrecipients}}. 
+								  {{translationsData.Belowisasummaryofyourinvoice}}:
+							</span>
+							<div class="table-responsive">	
+								<table class="table table-striped table-hover table-bordered" id="customer_group_reached">
+									<thead class="">
+										<tr>
+											<th><span style="margin-right:10px;"><i class="icon-asterisk"></i> {{translationsData.Description}}</span></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>													
+									</tbody>
+								</table>
+
+								<table class="table table-striped table-bordered table-hover marina_review" style="display:none" id="tbl_marina_billing">
+									<thead class="">
+										<tr>
+											<th></th>
+											<th style="text-align:left !important"><i class="icon-list"></i> {{translationsData.Customername}}</th>
+											<th style="text-align:left !important"><i class="icon-list"></i> {{translationsData.Customernumber}}</th>
+											<th style="text-align:left !important"><i class="icon-globe"></i> {{translationsData.Customergroup}}</th>
+											<th style="text-align:left !important"><i class="icon-globe"></i> {{translationsData.Total}}</th>
+										</tr>
+									</thead>
+									<tbody>	
+
+									</tbody>	
+								</table>
+
+							</div>
+<div class="span12 marina_review" style="margin:0">
+	    <div class="dataTables_extended_wrapper">
+	        <div class="dataTables_paginate">
+	        	{{translationsData.Page}} 
+	        <a title="{{translationsData.Prev}}" id="prev"  onclick="marina_billing.getPaginateData('prev')" class="btn btn-sm default prev">
+	       	 	<i class="icon-angle-left"></i>
+	        </a>
+	        <input style="text-align:center; margin: 0 5px;" value="1" class="pagination-panel-input form-control input-mini input-inline input-sm" type="text" id="page">
+	                <a title="{{translationsData.Next}}" id="next"   onclick="marina_billing.getPaginateData('next')" class="btn btn-sm default next">
+	                	<i class="icon-angle-right"></i>
+	                </a> 
+	        	<!--   of 33 -->
+	        </div>
+	        <!--<div class="dataTables_length">
+	            <label style="cursor:initial;">
+	            	<span class="seperator">|</span>View 
+							<select name="datatable_length" size="1" class="form-control input-xsmall input-sm">
+								<option value="10" selected="">10</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option value="50">50</option>
+							</select> 
+					records
+				</label>
+	        </div>
+	        <div class="dataTables_info">
+	            <span class="seperator">|</span>Found total 327 records
+	        </div>-->
+	    </div>
+</div>
+						</div>		
+					</div>
+					<div class="form-actions clearfix" style="padding-left:12px !important; text-align:center;">				
+						<ul>			
+							<li>
+								<a href="javascript:;" style="float: left; margin-left: -0.5%; display: none;" id="btn_back" class="btn button-previous">
+									<i class="m-icon-swapleft"></i> {{translationsData.Back}} 
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" style="float: right;" class="btn blue button-next" id="btn_continue">
+									{{translationsData.Next}} 
+									<i class="m-icon-swapright m-icon-white"></i>
+								</a>
+							</li>
+
+
+							<li>
+								<a href="javascript:;" style="float: right;display:none" class="btn blue " id="btn_rev_create_invoice">
+									{{translationsData.Reviewandsendinvoice}}  
+									<i class="m-icon-swapright m-icon-white"></i>
+								</a>
+							</li>
+
+							<li>
+								<a href="javascript:;" style="float: right;display:none;margin-right:5px" class="btn blue " id="btn_screate_invoice">
+									{{translationsData.Sendinvoice}}  
+									<i class="m-icon-swapright m-icon-white"></i>
+								</a>
+							</li>
+
+							<li>
+								<a href="javascript:;" style="float: right;display:none;margin-right:5px" class="btn blue " id="start-again">
+									{{translationsData.Createanotherinvoice}}  
+									<i class="m-icon-swapright m-icon-white"></i>
+								</a>
+							</li>
+
+							<li>
+							  	<a href="javascript:;" style="float: right;display:none;margin-right:5px"  class="btn btn_clear dis_billing"  type="button"><i class="icon-remove"></i> {{translationsData.DiscardBilling}}</a>
+							</li>
+							
+							<li>
+							 	<a href="javascript:;" style="float: right;display:none;margin-right:5px"  class="btn blue send_billing" type="button"><i class="m-icon-swapright m-icon-white"></i> {{translationsData.SendInvoices}}</a>
+							 </li>
+
+						</ul>									
+					</div>
+				</div>
+			</form>												 
+		
+		</div>
+	</div>
+
+	<div class="modal hide fade in modal-overflow" id="marina_billing_customer_popup" style="display: none; margin-top: 0px;" aria-hidden="false">
+		<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.Searchcustomer}}</h3>
+		</div>
+		<div class="row-fluid">
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="row-fluid">
+							<div class="span4">
+								<input name="customer_name" id="customer_name" placeholder="{{translationsData.Customername}} / {{translationsData.Customernumber}}" class="span12 m-wrap ui-autocomplete-input" value="" onkeypress="" style="margin-bottom:10px" autocomplete="off" type="text">
+							</div>
+							
+							<div class="span4">
+								<a class="btn green new_tab" href="javascript:;" id="btn_search"><i class="icon-search m-icon-white"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="portlet-body form profile">					
+							<div style="clear:both;padding-top:10px;"></div>					
+							
+													
+								<table class="table table-striped table-hover table-new-advance table-bordered no-more-tables cf" id="customer_list_table" style="width:100%">
+									<thead id="cf">
+										<tr>
+											<th>
+												<input class="all_customer" id="all_customers" name="allCustomer" checked="checked" type="checkbox">
+											</th>
+											<th style="width:20%;"><i class="icon-list"></i> 
+											{{translationsData.Customernumber}} 
+											</th>
+											<th><i class="icon-user"></i> 
+											{{translationsData.Customername}}
+											</th>
+											<th><i class="icon-user"></i> 
+												{{translationsData.Email}}
+											</th>																		
+										</tr>
+									</thead>	
+									<tbody id="marina_billing_customer_table">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+					<button data-dismiss="modal" class="btn blue customer_save" type="button"><i class="icon-check"></i> {{translationsData.Save}}</button>
+					<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="m-icon-swapright m-icon-white"></i> {{translationsData.Cancel}}</button>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal hide fade in modal-overflow" id="marina_billing_dockslip_popup" style="display: none; margin-top: 0px;" aria-hidden="false">
+		<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.Searchslip}}</h3>
+		</div>
+		<div class="row-fluid">
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="row-fluid">
+							<div class="span4">
+								<input name="slip_name" id="slip_name" placeholder="{{translationsData.Slipname}} / {{translationsData.Customername}}" class="span12 m-wrap ui-autocomplete-input" value="" onkeypress="" style="margin-bottom:10px" autocomplete="off" type="text">
+							</div>
+							
+							<div class="span4">
+								<a class="btn green new_tab" href="javascript:;" id="btn_search"><i class="icon-search m-icon-white"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			
+
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="portlet-body form profile">					
+							<div style="clear:both;padding-top:10px;"></div>				
+								<table class="table table-striped table-hover table-new-advance table-bordered no-more-tables " id="dock_slip_table" style="width:100%">
+									<thead>
+										<tr>
+											<th>
+												<input class="all_slip" id="all_slip" name="all_slip" checked="checked" type="checkbox">
+											</th>
+											<th style="width:20%;"><i class="icon-list"></i> 
+											{{translationsData.SlipN}} 
+											</th>
+											<th><i class="icon-user"></i> 
+											{{translationsData.Associatedmeter}}
+											</th>
+											<th><i class="icon-user"></i> 
+												{{translationsData.Metervalue}}
+											</th>	
+											<th><i class="icon-user"></i> 
+												{{translationsData.Assignedcustomer}}
+											</th>																	
+										</tr>
+									</thead>	
+									<tbody id="marina_billing_slip_table">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+					<button data-dismiss="modal" class="btn blue dock_save" type="button"><i class="icon-check"></i> {{translationsData.Save}}</button>
+					<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="m-icon-swapright m-icon-white"></i> {{translationsData.Cancel}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		.innerrows table td,innerrows table th {
+			padding:2px !important;
+		}
+		.iconplus{
+			cursor:pointer;
+			background: rgba(0, 0, 0, 0) url("/img/datatable-row-openclose.png") no-repeat scroll 0 0;
+		}
+		.iconminus{
+			cursor:pointer;
+			background: rgba(0, 0, 0, 0) url("/img/datatable-row-openclose.png") no-repeat scroll 0 -23px !important;
+		}
+		.navbar-inner{
+			padding-right:0px !important;
+			padding-left:0px !important;
+		}
+		#content .navbar-inner a{
+			padding:10px 4px 10px !important;
+		}
+		.progress-success.progress-striped .bar_wizard, .progress-striped .bar_wizard-success {
+			background-color: #62c462;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+		}
+		.progress-success .bar_wizard, .progress-danger .bar_wizard, .progress-info .bar_wizard, .progress-warning .bar_wizard {
+			background-image: none !important;
+			filter: none !important;
+		}
+		.progress-success .bar_wizard, .progress .bar_wizard-success {
+			background-color: #5eb95e;
+			background-image: linear-gradient(to bottom, #62c462, #57a957);
+			background-repeat: repeat-x;
+		}
+		.progress-striped .bar_wizard {
+			background-color: #149bdf;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+			background-size: 40px 40px;
+		}
+		.progress .bar_wizard {
+			background-color: #0e90d2;
+			background-image: linear-gradient(to bottom, #149bdf, #0480be);
+			background-repeat: repeat-x;
+			box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+			box-sizing: border-box;
+			color: #fff;
+			float: left;
+			font-size: 12px;
+			height: 100%;
+			text-align: center;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			transition: width 0.6s ease 0s;
+			width: 0;
+		}
+		.bar_wizard {
+			background: #c0cfdd none repeat scroll 0 0;
+			height: 14px;
+		}
+		.validate-inline{
+			color: #b94a48;
+		}
+		.bar {
+			height: 14px;
+			background: #c0cfdd;
+		}	
+		.form-actions.clearfix li{
+			display: inline;
+			list-style: outside none none;
+		}
+		.btn-group{
+			margin-bottom:10px;
+		}
+		#info_bill_once i.icon-question-sign:before{
+			cursor:pointer;
+		}
+		.form-wizard .progress{
+			margin-bottom:15px !important;
+		}
+	</style>
+</script>

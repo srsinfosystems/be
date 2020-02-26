@@ -1,0 +1,154 @@
+<script type="text/html" id="inventory_report_new_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar" style="border-bottom:none !important">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Reports}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Inventorylistreport}}</a>
+					</li>
+				</ul>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+
+<div class="row-fluid">
+
+	<div class="portlet">
+		<div class="portlet-body profile">
+			<div class="row-fluid">
+				<form class="form">
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">{{translationsData.Warehouse}}</label>
+							<div class="controls">
+								<select  class="m-wrap span12" name="" id="warehouse_id">
+									{{#each getWarehouseLocationListForReport}}
+									<option value="{{@key}}">{{this}}</option>
+									{{/each}}
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="span4 location_wrap" style="display: none" >
+						<label class="control-label">{{translationsData.Location}}</label>
+						<div class="controls">
+							<select  class="m-wrap span12" name="" id="location_id">
+								
+							</select>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="control-group">
+							<label class="control-label">{{translationsData.Includeproductnotinstock}}</label>
+							<input class="m-wrap uni" type="checkbox" id="no_stock_products">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row-fluid" style="margin-top: 10px">
+				<div class="table-responsive irn_tab_wrap">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal hide fade in modal-overflow" id="saveandcpop" style="display: none; margin-top: 0px;" aria-hidden="false">
+		<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.Emailreport}}</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="portlet-body form">
+						<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add-f" method="post" accept-charset="utf-8">
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Type}}</label>	
+								<div class="controls">
+									<select name="report_type" class="m-wrap span10" placeholder="{{translationsData.Type}}" id="report_type" type="text">
+										<option value="excel" selected="selected">{{translationsData.Excel}}</option>
+										<option value="pdf" >{{translationsData.PDF}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Distribution}}</label>	
+								<div class="controls">
+									<select name="distribution" class="m-wrap span10 " value="" id="distribution" tabindex="-1">
+										<option selected="selected" value="to_staffer">{{translationsData.Tomyself}}</option>
+										<option value="to_staffers">{{translationsData.Tootherstaffer}}</option>
+										<option value="to_custom">{{translationsData.Customemailaddress}}</option>
+									</select>
+								</div>
+							</div>
+
+							
+
+							<div class="control-group staffer_email_wrapper hide">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Selectstaff}}</label>	
+								<div class="controls">
+									<select name="to_staffers" class="m-wrap span10"  value="" id="to_staffers">
+										<option selected="selected" value="all">{{translationsData.All}}</option>
+										
+									</select>
+								</div>
+							</div>
+							
+							<div class="control-group customer_email_wrapper hide">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Email}}</label>	
+								<div class="controls">
+										<input name="custom_email" class="m-wrap span10" value="" placeholder="{{translationsData.Email}}" id="custom_email" type="text">
+								</div>
+							</div>
+							
+							
+						</form>					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<button class="btn blue" type="button" id="qry_save" onclick="inventory_report_new.send_report();">
+					{{translationsData.Send}}
+					<i class="m-icon-swapright m-icon-white"></i>
+				</button>		
+				<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+					{{translationsData.Cancel}}
+				</button>
+			</div>
+		</div>
+	</div>
+<style type="text/css">
+	.dataTables_extended_wrapper{
+		margin-top: 10px;
+	}
+	.table-responsive .table-bordered > thead > tr th{
+		font-size: 12px !important;
+	}
+	.fil_list{
+		padding: 2px 0 2px 5px;
+		border-bottom: solid 1px gray;
+	}
+	#irn_tb{
+		width: 100% !important;
+	}
+	#sample_2_column_toggler label{
+		display: block !important;
+	}
+	table.dataTable tr.group td{font-weight:bold;background-color:#e0e0e0}
+
+</style>
+</script>

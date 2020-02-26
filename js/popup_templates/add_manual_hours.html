@@ -1,0 +1,103 @@
+<script type="text/template" id="add_manual_hours_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Newvoluntaryworkentry}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+				<div class="row-fluid">
+					<div class="span12">
+						<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_manual_hours_template_form" method="post" accept-charset="utf-8">
+							
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Action}}</label>	
+								<div class="controls">
+									<select name="manual_action" class="m-wrap span9"  value="" id="manual_action">
+										<option value=''></option>
+										
+										<option value='reg'>{{translationsData.Registercarriedoutwork}}</option>
+										<option value='adj'>{{translationsData.Adjusthoursinthebank}}</option>
+									</select>
+								</div>
+							</div>
+
+
+							<div class="control-group reg" style="display:none">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Type}}</label>	
+								<div class="controls">
+									<select name="partner_schedule_template_id" class="m-wrap span9"  value="" id="partner_schedule_template_id">
+										<option value=''></option>
+										{{#each PartnerScheduleTemplate}}
+											{{createScheduleListHelper PartnerScheduleTemplate}}	
+										{{/each}}
+										<option value='other'>{{translationsData.Other}}</option>
+										<!--<option value='hour_adjustment'>{{translationsData.Houradjustment}}</option>-->
+									</select>
+								</div>
+							</div>
+ 
+							<div class="control-group adj" style="display:none">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Pleasechooseamongthefollowingoptions}}</label>	
+								<div class="controls">
+									<select name="action" class="m-wrap span9"  value="" id="action">
+										<option value=''></option>
+										<option value='plus'>{{translationsData.Addhourstothebank}} ({{translationsData.customermustworkmore}})</option>
+
+										<option value='minus'>{{translationsData.Deducthoursfromthebank}} ({{translationsData.customermustworkless}})</option>
+									</select>	
+										
+								</div>
+							</div>
+
+							<div class="control-group date_wrapper regl" style="display:none">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Date}}</label>	
+								<div class="controls">
+										<input name="date" class="m-wrap span9" date-format="{{date_format_f}}" value="" placeholder="{{translationsData.Date}}" id="date" type="text">
+								</div>
+							</div>
+
+							<div class="control-group regl" style="display:none">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Time}}</label>	
+									<div class="controls">
+										<input name="time " class="m-wrap span9" maxlength="80" value="" placeholder="{{translationsData.Time}}" id="time" type="text">
+									</div>
+							</div>
+
+
+						
+							<div class="control-group hours_wrapper regl adj" style="display:none">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Duration}} ({{translationsData.hours}})</label>	
+									<div class="controls">
+										<input name="hours" class="m-wrap span9" value="" placeholder="{{translationsData.Duration}}" id="hours" type="text">
+									</div>
+							</div>
+
+							
+
+							
+						</form>
+					</div>
+				</div>
+			</div>	
+		</div>	
+	</div>	
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="add_manual_hours_btn_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div.radio{
+	margin-top: 9px;
+}
+</style>
+</script>

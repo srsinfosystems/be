@@ -1,0 +1,75 @@
+<script type="text/html" id="boat_scheduling_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Boatstorage}}</a>
+						</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i><span>{{translationsData.Scheduling}}</span>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar"></div>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div id="boat_sched_calendar" >
+		</div>
+	</div>
+
+	<div tabindex="-1" class="modal hide fade" id="eventDetailsPoup" data-width="500" style="width:500px;display:none;"></div>
+	<style>
+		.completed_event{
+			background-color: #9F9F9F !important;
+			border: 0.1em solid #9F9F9F !important;
+		}
+
+		.noalloc_event{
+			background-color: #35aa47 !important;
+			border: 0.1em solid #35aa47 !important;
+		}
+
+		.fc-event-container .fc-event{
+			background-color: #C3C3C3;
+			border: 0.1em solid #C3C3C3;
+		}
+
+		.alloc_event{
+			background-color: #297CBE !important;
+			border: 0.1em solid #297CBE !important;
+		}
+		.portlet.calendar .fc-event,.fc-event-custom{
+			padding: 3px;
+			font-size: 14px;
+			line-height: 20px;
+			cursor:pointer;
+			background-color: #e0e0e0;
+			border: 0.1em solid #e0e0e0;
+			margin-bottom:5px;
+			color:#000 !important;
+		}
+
+		.fc-event-container .fc-event{
+			background-color: rgb(0, 0, 255);
+			font-size: 12px;
+			line-height: 15px;
+		}
+		.slimScrollDiv{
+			overflow:unset !important;
+		}
+		.customersort.ui-draggable-dragging{
+    		z-index:10101;
+    	}
+    	
+
+	</style>
+</script>

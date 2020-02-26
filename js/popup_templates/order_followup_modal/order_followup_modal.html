@@ -1,0 +1,178 @@
+<script type="text/template" id="order_followup_modal_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+	<h3>{{translationsData.OrderDetails}}</h3>
+</div>
+<div class="portlet-body">
+	<div class="modal-body">
+		<div class="row-fluid invoice">
+			<ul class="unstyled">
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.$orderh}}:</strong></td>
+							<td></td>
+							<td>{{ofm_fd.order_id}}</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.Customername}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.addrs}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.Customercellphone}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.cust_cell}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.Customeremail}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.cust_email}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.$fllu_act}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.fllu_act}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.$fllu_date}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.fllu_date}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.LogDate}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.log_date}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li>
+					<table>
+						<tr>
+							<td><strong>{{translationsData.Status}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.status}}
+							</td>
+						</tr>
+					</table>
+				</li>
+
+				<li class="note_h">
+					<table>
+						<tr>
+							<td><strong>{{translationsData.Note}}:</strong></td>
+							<td></td>
+							<td>
+								{{ofm_fd.note}}
+							</td>
+						</tr>
+					</table>
+				</li>		
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal-footer">
+	<div class="btn-group mobile-btn-groups group2">
+		<button id="UpdateAndBtn" data-toggle="dropdown" class="btn blue update dropdown-toggle">{{translationsData.Goto}}...<i class="icon-angle-down"></i></button>
+		<ul class="dropdown-menu bottom-down pull-left followup" style="text-align:left;">
+			<li>
+				<a class="" onclick="order_followup_modal.showCust()" type="button" >
+					<i class="icon-user" style="margin-left:0px;"></i> {{translationsData.Customer}}
+				</a>
+			</li>
+
+			<li>
+				<a class="" onclick="order_followup_modal.gotoorder()" type="button" >
+					<i class="icon-bar-chart" style="margin-left:0px;"></i> {{translationsData.Order}}
+				</a>
+			</li>
+		</ul>		
+	</div>
+
+	<div class="btn-group mobile-btn-groups group2">
+		<button id="UpdateAndBtn" data-toggle="dropdown" class="btn blue update dropdown-toggle">{{translationsData.Send}}...<i class="icon-angle-down"></i></button>
+		<ul class="dropdown-menu bottom-down pull-left followup" style="text-align:left;">
+			<li>
+				<a class="dropdown_email" onclick="order_followup_modal.sendEmail()" type="button" >
+					<i class="icon-envelope-alt" style="margin-left:0px;"></i> {{translationsData.$email}}
+				</a>
+			</li>
+
+			<li>
+				<a class="dropdown_sms" onclick="order_followup_modal.sendSms()" type="button" >
+					<i class="icon-comment" style="margin-left:0px;"></i> {{translationsData.SMS}}
+				</a>
+			</li>
+		</ul>		
+	</div>
+	{{#js_if "this.ofm_fd.followup_status == 'new' || this.ofm_fd.followup_status == 'open'"}}
+		<div class="btn-group mobile-btn-groups group2">
+			<button id="UpdateAndBtn" data-toggle="dropdown" class="btn blue update dropdown-toggle">{{translationsData.Changestatus}}&nbsp;<i class="icon-angle-down"></i></button>
+			<ul class="dropdown-menu bottom-down pull-left followup" style="text-align:left;">
+				{{#each ofm_fd.followup_statush}}
+					<li>
+						<a class="dropdown_{{@key}}" onclick="order_followup_modal.changeStatus('{{@key}}')" type="button" >
+							{{this}}
+						</a>
+					</li>
+				{{/each}}
+			</ul>		
+		</div>
+	{{/js_if}}
+
+
+
+	<div class="btn-group">	
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Close}}
+		</button>
+	</div>
+</div>
+</script>

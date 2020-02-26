@@ -1,0 +1,206 @@
+<script type="text/template" id="all_login_template">
+<div class="modal-body">
+    <div class="page-body page-lock">
+        <div class="page-lock-info">
+            <h1>{{login_name}}</h1>
+            <span style="color: #eee;display: block;font-size: 14px;margin-top: -5px;margin-bottom: 10px;">{{login_email}}</span>
+            <form class="form-search" action="" id="all_login_form">
+                <div class="input-append pass_wrap" style="width:100%;">
+                    <input name="password"  class="m-wrap" autocomplete="off" placeholder="{{translationsData.Password}}" id="password" type="password">
+                    <button type="button" class="btn blue icn-only login_pass" style="padding:8px 14px"><i class="m-icon-swapright m-icon-white"></i></button>
+                </div>
+                <div class="login_remimberme" style="margin:5px 0;width:100%;color:#fff">
+                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                        <input id="remember" name="remember" checked="" type="checkbox"> 
+                        {{translationsData.Rememberme}}
+                </label>
+                </div>
+                <div class="google_authenticator" style="width:100%;display:none;margin:5px 0">
+                    <input name="text"  class="m-wrap" autocomplete="off" placeholder="{{translationsData.EnteryourGoogleauthenticatorcode}}" id="LoginsTwoFa" type="text"><button type="button" class="btn blue icn-only login_twofa" style="padding:8px 14px"><i class="m-icon-swapright m-icon-white"></i></button>
+                </div>
+
+                <div class="all_login_back" style="width:100%;display:none;margin:5px 0">
+                    <button type="button" onclick="all_login.resetForm(1);" class="btn" style="padding:8px 14px">{{translationsData.Back}}</button>
+                </div>
+                {{#js_if "this.type != 'admin'"}}
+                <div class="social_ul">
+                    <ul class="login-social icon-circlec icon-zoom">
+                        <li>
+                            <a href="javascript:;" class="login_fb" onclick="">
+                                <i class="icons icons-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="login_gg" onclick="">
+                                <i class="icons icons-google"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="login_ln" onclick="">
+                                <i class="icons icons-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relogin">
+                    <a href="javascript:;" onclick="all_login.goToLogin()">{{translationsData.Not}} {{login_name}} ?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+
+.social_ul{
+    margin:10px 0;
+
+}
+.social_ul ul{
+    list-style-type:none;
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+}
+.social_ul ul li{
+   display:inline-block;
+}
+.login-social .icons {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: #FFF;
+  color: rgba(255, 255, 255, 0.8);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.login-social.icon-circlec .icons{ 
+  border-radius: 50%;
+}
+.login-social.icon-rounded .icons{
+  border-radius:5px;
+}
+.login-social .icons:hover, .social-icons .icons:active {
+  color: #FFF;
+  -webkit-box-shadow: 1px 1px 3px #333;
+  -moz-box-shadow: 1px 1px 3px #333;
+  box-shadow: 1px 1px 3px #333; 
+}
+.login-social.icon-zoom .icons:hover, .login-social.icon-zoom .fa:active { 
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1); 
+}
+.login-social .icons-facebook{background-color:#3C599F;}  
+.login-social .icons-linkedin{background-color:#0085AE;} 
+.login-social .icons-google{background-color:#CF3D2E;} 
+
+
+span.help-block{
+    color: #e73d4a;
+}
+
+#popupslogin{
+    background:none !important;
+}
+
+.page-lock .page-body:after,
+.page-lock .page-body:before {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.page-lock .page-body:after {
+  clear: both;
+}
+.page-lock {
+    text-align:center;
+}
+.page-lock .page-footer {
+   margin-top: 10px;
+   text-align: left !important;
+   font-size: 12px;
+   color: #333;
+}
+
+.page-lock img.page-lock-img {
+  float: left;
+  width: 200px;
+  height: auto;
+}
+
+
+.page-lock .page-lock-info h1 {
+  margin-top: -5px;
+  font-weight: 300;
+  color: #fff;
+  font-size: 28px;
+  line-height: 32px;
+}
+
+
+
+.page-lock .page-lock-info span em {
+  color: #333;
+  font-size: 14px;
+  font-style: normal;
+}
+
+.page-lock .page-lock-info form {
+  margin: 28px 0;
+}
+
+.page-lock .page-lock-info input {
+  background: #fff;
+}
+
+.page-lock .relogin {
+  margin-top: 10px;
+}
+
+.page-lock .relogin a {
+  color: #e1e1e1;
+}
+
+/*Responsive*/
+@media (max-width: 480px) {
+  .page-lock {
+     top:0px;
+     width: 260px;
+     margin-top: 20px;
+     margin-left: -140px;
+  } 
+
+  .page-lock .page-body { 
+    padding: 10px;
+      text-align: center; 
+    width: 260px;
+  }
+
+  .page-lock img.page-lock-img {
+    float: none !important;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .page-lock .page-lock-info {
+    float: none !important;
+    width: 260px;   
+    margin: 0 auto;
+  }
+  .page-lock .page-lock-info1 form {
+    margin-bottom: 0;
+  } 
+}
+.help-block{
+
+}
+</style>
+</script>

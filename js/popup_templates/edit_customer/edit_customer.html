@@ -1,0 +1,315 @@
+<script type="text/template" id="edit_customer_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		
+		<h3>{{translationsData.$edit_customer}} {{global_edit_cust_meta_data.customer_id}}</h3>
+
+	
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<form class="form-view form-horizontal">
+			<div class="tabbable tabbable-custom" >
+				<ul class="nav nav-tabs" id="edit_customer_details">
+					<li class="active">
+						<a href="#tab_1_general" data-content="general"  data-toggle="tab" >
+							{{translationsData.General}}
+						</a>
+					</li> 
+					
+					<li class="">
+						<a href="#tab_2_address" data-content="address"  data-toggle="tab">
+							{{translationsData.Address}}
+						</a>
+					</li>
+					<?php #1303: Fwd: Voluntary work module feedback, 17.02.18 ?>
+					<?php 
+						if(in_array('voluntary', $moduleList)){ ?>
+							<li class="">
+								<a href="#tab_3_voluntary_work" data-content="voluntary_work" data-toggle="tab">
+									{{translationsData.Voluntarywork}}
+								</a>
+							</li> 
+					<?php } ?>
+				</ul>
+				
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_1_general">
+							<div class="row-fluid">
+								
+								<div class="span6">
+									{{#js_if "this.customerData.user_group_id==2"}}
+										<div class="row-fluid">
+											<div class="control-group" id="business_type">
+												<label class="control-label label-customer">
+													{{translationsData.EIN}}
+												</label>
+												<div class="controls controls-customer">
+													{{#js_if "this.customerData.customer_ein!=''"}}
+														<span class="text bold">
+															{{customerData.customer_ein}}
+														</span>
+														<input name="ein"  value="{{customerData.customer_ein}}" placeholder="{{translationsData.EIN}}" id="CustomerEin" type="hidden">
+													{{else}}
+														<div class="btn-group span12 ">
+											 				<input name="ein" autocomplete="off" maxlength="30" value="" style="" class="m-wrap span12 " placeholder="{{translationsData.EIN}}" tabindex="1" id="CustomerEin" type="text">
+										 					<a class="btn green ein_btn" type="button" id="btnEin"><i class="icon-search" style="line-height:20px;"></i>
+										 					</a>
+											 			</div>
+
+													{{/js_if}}
+												</div>
+											</div>
+										</div>
+										
+									{{/js_if}}
+									<div class="row-fluid">
+										<div class="control-group">
+											<label class="control-label phone-inline-block-label label-customer">
+												<span class="required">*</span>{{translationsData.Customertype}}
+											</label>
+											<div class="controls controls-customer">
+												<span class="text bold">
+													{{#js_if "this.customerData.user_group_id==2"}}
+														{{translationsData.Business}} 
+													{{else}}
+														{{translationsData.Consumer}}
+													{{/js_if}}
+													
+												</span>
+																						
+												<input name="user_group_id" value="{{customerData.user_group_id}}" class="m-wrap span12" style="" id="CustomerUserGroupId" type="hidden">
+											</div>
+										</div>
+									</div>
+
+									<div class="row-fluid">
+										<label class="control-label phone-inline-block-label label-customer">
+											{{translationsData.Customername}}
+										</label>
+										<div class="controls controls-customer">
+											<a name="customer_name" id="customer_name"></a>
+										</div>
+									</div>
+
+									{{#js_if "this.customerData.user_group_id==1"}}
+										<div class="row-fluid">
+										<label class="control-label phone-inline-block-label label-customer">
+											{{translationsData.DateofBirth}}
+										</label>
+										<div class="controls controls-customer">
+											<a name="date_of_birth" id="date_of_birth"></a>
+											<a style="color:#000;">({{date_format}})</a>
+										</div>
+
+
+									</div>
+									{{/js_if}}
+									<div class="row-fluid">
+										<label class="control-label phone-inline-block-label label-customer">
+											{{translationsData.Landline}}
+										</label>
+										<div class="controls controls-customer">
+											<div class="row-fluid">
+												<a name="customer_phcode" id="customer_phcode"></a>
+												&nbsp;&nbsp;
+												<a name="customer_phone" id="customer_phone"></a>
+											</div>
+											
+										</div>
+									</div>
+
+									<div class="row-fluid">
+										<label class="control-label phone-inline-block-label label-customer">
+											{{translationsData.Cellphone}}
+										</label>
+										<div class="controls controls-customer">
+											<div class="row-fluid">
+												<a name="customer_cellcode" id="customer_cellcode"></a>
+												&nbsp;&nbsp;
+												<a name="customer_cellphone" id="customer_cellphone"></a>
+											</div>
+											
+										</div>
+									</div>
+
+									<div class="row-fluid">
+										<label class="control-label phone-inline-block-label label-customer">
+											{{translationsData.$email}}
+										</label>
+										<div class="controls controls-customer">
+											<div class="row-fluid">
+												<a name="customer_email" id="customer_email"></a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+
+								<div class="span6">
+									<div class="row-fluid customer_group_wrapper" style="margin-left:0">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Customergroup}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="customer_group" id="customer_group"></a>
+											</div>
+										</div>
+									</div>
+
+									<div class="row-fluid price_group_wrapper" style="margin-left:0">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Pricegroup}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="price_group_inp" id="price_group_inp"></a>
+											</div>
+										</div>
+									</div>
+
+								
+									<div class="row-fluid">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Status}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="customer_status" id="customer_status"></a>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row-fluid">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Referrer}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="partner_referrer" id="partner_referrer"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_2_address">
+							
+							<div class="row-fluid">
+								<div class="span6">
+									<div class="row-fluid modal-bottom-line">
+										<h4>{{translationsData.Postaladdress}}</h4>
+									</div>
+									<div class="row-fluid">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Address}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="address1" id="address1" data-type="address1"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="span6">
+									<div class="row-fluid modal-bottom-line">
+										<div class="row-fluid">
+											<div class="span8">
+												<h4>{{translationsData.Deliveryaddress}}</h4>
+											</div>
+											<div class="span4 text-right">
+												
+												<div style="float:right;margin-top:-2px;margin-left:15px" class="switch switch-small" id="same_postal_address" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+													<input type="checkbox" {{#js_if "this.customerData.same_postal_address==1"}}checked="checked"{{/js_if}}>
+												</div>
+												<p style="float:right">
+													{{translationsData.Activate}}
+												</p>
+												
+											</div>
+										</div>
+										
+									</div>
+									<div class="row-fluid delivery_address_wrapper">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Address}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="address2" id="address2" data-type="address2"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab_3_voluntary_work">
+							<div class="row-fluid">
+								<div class="span12">
+
+									<div class="row-fluid">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Status}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="voluntary_type" id="voluntary_type"></a>
+											</div>
+										</div>
+									</div>
+
+									<div class="row-fluid voluntary_ground_wrapper hide">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Grounds}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="voluntary_ground" id="voluntary_ground"></a>
+											</div>
+										</div>
+									</div>
+
+									<div class="row-fluid voluntary_note_wrapper hide">
+										<div class="control-group">
+											<label class="control-label label-customer">
+												{{translationsData.Note}}
+											</label>
+											<div class="controls controls-customer">
+												<a name="voluntary_note" id="voluntary_note"></a>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				
+			</div>
+		</form>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue update" id="save_customer" ><i class="icon-ok"></i> {{translationsData.Save}}</button>
+		<button data-dismiss="modal" tabindex="13" class="btn btn_clear" type="button" id="cancel_customer"><i class="icon-remove"></i> {{translationsData.Cancel}}</button>	
+	</div>
+</div>	
+<style>
+.editable-input input{
+	max-height: 20px !important;
+}
+.editable_touched{
+	border-color:#d64635 !important;
+}
+.form-horizontal h4{
+	margin-top:0px !important;
+}
+.modal-bottom-line{
+	border-bottom: 1px solid #efefef;
+	margin-bottom: 0.5em;
+	margin-top: 0;
+}
+</style>
+</script>

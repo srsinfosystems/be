@@ -1,0 +1,62 @@
+<script type="text/template" id="checklist_step2_template">
+<div class="container-fluid">
+		<!-- BEGIN PAGE HEADER -->
+		<div class="row-fluid">
+			<div class="span12">
+				<h3 class="">
+					{{translationsData.step2_title}}
+				</h3>
+			</div>
+		</div>
+		<!-- END BEGIN PAGE HEADER -->
+		<br>
+		<div class="row-fluid">
+			<div class="response_message hide">
+				<div class="alert alert-error hide">
+				</div>
+				<div class="alert alert-success hide">				
+				</div>
+			</div>
+			<!-- BEGIN FORM-->
+			<form id="partner_products" action="#" class="form-horizontal">		
+				<table class="table table-striped table-bordered table-advance table-hover" id="product_table">
+					<thead>
+						<tr>
+							<th style="text-align:center"><i class="icon-list"></i> {{translationsData.product_name}}</th>
+							<th style="text-align:center"><i class="icon-asterisk"></i> {{translationsData.units}}</th>
+							<th style="text-align:center"><i class="icon-legal"></i> {{translationsData.VAT}}</th>
+							<th style="text-align:center"><i class="icon-money"></i> {{translationsData.standard}}</th>
+							<th style="text-align:center"><i class="icon-money"></i> {{translationsData.Discount}}</th>
+							<th style="text-align:center"><i class="icon-money"></i> {{translationsData.Friend}}</th>
+							<th style="text-align:center"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="row_0">
+							<td style="text-align:center"><input type="text" name="product_name[]" id="product_name_row_0" style="width: 90%;" class="form-control" value="" required="" /></td>
+							<td style="text-align:center"><select name="product_unit[]" class="form-control" id="product_unit_row_0" style="width:105px"></select></td>
+							<td style="text-align:center"><select name="product_vat[]" class="form-control" id="product_vat_row_0" style="width:55px"></select></td>
+							<td style="text-align:center"><input type="text" name="product_standard_price[]" id="product_standard_price_row_0" class="form-control" style="width: 90%;" value="" required=""/></td>
+							<td style="text-align:center"><input type="text" name="product_discount_price[]" id="product_discount_price_row_0" class="form-control" style="width: 90%;" value="" required=""/></td>
+							<td style="text-align:center"><input type="text" name="product_friend_price[]" id="product_friend_price_row_0" class="form-control" style="width: 90%;" value="" required=""/></td>
+							<td style="width: 20px;"></td>
+						</tr>
+					</tbody>
+				</table>		
+				<div class="form-actions">			
+					<button id="next_btn2" type="button" class="btn green pull-right" onclick="tabfunc.nextStep()">
+						{{translationsData.Next}} 
+					</button> 
+					<button id="add_product_btn" type="button" class="btn green">
+						{{translationsData.add_product}} <i class="icon-plus"></i>
+					</button>	 
+				</div>
+			</form>
+			<!-- END FORM-->
+		</div>
+	</div>
+</script>
+<style>.form-actions{background-color:transparent;}
+.form-horizontal .form-actions {
+    padding-left: 0;
+}</style>

@@ -1,0 +1,463 @@
+<script type="text/html" id="sales_details_template">
+	<div class="row-fluid sales_details_temp">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Newsalesdocument}}</a>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar">
+					<li class="btn-group">
+						<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline blue bilq_hide" id="" onclick="sales_details.sale_action('draft')">
+							{{translationsData.Savechanges}}
+							<i class="icon-ok"></i>
+						</button>
+						<button style="margin-right: 5px; margin-top: 1px;" class="bilq_show btn btn-outline red btn_del" onclick="sales_details.deleteSales()">
+							<i class="icon-trash"></i>
+							{{translationsData.Delete}}
+						</button>
+						
+						<button style="margin-right: 2px; margin-top: 1px;" class="bilq_show btn btn-outline green btn_del" onclick="sales_details.updateSales()">
+							<i class="icon-trash"></i>
+							{{translationsData.Send}}
+						</button>
+					</li>
+					{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('quotes') > -1"}}
+						<li class="btn-group">
+							<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline green bilq_hide" id="" onclick="sales_details.sale_action('quotesnew')">
+								{{translationsData.CreateQuote}}
+								<i class="fal fa-arrow-circle-right"></i>
+							</button>
+						</li>
+					{{/js_if}}
+
+					{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('orders') > -1"}}
+						<li class="btn-group">
+							<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline green bilq_hide" id="" onclick="sales_details.sale_action('ordersnew')">
+								{{translationsData.CreateOrder}}
+								<i class="fal fa-arrow-circle-right"></i>
+							</button>
+						</li>
+					{{/js_if}}
+
+					{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('invoices') > -1"}}
+						<li class="btn-group">
+							<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline green btn_create_invoice_h bilq_hide" id="" onclick="sales_details.sale_action('invoicesnew')">
+								{{translationsData.CreateInvoice}}
+								<i class="fal fa-arrow-circle-right"></i>
+							</button>
+						</li>
+
+						<li class="btn-group">
+							<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline green btn_schedule_invoice_h bilq_hide" id="" onclick="sales_details.sale_action('scheduleinvoices')">
+								{{translationsData.ScheduleInvoice}}
+								<i class="fal fa-arrow-circle-right"></i>
+							</button>
+						</li>
+					{{/js_if}}
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+
+	<form action="" class="form-horizontal form-view sales_details_temp" id="frmNewInvoice" name="frmNewInvoice" onsubmit="event.returnValue = false; return false;" method="post" accept-charset="utf-8">
+	<div class="row-fluid invoice">
+
+		<div class="portlet">				
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-gift"></i> {{translationsData.SalesDetails}}</div>
+			</div>
+			<div style="" class="portlet-body flip-scroll detail-view">
+				<div class="row-fluid">
+
+					<!-- Customer block -->
+					<div class="span6">
+						<div class="control-group" style="padding-bottm:0px;">
+							<label class="control-label" style="margin-top:8px;"> {{translationsData.Customer}}</label>
+							<div class="controls">
+								<div class="input-append span9">
+									<input name="data[sales][sales_customer_name]" class="m-wrap span12" value="" placeholder="{{translationsData.Customer}}" id="salesSalesCustomerName" autocomplete="off" type="text">
+									<a id="btn_search_sale_customer" class="btn green tooltips" data-original-title="{{translationsData.Advancesearch}}" data-placement="right" style="display: inline-block;">&nbsp;&nbsp;<i class="icon-search m-icon-white"></i>&nbsp;&nbsp;</a>
+
+									<a id="btn_remove_sale_customer" style="" class="btn red tooltips" data-original-title="{{translationsData.Clearsearch}}" data-placement="right">&nbsp;&nbsp;<i class="icon-remove m-icon-white"></i>&nbsp;&nbsp;</a>
+
+									<a id="btn_edit_sale_customer" style="" class="btn grey tooltips" data-original-title="{{translationsData.EditCustomer}}" data-placement="right">&nbsp;&nbsp;<i class="icon-edit m-icon-white"></i>&nbsp;&nbsp;</a>
+								</div>
+							</div>
+						</div>
+
+						<div id="html_sale_customer_details">
+							
+
+							<div class="control-group" style="margin-bottom: 0px;" id="html_sales_address1">
+								<label class="control-label">{{translationsData.Postaladdress}}</label>
+								<div class="controls">
+									<input name="data[sales][sales_address_1]" class="m-wrap span11" value="" id="salesSalesAddress1" type="hidden">
+									<span class="text" id="label_salesSalesAddress1"></span>
+								</div>
+							</div>
+
+							<div class="control-group" style="margin-bottom: 0px;" id="html_sales_address2">
+								<div class="controls ">
+									<input name="data[sales][sale_address_2]" class="m-wrap span11" value="" placeholder="Address 2" id="salesSaleAddress2" type="hidden">
+									<span class="text" id="label_salesSalesAddress2" style="display:none"></span>	
+								</div>
+							</div>
+
+							<div class="control-group" style="margin-bottom: 0px;">
+								<label class="control-label">{{translationsData.ZipCity}}</label>
+								<div class="controls ">
+									<input name="data[sales][sale_zip]" class="span3 m-wrap" placeholder="{{translationsData.Zip}}" value="" onblur="fetchCityFromZip(this.value,$('#salesSalesCountry').val(),'salesSaleCity');" id="salesSaleZip" type="hidden">								
+									<input name="data[sales][sale_city]" class="span8 m-wrap" value="" placeholder="City" id="salesSaleCity" type="hidden">
+									<span class="text" id="label_salesSalesZipCity"></span>
+								</div>
+							</div>
+
+							<div class="control-group" style="margin-bottom: 0px;" id="html_sales_address2">
+								<div class="controls ">
+									<input name="data[sales][sale_address_2]" class="m-wrap span11" value="" placeholder="" id="salesSaleAddress2" type="hidden">
+									<span class="text" id="label_salesSalesAddress2" style="display:none;"></span>	
+								</div>
+							</div>
+
+							<div class="controls ">
+								<input name="data[sales][sale_zip]" class="span3 m-wrap" placeholder="Zip" value="" onblur="fetchCityFromZip(this.value,$('#salesSalesCountry').val(),'salesSaleCity');" id="salesSaleZip" type="hidden">								
+								<input name="data[sales][sale_city]" class="span8 m-wrap" value="" placeholder="City" id="salesSaleCity" type="hidden">
+								<span class="text" id="label_salesSalesZipCity"></span>
+							</div>
+
+							<div class="control-group" style="margin-bottom: 0px;" id="sale_country_row">
+								<label class="control-label ">{{translationsData.Country}}</label>
+								<div class="controls">
+									<input name="data[sales][sale_country]" empty="" value="" id="salesSaleCountry" type="hidden">
+									<span id="label_salesSalesCountry" class="text"></span>
+								</div>
+							</div>
+
+							<div class="control-group" style="margin-bottom: 0px;">
+								<label class="control-label ">{{translationsData.Companyemail}}</label>
+								<div class="controls">
+									<input name="data[sales][sale_email]" empty="" value="" id="salesSaleEmail" type="hidden">
+									<span id="label_salesSalesEmail" class="text"></span>
+								</div>
+							</div>
+
+							
+							<div class="control-group hide" id="tracking_no_div" style="margin-bottom: 0px; display: none;">
+								<label class="control-label">{{translationsData.$tracking}}</label>
+								<div class="controls">
+									<a id="tracking_num_a" data-value="" data-type="text" data-pk="1" class="editable editable-click editable-empty"></a>
+									<input name="data[sales][tracking_num]" empty="1" class="m-wrap span11" id="salesTrackingNum" type="hidden">
+								</div>
+							</div>
+
+							<div class="control-group customer_delivery_address" id="cust_delivery_address" style="margin-bottom: 0px; display: block;">
+								<label class="control-label delivery_address_label">{{translationsData.Deliveryaddress}}</label>
+								<label class="control-label delivery_name_label hide">{{translationsData.Deliveryname}}</label>
+								<div class="controls delivery_address phone-control-label">
+									<a href="#" id="location" data-type="location" data-pk="1" class="editable editable-click" style="display: inline-block;"></a>
+															
+								</div>
+							</div>
+
+							<div class="control-group customer_delivery_note" id="customer_delivery_note" style="margin-bottom: 0px; display: block;">
+								<label class="control-label">{{translationsData.Deliverynote}}</label>
+								<div class="controls custom_delivery_note phone-control-label">
+									<a href="#" id="custom_delivery_note" class="editable editable-pre-wrapped editable-click editable-empty"></a>
+									<input name="data[sales][delivery_note]" empty="1" rows="3" value="" class="m-wrap span11 delivery_note" id="salesDeliveryNote" type="hidden">								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label ">{{translationsData.Deliverymethod}}</label>
+								<div class="controls delivery_method phone-control-label">
+									<a id="delivery_methods" class=""></a>
+									<input name="data[sales][delivery_method]" empty="1" options="" class="m-wrap span11 delivery" value="" id="salesDeliveryMethod" type="hidden">		
+									<input name="data[sales][task_id]" empty="1" value="" class="m-wrap span11" id="salesTaskId" type="hidden">								
+									<input name="data[sales][ref_task_id]" empty="1" value="" class="m-wrap span11" id="salesRefTaskId" type="hidden"> 	
+									
+								</div>
+							</div>
+						</div>
+
+						<div id="sales_fields"></div>
+					</div>
+					<!-- Customer block -->
+
+					<div class="span6 invoice-payment">
+						<div class="control-group" style="padding-bottom: 0px;">
+							<label class="control-label" style="margin-top:8px;"><span class="required">*</span>{{translationsData.Salesdate}}</label>
+							<div class="controls">
+								<div class="input-append date date-picker" data-date-format="{{date_format_f}}" data-date-viewmode="years">
+									<input name="data[sales][sales_date]" class="m-wrap span10 placeholder-no-fix" data-date-format="{{date_format_f}}" value="" placeholder="Sales date" id="salesSalesDate" type="text"> <span class="add-on"><i class="icon-calendar"></i></span> 
+								</div>
+								<span class="help-inline" style="margin-bottom:8px">({{date_format_f}})</span>	
+							</div>
+						</div>
+				
+						<div class="control-group" style="padding-bottom: 0px;">
+							<label class="control-label" style="margin-top:8px;">{{translationsData.Paymentterms}}</label>
+							<div class="controls">
+								<select name="data[sales][sales_payment_terms]" class="m-wrap span11" id="salesSalesPaymentTerms">
+									{{#js_if "this.getCreditDayList.length != 0"}}
+										{{#each getCreditDayList}}
+												<option {{#js_if "cal_d.credit_days == @key"}}selected="selected"{{/js_if}} value="{{@key}}">{{this}}</option>							
+										{{/each}}
+									{{/js_if}}
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group" id="custom_credit_days" style="">
+							<label class="control-label" style="margin-top:8px;"><span class="required">*</span>{{translationsData.Creditdays}}</label>
+							<div class="controls">
+								<input name="data[sales][custom_credit_days]" class="m-wrap span11" id="salesCustomCreditDays" type="text">
+							</div>
+						</div>
+
+						<div class="control-group" style="padding-bottom: 0px;">
+							<label class="control-label" style="margin-top:8px;">{{translationsData.Ourref}}</label>
+							<div class="controls">
+								<select name="data[sales][sale_our_ref]" class="m-wrap span11" id="salesSaleOurRef" placeholder="" value="">
+								 	{{#js_if "this.getPartnerContactList.length != 0"}} 
+										{{#each getPartnerContactList}}
+												{{OurRefHelper @key this}}								
+										{{/each}}
+									{{else}}
+										<option value=""></option>
+									{{/js_if}}
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group" style="padding-bottom: 0px;">
+							<label class="control-label" style="margin-top:8px;">{{translationsData.Yourref}}</label>
+							<div class="controls">
+								<select name="data[sales][sale_your_ref]" class="m-wrap span11" id="salesSaleYourRef" placeholder="" value="">
+								 	{{#js_if "this.customer_contact.length != 0"}} 
+										{{#each customer_contact}}
+												{{YourRefHelper @key this}}								
+										{{/each}}
+									{{else}}
+										<option value=""></option>
+									{{/js_if}}
+								</select>
+							</div>
+						</div>
+						{{#js_if "this.partnerSetting.enable_referrers != 'y' "}}
+							<div class="control-group" style="margin-bottom: 0px;display:none">
+						{{else}}
+						<div class="control-group" style="margin-bottom: 0px;">
+						{{/js_if}}
+						
+							<label class="control-label" style="margin-top:8px;">{{translationsData.Referrer}}</label>
+							<div class="controls">
+								<input name="data[sales][referrer]" class="m-wrap span11" value="" id="select_referrer" autocomplete="off" type="text">
+								<input name="data[sales][referrer_id]" class="m-wrap span11" id="referrer_id" type="hidden">						
+							</div>
+						</div>		
+
+						<div id="divspace" style="margin-top:10px;"></div>
+
+						<div class="control-group" style="padding-bottom: 0px;">
+							<label class="control-label "></label>
+							<div class="controls">
+								
+							<a id="description" data-type="textarea" data-pk="1" class="editable editable-pre-wrapped editable-click">
+							</a>
+							</div>
+
+							<input name="data[sales][sales_id]" value="" id="sales_id" type="hidden">	
+						 
+						</div>				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row-fluid invoice">
+		<div class="span12">
+			<div style="" class="portlet-body  profile" id="sale_temp_line">
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover" id="product_lines">
+						<thead class="">
+							<tr>
+								<th><input type="checkbox" class="all_products" id="all_products"></th>
+								<th style="" class="checklist_hide">{{translationsData.Checklist}}</th>
+								<th class="hidden-phone" style="width:6%">{{translationsData.Product}}</th>
+								<th>{{translationsData.Description}}</th>
+								<th style="text-align: left;" id="show_location" class="loc_hide">{{translationsData.$sales_location}}</th>
+								<th style="text-align:left;display:none;" id="hide_location">{{translationsData.Unitsavailable}}</th>
+								<th style="text-align:left;width:6%">{{translationsData.Quantity}}</th>
+								<th style="text-align:left;" class="hidden-phone">{{translationsData.Unit}}</th>
+								<th class="hidden-phone" style="width:8%;text-align:left;">{{translationsData.UnitPrice}}</th>
+								<th style="text-align:left;width:8%">{{translationsData.TotalPrice}}</th>
+								<th style="text-align:left;width:8%" class="hidden-phone">{{translationsData.Discount}} ({{CUR_SYM}})</th>
+
+								<th class="class_sale_product_tax hidden-phone tax_hide" style="width:8%">{{translationsData.Taxrate}}</th>
+								<th class="class_sale_product_tax hidden-phone tax_hide" style="width:8%">{{translationsData.Taxamount}}</th>
+								<th style="text-align:left;width:8%" class="hidden-phone">{{translationsData.$tota_inc_vat}}</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row-fluid invoice" style="margin-bottom:5px">
+				<div class="span4">
+					<div class="btn-group" style="float:left;margin-bottom:30px">
+						<button class="btn blue del_prod bilq_hide" type="button" id="del_prod" style="display:none">
+							<i class="icon-plus"></i>
+							{{translationsData.Deleteproduct}}
+						</button>
+
+						<button class="btn blue add_prod bilq_hide" type="button" id="add_prod">
+							<i class="icon-plus"></i>
+							{{translationsData.Addproduct}}									
+						</button>
+
+						<a class="btn black bilq_hide" id="btn_product_bundle" style="margin-left:4px;"><i class="icon-list"></i> {{translationsData.Productbundle}}</a>
+					</div>
+				</div>
+				<div class="span8 invoice-block summary_block">
+					<div class="row-fluid" style="display: flex;">
+						<div class="pvc_wrap span" style="display:none">
+							<table class="table table-striped table-hover" style="margin: 0">
+								<thead>
+									<tr>
+										<th style="text-align:left !important;padding-right:0px;">{{translationsData.$vat_spec}}</th>
+										<th style="text-align:left !important;padding-right:0px;">{{translationsData.Rate}}</th>
+										<th style="text-align:right !important;padding-right:0px;">{{translationsData.Baseamount}}</th>
+										<th style="text-align:right !important;padding-right:0px;">{{translationsData.MVA}}</th>
+									</tr>
+								</thead>
+								<tbody id="perform_vat_calculation">
+								</tbody>
+							</table>
+						</div>
+						<div class="span" style="width:auto;float:right;">
+							<table style="width: 100%;float: left;margin:0;padding:0">
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.Netamount}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="invoice_net_amount">0,00</span></td>
+								</tr>
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.Discount}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="invoice_total_discount">0,00</span></td>
+								</tr>
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.Total}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="invoice_gross_amount">0,00</span></td>
+								</tr>
+								<tr class="class_sale_product_tax sum_bod ">
+									<td class="text-left">{{translationsData.MVA}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="invoice_total_mva">0,00</span></td>
+								</tr>
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.Roundoff}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="calculate_round_off">0,00</span></td>
+								</tr>
+								<tr class="sum_bod bold" style="border-top:1px solid;border-bottom-width:4px;border-bottom-style:double;">
+									<td class="text-left label_summary ">{{translationsData.Totaltopay}}</td>
+									<td class="text-left">{{CUR_SYM}}&nbsp;</td>
+									<td class="text-right"><span id="invoice_total_to_pay">0,00</span></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+
+
+
+	<div class="row-fluid invoice">
+		<div class="span12 invoice-block">
+			
+			<a class="btn  big blue update bilq_hide" style="margin-bottom:2px;" id="btn_save" onclick="sales_details.sale_action('draft')">{{translationsData.Savechanges}} <i class="icon-ok icon-big"></i></a>
+			
+			<button style="float: right;" class="bilq_show btn big green btn_del" onclick="sales_details.updateSales()">
+				<i class="icon-trash"></i>
+				{{translationsData.Send}}
+			</button>
+
+			<button style="float: right;margin-right:5px;" class="bilq_show btn big red btn_del" onclick="sales_details.deleteSales()">
+				<i class="icon-trash"></i>
+				{{translationsData.Delete}}
+			</button>
+			
+			{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('quotes') > -1"}}
+				<!--<a class="btn big green bilq_hide" style="margin-bottom:2px;" id="btn_create_quote" onclick="sales_details.sale_action('quotes')">{{translationsData.CreateQuote}}<i class="m-icon-big-swapright m-icon-white"></i></a>-->
+
+				<a class="btn big green bilq_hide" style="margin-bottom:2px;" id="btn_create_quotes" onclick="sales_details.sale_action('quotesnew')">{{translationsData.CreateQuote}} <i class="m-icon-big-swapright m-icon-white"></i></a>
+			{{/js_if}}
+
+			{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('orders') > -1"}}
+				<a class="btn big green bilq_hide" style="margin-bottom:2px;" id="btn_create_order" onclick="sales_details.sale_action('ordersnew')">{{translationsData.CreateOrder}}  <i class="m-icon-big-swapright m-icon-white"></i></a>
+			{{/js_if}}
+
+			{{#js_if "this.type=='partner' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('invoices') > -1"}}
+				<a class="btn big green btn_create_invoice bilq_hide" style="margin-bottom:2px;" id="btn_create_invoice" onclick="sales_details.sale_action('invoicesnew')">{{translationsData.CreateInvoice}} <i class="m-icon-big-swapright m-icon-white"></i></a>
+				
+
+				<a class="btn big green btn_schedule_invoice_h bilq_hide" style="display:none;margin-bottom:2px;" id="btn_schedule_invoice" onclick="sales_details.sale_action('scheduleinvoices')"><span class="btn_text">{{translationsData.ScheduleInvoice}}</span> <i class="m-icon-big-swapright m-icon-white"></i></a
+
+			{{/js_if}}	
+		</div>
+	</div>
+	</form>
+	<style>
+		
+		.my-btn{
+			filter: none;
+			border: 0;
+			outline: none;
+			box-shadow: none !important;
+			text-shadow: none;
+			display: inline-block;
+			margin-bottom: 0;
+			text-align: center;
+			font-size: 13px;
+			line-height: 1.5;
+			padding: 4px 10px 5px;
+			vertical-align: middle;
+			cursor: pointer;
+			color: #ffffff;
+		}
+		.dropdown.open .dropdown-toggle{
+			color:#fff;
+		}
+		.mytextarea {
+		    height: 60px !important;
+		    width: 87%;
+		}
+		.inv_err{
+			border-color: rgb(224, 34, 34) !important;
+			border-width: 2px !important;
+			border-style: solid !important;
+		}
+		#custom_delivery_note{
+			white-space: pre-line;
+		}
+		#sales_fields form.editableform > div.control-group > div{
+			width: 50%;
+			margin: 0 auto;
+		}
+	</style>
+</script>

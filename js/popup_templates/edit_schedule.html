@@ -1,0 +1,199 @@
+<script type="text/template" id="edit_schedule_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Editschedule}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+				<div class="tabbable tabbable-custom">
+					<ul class="nav nav-tabs">
+						<li  class="active">
+							<a href="#tab_1_general" data-toggle="tab" onclick="">{{translationsData.General}}</a>
+						</li>
+						<li>
+							<a href="#tab_2_notification" data-toggle="tab" onclick="">{{translationsData.Notifications}}</a>
+						</li>
+						{{#js_if "this.getPartnerCustomSettings.PartnerSetting.voluntary_allocations_manager != 0"}}
+						<li>
+							<a href="#tab_3_participant" data-toggle="tab" onclick="">{{translationsData.Participantlist}}</a>
+						</li>
+						{{/js_if}}
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab_1_general">
+							<div class="modal-body">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class="portlet-body form">
+											<div class="row-fluid">
+												<div class="span12">
+													<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_new_schedule_template_form" method="post" accept-charset="utf-8">
+													
+														<div class="control-group">
+															<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+																<div class="controls">
+																	<input name="schedule_name" class="m-wrap span9" maxlength="80" placeholder="{{translationsData.Name}}" value="{{PartnerVoluntarySchedule.name}}" id="schedule_name" type="text">
+																</div>
+														</div>
+
+														<div class="control-group">
+															<label class="control-label"><span class="required">*</span>{{translationsData.Starttime}}</label>	
+																<div class="controls">
+																	<input name="schedule_start_time " class="m-wrap span9" maxlength="80" value="{{PartnerVoluntarySchedule.start_time}}" placeholder="{{translationsData.Starttime}}" id="schedule_start_time" type="text">
+																</div>
+														</div>
+
+														<div class="control-group">
+															<label class="control-label"><span class="required">*</span>{{translationsData.Duration}} ({{translationsData.hours}})</label>	
+																<div class="controls">
+																	<input name="schedule_hours" class="m-wrap span9"  value="{{PartnerVoluntarySchedule.hours}}" placeholder="{{translationsData.Duration}}" id="schedule_hours" type="text">
+																</div>
+														</div>
+
+														<div class="control-group">
+															<label class="control-label">{{translationsData.Plannedwork}}</label>	
+																<div class="controls">
+																	<textarea name="planned_work" class="m-wrap span9"  placeholder="{{translationsData.Plannedwork}}" id="planned_work" rows="3" cols="30">{{PartnerVoluntarySchedule.planned_work}}</textarea>
+																</div>
+														</div>
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="tab-pane" id="tab_2_notification">
+							<div class="modal-body">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class="portlet-body form">
+											<div class="row-fluid">
+												<div class="span12">
+													<div class="btn-group" style="float:right;margin-top:-15px;margin-right:-15px;">
+							  							<button class="btn purple edit_schedule_dis" onclick="edit_schedule.show_popup()"><i class="icon-plus"></i>&nbsp;{{translationsData.Addnotification}}</button>
+							 						 </div>
+												</div>
+											</div>
+											<div class="form-horizontal form-view">
+												<div class="row-fluid">
+													<div class="table-responsive" style="margin-left:-15px;margin-right:-15px">	
+														<table class="table table-striped table-bordered table-hover"  id="">
+															<thead class="">
+																<tr>
+																	<th><i class="icon-list"></i> {{translationsData.Schedule}}</th>
+																	<th><i class="icon-list"></i> {{translationsData.Distribution}}</th>
+																	
+																	<th><i class="icon-ok"></i> {{translationsData.Actions}}</th>
+																</tr>
+															</thead>
+															<tbody id="notification_tbody">
+																{{#js_if "this.PartnerVoluntaryNotification.length != 0"}} 
+																	{{#each PartnerVoluntaryNotification}}
+																		{{notificationTableHelper this}}		
+																	{{/each}}
+																	<tr id="notification_template_empty_tr" style="display:none">
+																		<td colspan="3">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{else}}
+																	<tr id="notification_template_empty_tr">
+																		<td colspan="3">{{translationsData.Nodatafound}}</td>
+																	</tr>
+																{{/js_if}}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{{#js_if "this.getPartnerCustomSettings.PartnerSetting.voluntary_allocations_manager != 0"}}
+						<div class="tab-pane" id="tab_3_participant">
+							<div class="modal-body">
+								<div class="row-fluid">
+									<div class="span12">
+										<div class="portlet-body form">
+											<div class="row-fluid">
+												<div class="span12">
+													<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_new_schedule_template_form_2" method="post" accept-charset="utf-8">
+														<div class="control-group">
+															<label class="control-label">{{translationsData.Distribution}}</label>	
+															<div class="controls">
+																<select name="schedule_distribution" class="m-wrap span9" maxlength="80" value="" id="schedule_distribution">
+																	
+																	<option value="0" {{#js_if "this.PartnerVoluntarySchedule.distribution == 0"}}selected="selected"{{/js_if}}>{{translationsData.Off}}</option>
+																	
+																	<option value="1" {{#js_if "this.PartnerVoluntarySchedule.distribution == 1"}}selected="selected"{{/js_if}}>{{translationsData.$send_to_voluntary_managers}}</option>
+																</select>
+															</div>
+														</div>
+														<div class="control-group when_event_wrapper hide">
+															<label class="control-label">{{translationsData.When}}</label>	
+															<div class="controls">
+																<select name="_schedule_when_event" class="m-wrap span9" maxlength="80" value="" id="_schedule_when_event">
+																	<option value=""></option>
+																	<option value="6" {{#js_if "this.PartnerVoluntarySchedule.when == 6"}}selected="selected"{{/js_if}}>{{translationsData.$upon_sched_resched}}</option>
+																	<option value="7" {{#js_if "this.PartnerVoluntarySchedule.when == 7"}}selected="selected"{{/js_if}}>{{translationsData.$the_day_before}}</option>
+																	<option value="8" {{#js_if "this.PartnerVoluntarySchedule.when == 8"}}selected="selected"{{/js_if}}>{{translationsData.$the_same_day}}</option>
+																</select>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{{/js_if}}
+					</div>	
+				</div>
+			</div>	
+		</div>	
+	</div>	
+</div>
+<div class="modal-footer">
+	<div class="" style="float:left">
+		<button class="btn red edit_schedule_diss" type="button" id="edit_schedule_btn_delete">
+			{{translationsData.Delete}}
+			<i class="icon-trash"></i>
+		</button>	
+	</div>
+	<div class="btn-group">
+		<button class="btn blue edit_schedule_dis" type="button" id="edit_schedule_btn_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+.btnclr{
+	width:100%;
+	text-align:center;
+	clear:both;
+}
+.icon_sp:before{
+	cursor:pointer;
+}
+.icon_sp{
+	margin:0 3px;
+}
+.icon_sp_green{
+	color:#35aa47;
+}
+.icon_sp_gray{
+	color:#9F9F9F;
+}
+</style>
+</script>

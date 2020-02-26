@@ -1,0 +1,38 @@
+<script type="text/template" id="add_new_exempt_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Addexemptreason}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_new_exempt_form" method="post" accept-charset="utf-8">
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+							<div class="controls">
+								<input name="name" class="m-wrap span9" maxlength="80" value="" placeholder="{{translationsData.Name}}" id="name" type="text">
+							</div>
+					</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="add_new_exempt_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div#uniform-penalty,div#uniform-deduct_hours{
+	margin-top: 8px;
+}
+</style>
+</script>

@@ -1,0 +1,76 @@
+/*.row-fluid .span6 {
+	width: 100%;
+}*/
+.general_info1{
+	width:47%;
+	float:left;
+	margin-right:30px;
+}
+.general_info2{
+	width:50%;
+	float:left;
+}
+.recent_act{
+	width:100%;
+}
+
+.modal {
+	width: 620px;
+	margin-left: -280px;
+}
+.span61 {
+    width: 710px;
+}
+
+.page-sidebar {
+    display: block;
+}
+
+
+.table-toolbarrs {
+    margin-top: 15px;
+}
+table.infotable th, table.infotable td{
+	line-height: 33px;
+}
+.btn-group1:first-child {
+    float: right;
+}
+.dashboard-stat .details{
+	width: auto;
+}
+a.navclass{
+	width:0px;
+}
+a.glyphicons span{
+	margin:2px;
+	width:0px;
+}
+a.navclass:hover{
+	background-color:#fff;
+}
+/*
+.dashboard-stat.orange {
+    background-color: #FE5E00;
+}
+.dashboard-stat.orange .more {
+    background-color: #CE3A12;
+}*/
+
+.label-unassigned {
+    background-color: #FE5E00;
+    background-image: none !important;
+    text-shadow: none !important;
+}
+
+.table-custom th, .table-custom td {
+    border-top: 0px solid #DDDDDD !important;
+}
+
+.alert-success {
+	color: #468847;
+	/* background-color: #FFFFAA; */
+	border-color: #d6e9c6;
+}
+
+table.table tbody tr td.list_note{vertical-align: top !important;}

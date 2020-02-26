@@ -1,0 +1,543 @@
+<script type="text/html" id="manual_digipost_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Customers}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Customernumber}} {{customerData.customer_number}}</a>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar">
+					<li class="btn-group">
+						<button class="dropdown-toggle btn blue" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" type="button">
+							<span class="hidden-phone">{{translationsData.Actions}}</span><i class="icon-cogs visible-phone"></i><i class="icon-angle-down"></i>
+						</button>
+						<ul role="menu" class="dropdown-menu pull-right">
+							
+								{{#js_if "this.type != 'customer'"}}
+								<li class="if_cust_activez">
+									<a class="customer_send_email" id="customer_edit_{{customerData.id}}" onclick="customer_details.send_email()" style="display:none;cursor:pointer"><i class="icon-envelope-alt" style="color:#000000;margin-left:0px;"></i>
+										{{translationsData.Sendemail}}
+									</a>
+								</li>
+
+								<li class="if_cust_activez">
+									<a class="customer_save_email" id="customer_edit__{{customerData.id}}>" onclick="customer_details.save_send_email()" style="display:none;cursor:pointer"><i class="icon-envelope-alt" style="color:#000000;margin-left:0px;"></i>
+										{{translationsData.Sendemail}}
+									</a>
+								</li>
+
+								<li class="if_cust_activez">
+									<a id="customer_edit_<?php echo @$cid; ?>"  onclick="customer_details.send_sms()"  style="cursor:pointer;display:none" class="customer_send_sms"><i class="icon-comment" style="color:#000000;margin-left:0px;"></i>
+										{{translationsData.SendSMS}}
+									</a>
+								</li class="if_cust_activez">
+
+								<li class="divider if_cust_activez"> </li>
+
+								{{js_if "this.type!='customer'"}}
+									<li class="if_cust_activez">
+										<a style="cursor:pointer"  onclick="customer_details.showTabs('new_sales')" ><i class="icon-plus" style="color:#000000;margin-left:0px;"></i>
+										{{translationsData.Newsalesdocument}}
+										</a>
+									</li>
+								
+
+								{{#js_if "this.type!='customer' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('tasks') > -1"}}
+									<li lass="if_cust_activez">
+										<a style="cursor:pointer" onclick="customer_details.showTabs('add_new_task')"><i class="icon-plus" style="color:#000000;margin-left:0px;"></i>
+											{{translationsData.Addnewtask}}
+										</a>	
+									</li>
+								{{/js_if}}
+								<li class="if_cust_activez">
+									<a style="cursor:pointer" data-width="940px" onclick="customer_details.showTabs('add_contact')"><i class="icon-plus" style="color:#000000"></i>
+									{{translationsData.Addcontact}}
+									</a>
+								</li>
+
+							{{#js_if "this.type != 'customer'"}}
+							<li>
+								<a style="cursor:pointer" data-width="940px" onclick="customer_details.showTabs('transactions')"><i class="icon-money" style="color:#000000"></i>
+								{{translationsData.Transactions}}
+								</a>
+							</li>
+							{{/js_if}}
+
+							{{#js_if "this.type!='customer' && Object.values(this.getPartnerSubscribedPlanModules).indexOf('voluntary') > -1"}}
+							<li>
+								<a style="cursor:pointer" onclick="new_custom_popup(800,'popups','add_manual_hours',{customer_id:{{customerData.id}}});"><i class="icon-wrench" style="color:#000000"></i>
+									{{translationsData.Voluntarywork}}
+								</a>
+							</li>
+							{{/js_if}}
+
+							{{#js_if "this.type != 'customer'"}}
+							<li class="divider"></li>
+							{{/js_if}}
+							
+								<li class="if_cust_active">
+									<a style="cursor:pointer" data-width="940px" onclick="customer_details.activate(0)"><i class="icon-lock" style="color:#000000"></i>
+									{{translationsData.Settoinactive}}
+									</a>
+								</li>
+								
+								<li class="if_cust_inactive">
+									<a style="cursor:pointer" data-width="940px" onclick="customer_details.activate(1)"><i class="icon-unlock" style="color:#000000"></i>
+									{{translationsData.Settoactive}}
+									</a>
+								</li>
+
+								<li class="divider"></li>
+							
+
+							{{#js_if "this.type != 'customer'"}}
+							<li>
+								<a style="cursor:pointer" data-width="900px" onclick="customer_details.showTabs('search');"><i class="icon-search" style="color:#000000"></i>
+									{{translationsData.Search}}
+								</a>
+							</li>
+							{{/js_if}}
+
+							<li>
+								<a onclick="customer_details.back()" style="cursor:pointer" href="javascript:;"><i class="m-icon-swapleft m-icon-black"></i>
+									{{translationsData.Back}}
+								</a>
+							</li>
+						</ul>
+					</li>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<div class="row-fluid profile-info">
+		<div class="span8">
+			<div class="row-fluid" style="margin-bottom:4px">
+				<div style="float:left;width:40px;position: relative;">
+					<a class="gravatar_img_pre" data-fancybox href="{{protocol}}//www.gravatar.com/avatar/{{customerData.hashemail}}?s=400&d=404"><img src="{{protocol}}//www.gravatar.com/avatar/{{customerData.hashemail}}?s=70&d=404" alt="{{customerData.initials}}" class="gravatar gravatar_img" style="display:none"></a>
+					<p class="gravatar gravatar_initial">{{customerData.initials}}</p>
+					<span class="badge badge-important badge-inactive" style="position: absolute;top: -8px;left:26px;padding: 1px 4px;display: none">{{translationsData.Inactive}}</span>
+				</div>
+				<div class="span11" style="margin-left:5px;">
+					<div class="row-fluid c_name">
+						<h1><a name="customer_name" id="customer_name" style="font-weight:bold">{{customerData.customer_name}}</a></h1>
+					</div>
+					<div class="row-fluid ein_birth hide">
+						{{#js_if "this.customerData.user_group_id==2"}}
+								<p style="float: left;width: 100%;color: #6b6b6b;margin-bottom:0">
+									<span class="eeinn eeinn_notempty"  style="float:left;width:auto">{{translationsData.$comp_reg}}&nbsp;</span>
+									<a id="cust_ein" name="cust_ein" data-type="ein"   style="float:left:width:auto"></a>
+								</p>
+							{{else}}
+								<p style="float: left;width: 100%;color: #6b6b6b;margin-bottom:0">
+									<span class="dob dob_notempty" style="float:left">{{translationsData.$bir_date}}&nbsp;</span>
+									<a name="cust_date_of_birth" id="cust_date_of_birth" data-type="dob"   style="float:left;width:auto"></a>
+								</p>
+						{{/js_if}}
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span4">
+					<ul class="unstyled gravatar_ul" style="float: left;">
+						<li style="float: left;width: 100%;"> 
+							<i class="icon-envelope-alt tooltips"  data-original-title="{{translationsData.Postaladdress}}" data-placement="bottom"  style=";margin-left:0;float:left;"></i>
+							<p style="margin:0;float:left">&nbsp;</p>
+							<a name="cust_postal_address" id="cust_postal_address" data-type="address3"></a>
+						</li>
+						<li style="float: left;width: 100%;"> 
+							<i class="icon-map-marker tooltips" data-original-title="{{translationsData.Deliveryaddress}}" data-placement="bottom" style="margin-left:0;float:left"></i><p style="margin:0;float:left">&nbsp;</p>
+							<a name="cust_delivery_address" id="cust_delivery_address" data-type="address4"></a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="span4">
+					<ul class="unstyled">
+						<li>
+							<i class="icon-phone tooltips" data-original-title="{{translationsData.Phone}}" data-placement="bottom"></i>
+							<a name="cust_phcodephone" id="cust_phcodephone" data-type="phonecode"  data-country-code="{{customerData.phone_country_code}}"  data-val="{{customerData.format_phone}}"></a>
+							
+						</li>
+						<li>
+							<i class="icon-mobile-phone tooltips" data-original-title="{{translationsData.Cellphone}}" data-placement="bottom" style="margin-left:0px;"></i>
+							<a name="cust_cellcodephone" id="cust_cellcodephone" data-type="cellcode" data-country-code="{{customerData.cellphone_country_code}}" data-val="{{customerData.format_cellphone}}"></a>
+						</li>
+
+						<li>
+							<i class="fa fa-at tooltips icon-mobile-phone" style="" aria-hidden="true" data-original-title="{{translationsData.$email}}" data-placement="bottom"></i>
+							<a id="cust_email_edit" name="cust_email_edit"></a>
+						</li>
+						
+					</ul>
+				</div>
+
+				<div class="span4">
+					<ul class="unstyled cust_sel_fields">
+						<li data-name="default_distribution" class="custom_fields_li hide">
+							<!--<i class="icon-globe tooltips" data-original-title="{{translationsData.Invoicesdistribution}}" data-placement="bottom"></i>-->
+							{{translationsData.Preferreddistribution}}:
+							<a name="default_distribution_card" id="default_distribution_card"></a>
+						</li>
+
+						<li data-name="do_not_send_reminders" class="custom_fields_li hide">
+							<!--<i class="icon-bell tooltips" data-original-title="{{translationsData.Paymentreminders}}" data-placement="bottom"></i>-->
+							{{translationsData.Paymentreminders}}:
+							<a name="do_not_send_reminders_card" id="do_not_send_reminders_card" class="editable editable-click">Do not send reminders</a>
+						</li>
+
+
+						<li data-name="customer_and_price_groups" class="custom_fields_li hide">
+							<a name="customer_and_price_groups_card" id="customer_and_price_groups_card" data-type="group"></a>
+						</li>
+
+
+						{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('communications') > -1"}}
+						<li data-name="newsletter_updates" class="custom_fields_li hide">
+							<!--<i class="icon-info-sign tooltips" style="" aria-hidden="true" data-original-title="{{translationsData.Newslettersandupdates}}" data-placement="bottom"></i>-->
+							{{translationsData.Newslettersandupdates}}:
+							<a name="newsletter_updates_card" id="newsletter_updates_card"></a>
+						</li>
+						{{else}}
+						<a style="display: none" name="newsletter_updates_card" id="newsletter_updates_card"></a>
+						{{/js_if}}
+
+						<li data-name="credit_days" class="custom_fields_li hide">
+							<!--<i class="fa fa-gavel tooltips" data-original-title="{{translationsData.Paymentterms}}" data-placement="bottom"></i>-->
+							{{translationsData.Paymentterms}}:
+							<a name="credit_days_card" id="credit_days_card"></a>
+							<div class="custom_credit_days_wrapper_card hide">
+								{{translationsData.Creditdays}}:
+								<a name="custom_credit_days_card" id="custom_credit_days_card"></a>
+							</div>
+							
+						</li>
+
+
+
+				</div>
+			</div>
+
+		</div>
+		<div class="span4">
+
+			<div class="portlet sale-summary" id="sales_summary">
+				<div class="portlet-title">
+					<div class="caption">{{translationsData.SalesSummary}}</div>
+					<div class="tools">
+						<a class="reload" href="javascript:;" onclick="event.stopPropagation();customer_details.getSummary();"></a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<ul class="unstyled">
+						<li style="margin-right:0px;">
+							<span class="sale-info">{{translationsData.Salesthisyear}}</span><!-- TOTALSALES -->
+							<span class="sale-num total_sales">&nbsp;<img src="{{inline_loader}}"></span>
+						</li>
+
+						<li style="margin-right:0px;">
+							<span class="sale-info">{{translationsData.BALANCE}}</span>
+							<span class="sale-num customer_balance">&nbsp;<img src="{{inline_loader}}"></span>
+						</li>
+
+						<li style="margin-right:0px;">
+							<span class="sale-info">{{translationsData.NOTYETDUE}}</span>
+							<span class="sale-num current_balance">&nbsp;<img src="{{inline_loader}}"></span>
+						</li>
+
+						<li style="margin-right:0px;">
+							<span class="sale-info">{{translationsData.OVERDUE}}</span>
+							<span class="sale-num overdue_balance">&nbsp;<img src="{{inline_loader}}"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a id="open_new_customer_task"  class="hide" onclick="show_modal(this,'popups1');" data-width="800px" href="javascript:;" data-url=""><i class="icon-search"></i>&nbsp;</a>
+
+	<div class="row-fluid">
+		<div class="tabbable tabbable-custom " style="margin-bottom:0px;">
+			<ul class="nav nav-tabs hidden-phone tab_web_site"> 
+
+				<li class="active" id="tab_contact">
+					<a href="#tab_1_1" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('contacts','tab_1_1')">
+						{{translationsData.Contacts}}
+					</a>
+				</li>
+				{{#js_if "this.getPartnerCustomSettings.enable_personal_email == 'y'"}}
+				<li id="tab_1_1_2">
+					<a href="#tab_1_1_2" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('communications','tab_1_1_2')">
+						{{translationsData.Communications}}
+					</a>
+				</li>
+				{{/js_if}}
+
+				{{#js_if "this.type != 'customer'"}}
+					{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('quotes') > -1"}}
+						<li id="quoteTab">
+							<a href="#tab_1_2" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('quotes')">
+							{{translationsData.Quotes}}
+							</a>
+						</li>
+					{{/js_if}}
+
+					{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('orders') > -1"}}
+					<li id="tab_1_3">
+						<a href="#tab_1_3" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('orders','tab_1_3')">
+						{{translationsData.Orders}}
+						</a>
+					</li>
+					{{/js_if}}
+
+
+					<li id="tab_1_4">
+						<a href="#tab_1_4" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('invoices','tab_1_4')">
+						{{translationsData.Invoices}}
+						</a>
+					</li>
+
+					{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('tasks') > -1"}}
+					<li id="tab_1_6">
+						<a href="#tab_1_6" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('tasks','tab_1_6');$('#sel-section').text($(this).text());">
+						{{translationsData.Tasks}}
+						</a>
+					</li>
+
+					{{/js_if}}
+
+					
+					{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('marina') > -1"}}
+					<li id="tab_1_8">
+						<a href="#tab_1_8" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('slips','tab_1_8');$('#sel-section').text($(this).text());">
+						{{translationsData.Slips}}
+						</a>
+					</li> 
+
+
+					<li id="tab_1_9">
+						<a href="#tab_1_9" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('meters','tab_1_9');$('#sel-section').text($(this).text());">
+						{{translationsData.Meters}}
+						</a>
+					</li>
+					{{/js_if}}
+
+					{{#js_if "Object.values(this.getPartnerSubscribedPlanModules).indexOf('voluntary') > -1"}}
+					<li id="tab_1_11">
+						<a href="#tab_1_11" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('voluntary_work','tab_1_11');">
+						{{translationsData.Voluntarywork}}
+						</a>
+					</li>
+					{{/js_if}}
+
+					<li id="tab_1_10">
+						<a href="#tab_1_10" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('other_info','tab_1_10');$('#sel-section').text($(this).text())">
+						{{translationsData.Otherinformation}}
+						</a>
+					</li>
+
+					<li id="tab_1_5">
+						<a href="#tab_1_5" data-toggle="tab" onclick="$('#customer_tab_content').empty();customer_details.showTabs('recent_activity','tab_1_5');$('#sel-section').text($(this).text())">
+						{{translationsData.Recentactivities}}
+						</a>
+					</li>
+				{{/js_if}}
+			</ul>
+		</div>
+		<div class="tab-pane active mobile-tab clear" id="customer_tab_content" style="background-color: #fff; border: 1px solid #ddd; border-radius: 0; padding: 10px;">
+			<div class="row-fluid profile">
+				<div class="span12">
+				  	<div class="row-fluid hidden-phone">
+						<div class="span12">
+							<div class="btn-group" style="float:right;">
+								<button class="btn purple" id="add_customer" onclick="show_modal(this,'popups');" data-width="750px" data-url="{{base_url}}customers/add_contact/{{customerData.id}}?customer_status={{customer_status}}"><i class="icon-plus"></i>&nbsp;{{translationsData.Addcontact}}</button>
+							</div>
+						</div>
+					</div>
+					<div class="table-responsive" style="clear:both;margin-top:5px;">
+				 		<table class="table table-striped table-bordered table-hover" id="customer_contact_list">
+				 			<thead class="">
+				      			<tr>
+							        <th class="cls_srno"><i class="icon-list"></i> {{translationsData.$srno}}</th>
+									<th style="width:11%;"><i class="icon-user"></i> {{translationsData.Lastname}}</th>
+									<th style="width:11%;"><i class="icon-user"></i> {{translationsData.Firstname}}</th>
+									<th style="width:13%;"><i class="icon-asterisk"></i> {{translationsData.$email}}</th>
+									<th style="width:11%;"><i class="icon-mobile-phone"></i> {{translationsData.Cellphone}}</th>
+									<th style="width:8%;"><i class="icon-cog"></i> {{translationsData.Status}}</th>
+									<th class="cls_default_contact"><i class="icon-cog"></i> {{translationsData.Defaultcontact}}</th>
+									<th class="action-block-2"><i class="icon-ok"></i> {{translationsData.Action}}</th>
+							      </tr>
+				    		</thead>
+				    		<tbody>
+				    		</tbody>
+				 		</table>
+				 	</div>
+				</div>
+				<input type="hidden" id="confiem_msg" value="{{translationsData.$sure_del_cntt}}">
+				<input type="hidden" id="confirmation_btn_text" value="{{translationsData.Warning}}">
+			</div>
+			<style>
+
+					.dataTables_paginate.paging_input,.dataTables_length{
+						float: left;
+						width: auto;
+						margin-right: 5px;
+					}
+					div.dataTables_info{
+						padding-top:4px;
+
+					}
+					.dataTables_length label{
+						font-size:13px !important;
+						margin-right: 5px;
+						margin-bottom:0;
+					}
+					div.dataTables_length select{
+						margin-right:2px !important;
+					}
+
+					.prev,.next{
+						padding: 7px 10px 8px !important;
+					}
+					.input-mini{
+						text-align: center;
+						margin: 0 5px;
+						width:22px;!important
+					}
+			</style>
+		</div>		
+	</div>
+	<style>
+	.profile-info h1{
+		margin-bottom: 0;
+		font-weight: 300;
+	}
+	/*
+	.editable-input input,.editable-input select{
+		width:100%;
+	}
+	.editable-input  a.select2-choice{
+		width:84%;
+	}*/
+	.editable-input input{
+		max-height: 20px !important;
+	}
+	.editable-click, a.editable-click, a.editable-click:hover{
+		font-style:italic !important;
+		border:none !important;
+	}
+	.editable-buttons i{
+		color:#fff !important;
+	}
+	#cust_postal_address p,#cust_delivery_address p {
+		margin:0;
+		float: left;
+		clear:both;
+		line-height: 20px;
+	}
+	#cust_postal_address,#cust_delivery_address{
+		float: left;
+		width: 86%;
+		margin-bottom:5px;
+	}
+	/*
+	a#cust_groups:hover a#cust_groups i{
+		color: #b5c1c9 !important;
+	}*/
+	.hh:hover .hh_i{
+		color:#169ef4 !important;
+	
+	}
+	.hh p{
+		width:auto;
+		float:left;
+	}
+	#cust_groups_li:hover #cust_groups > p > i{
+		color: #b5c1c9;
+	}
+	#cust_groups p {
+		margin:0;
+	}
+	.dataTables_paginate.paging_input{
+		float: left;
+		width: auto;
+		margin-right: 5px;
+	}
+	div.dataTables_info{
+		padding-top:3px;
+
+	}
+	.dataTables_length label{
+		font-size:13px !important;
+		margin-bottom:0;
+		margin-right: 5px;
+	}
+
+	.prev,.next{
+		padding: 7px 10px 8px !important;
+	}
+	.input-mini{
+		text-align: center;
+		margin: 0 5px;
+		width:22px;!important
+	}
+	p.hh{
+		margin-bottom:0
+	}
+	{{#js_if "this.getPartnerCustomSettings.enable_social_images == 'y'"}}
+	
+	.gravatar{
+		margin: 0;
+	    height: 40px;
+	    width: 40px;
+	    background-color: gray;
+	    text-align: center;
+	    vertical-align: middle;
+	    color: #fff;
+	    line-height: 40px;
+	    border-radius: 50% !important;
+	    font-size: 1.2em;
+	    font-weight: bold;
+	}
+	.gravatar_ul{
+		margin-left:10px !important;
+	}
+	{{/js_if}}
+	.profile-info h1{
+		margin-bottom:-9px !important;
+	}
+	.align_div{
+		display: flex;
+		align-items:center;
+		height:40px;
+	}
+	.c_name .editable-container{
+		margin-bottom:10px;
+	}
+
+	a[data-wysihtml5-command="insertUnorderedList"],a[data-wysihtml5-command="insertOrderedList"],a[data-wysihtml5-command="Outdent"],a[data-wysihtml5-command="Indent"]{
+		padding:8.5px 14px;
+	}
+
+	a[data-wysihtml5-command="insertImage"],a[data-wysihtml5-command="createLink"]{
+		display:none;
+	}
+	
+
+	
+	
+
+</style>
+</script>

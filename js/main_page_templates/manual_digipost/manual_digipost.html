@@ -1,0 +1,335 @@
+<script type="text/template" id="manual_digipost_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Manualdigipost}}</a>
+						</li>
+				</ul>
+				<div class="nw-page-toolbar">
+					<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline green btn_app hide">
+						<i class="icon-ok"></i>
+						{{translationsData.Approve}} 	
+					</button>
+					<button style="margin-right: 2px; margin-top: 1px;" class="btn btn-outline gray btn_dis hide">
+						<i class="icon-remove"></i>
+						{{translationsData.Discard}} 	
+					</button>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<form action="/" class="form-horizontal" id="manual_digipost_template_from" onsubmit="event.returnValue = false; return false;" method="post" accept-charset="utf-8" novalidate="novalidate">
+
+		<div class="portlet box blue" id="manual_digipost_form_wizard">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="icon-reorder"></i> {{translationsData.Manualdigipost}}  - <span class="step-title">{{translationsData.Step}} 1 {{translationsData.of}} 4</span>
+				</div>				
+			</div>
+			<div class="portlet-body form">
+				<div class="form-wizard">
+					<div class="navbar steps">
+						<div class="navbar-inner">
+							<ul class="row-fluid nav nav-pills">
+								<li class="span3 active">
+									<a href="#tab1" data-toggle="tab" class="step ">
+									<span class="number">1</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Upload}} {{translationsData.Excel}}/{{translationsData.CSV}}</span>   
+									<span class="small_triangle"></span></a>
+								</li>
+								<li class="span3">
+									<a href="#tab2" data-toggle="tab" class="step">
+									<span class="number">2</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Upload}} {{translationsData.letter}}</span>   
+									</a>
+								</li>
+								<li class="span3">
+									<a href="#tab3" data-toggle="tab" class="step active">
+									<span class="number">3</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Setreturnaddress}}</span>   
+									</a>
+								</li>	
+								<li class="span3">
+									<a href="#tab4" data-toggle="tab" class="step">
+									<span class="number">4</span>
+									<span class="desc"><i class="icon-ok"></i>{{translationsData.Summary}}</span>   
+									</a>
+								</li>													
+							</ul>
+						</div>
+					</div>
+
+					<div id="bar" class="progress progress-success progress-striped">
+						<div class="bar_wizard" style="width: 25%;"></div>
+					</div>
+
+
+					<div class="tab-content">
+
+						<div class="tab-pane active" id="tab1">
+							<div class="row-fluid">
+								<div class="span12">										
+									<div class="control-group">
+										<label class="control-label">{{translationsData.Customerdetails}}<span class="required">*</span></label>
+										<div class="controls">
+											<div class="inbox-compose-attachment">
+											    <div class="row-fluid fileupload-buttonbar pull-right">
+											        <span class="btn green fileinput-button">
+														<i class="icon-plus icon-white"></i>
+														<span>{{translationsData.Select}}</span>
+											        	<input name="xlsx_file" id="xlsx_file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+											        </span>
+											       
+											        <span class="excel_file_name">
+														
+													</span>
+											    </div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="row-fluid" id="">
+								<div class="span12"  id="sheets_select">
+								</div>
+								<div class="span12" id="sheets_headers">
+								</div>
+								<div class="span12" id="sheets">
+								</div>
+							</div>
+							
+
+						</div>
+
+						<div class="tab-pane" id="tab2">
+							<div class="row-fluid">
+								<div class="span12">	
+																
+										<div class="control-group">
+											<label class="control-label">{{translationsData.Letter}}<span class="required">*</span></label>
+											<div class="controls">
+												<div class="inbox-compose-attachment">
+												    <div class="row-fluid fileupload-buttonbar pull-right">
+												        <span class="btn green fileinput-button">
+															<i class="icon-plus icon-white"></i>
+															<span>{{translationsData.Select}}</span>
+												        	<input name="pdf_letter" id="pdf_letter" type="file" >
+												        	
+												        </span>
+												         <span class="pdf_file_name"></span>
+												    </div>
+												</div>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="tab3">
+							<div class="row-fluid">
+								<div class="span12">				
+									<div class="control-group">
+										<label class="switch-small" style="width:auto;float:left;margin:0 5px 0 0">{{translationsData.Customreturnaddress}}</label>
+										<div class="controls">
+											<div class="switch switch-small" id="customerReturnAddress" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+												<input type="checkbox" class="toggle" id="" name="customer_return_address"/>
+											</div>
+										</div>
+									</div>
+
+									<div class="control-group return_address_wrap">
+										<label class="control-label">{{translationsData.Returnaddress}}<span class="required">*</span></label>
+										<div class="controls">
+											<select name="return_address" class="m-wrap span6" id="return_address">
+												<option value=""></option>
+												{{#js_if "this.partnerReturnAddress.length != 0"}} 
+													{{#each partnerReturnAddress}}
+															{{partnerRetAddrListHelper PartnerReturnAddress}}								
+													{{/each}}
+												{{/js_if}}
+												<option value="create_new">{{translationsData.Createnew}}</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="control-group return_address_wrap1 hide">
+										<label class="control-label"><span class="required">*</span>{{translationsData.Returnaddress}}</label>	
+										<div class="controls">
+											<input name="name" class="m-wrap span6" placeholder="{{translationsData.Name}}" id="name" type="text">										
+										</div>
+									</div>
+
+									<div class="control-group return_address_wrap1 hide">	
+										<div class="controls">
+											<input name="address1" class="m-wrap span6" placeholder="{{translationsData.Address1}}" id="address1" type="text">										
+										</div>
+									</div>
+
+									<div class="control-group return_address_wrap1 hide">
+										<div class="controls">
+											<input name="address2" class="m-wrap span6" placeholder="{{translationsData.Address2}}" id="address2" type="text">										
+										</div>
+									</div>
+
+									<div class="control-group return_address_wrap1 hide">	
+										<div class="controls">
+											<div class="span6">
+												<div class="span3">
+													<input name="zip" class="m-wrap span12" maxlength="80" value="" placeholder="{{translationsData.Zip}}" id="zip" type="text">
+												</div>
+												<div class="span9">
+													<input name="city" class="m-wrap span12" maxlength="80" value="" placeholder="{{translationsData.City}}" id="city" type="text">
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" id="tab4">
+							<div class="row-fluid">
+								<div class="span12">
+									<div class="table-responsive" id="summary_table">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="form-actions clearfix" style="padding-left:12px !important; text-align:center;">
+						<ul>	
+							<li>
+								<p href="javascript:;" style="float: left; margin-left: -0.5%;" id="btn_count" class=" count hide">
+									count
+								</p>
+							</li>		
+							<li>
+								<a href="javascript:;" style="float: left; margin-left: -0.5%;" id="btn_back" class="btn button-previous hide">
+									<i class="m-icon-swapleft"></i> {{translationsData.Back}} 
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" style="float: right;margin-right:5px" class="btn blue button-next" id="">
+									{{translationsData.Next}}  
+									<i class="m-icon-swapright m-icon-white"></i>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" style="float: right;margin-right:5px" class="hide btn btn_clear btn_dis">
+									<i class="icon-remove"></i>
+									{{translationsData.Discard}}									
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" style="float: right;margin-right:5px" class="hide btn green btn_app" ><i class="icon-ok"></i> 
+									{{translationsData.Approve}} 									
+								</a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>	
+	<style>
+		#content #summary_table{
+			margin-bottom:10px;
+		}
+		#content .navbar-inner a{
+			padding:10px 4px 10px !important;
+		}
+		#content .form-actions.clearfix li{
+			display: inline;
+			list-style: outside none none;
+		}
+		#content .progress-success.progress-striped .bar_wizard, .progress-striped .bar_wizard-success {
+			background-color: #62c462;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+		}
+		#content .progress-success .bar_wizard, .progress-danger .bar_wizard, .progress-info .bar_wizard, .progress-warning .bar_wizard {
+			background-image: none !important;
+			filter: none !important;
+		}
+		#content .progress-success .bar_wizard, .progress .bar_wizard-success {
+			background-color: #5eb95e;
+			background-image: linear-gradient(to bottom, #62c462, #57a957);
+			background-repeat: repeat-x;
+		}
+		#content .progress-striped .bar_wizard {
+			background-color: #149bdf;
+			background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+			background-size: 40px 40px;
+		}
+		#content .progress .bar_wizard {
+			background-color: #0e90d2;
+			background-image: linear-gradient(to bottom, #149bdf, #0480be);
+			background-repeat: repeat-x;
+			box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+			box-sizing: border-box;
+			color: #fff;
+			float: left;
+			font-size: 12px;
+			height: 100%;
+			text-align: center;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			transition: width 0.6s ease 0s;
+			width: 0;
+		}
+		#content .bar_wizard {
+			background: #c0cfdd none repeat scroll 0 0;
+			height: 14px;
+		}
+		#content .bar {
+			height: 14px;
+			background: #c0cfdd;
+		}	
+		#content .inbox-compose-attachment{
+			padding: 4px 0 0 0 !important;
+			float: left;
+			width: auto;
+		}
+		[no-margin-left]{
+			margin-left:0
+		}
+		#content .return_address_wrap1{
+			margin-bottom:5px !important;
+		}
+		#content #customer_ignore{
+			margin-top:15px;
+		}
+		#content #sheets_select{
+			min-height:0;
+		}
+		#content .eg{
+			width:100%;
+		}
+		#content #sheets div.controls div{
+			margin-right:10px;
+		}
+		#content div.dataTables_info{
+			padding-top:4px !important;
+
+		}
+		#content #summaryTable_length{
+			display: block;
+			float: left;
+			margin-right: 10px;
+		}
+	</style>
+</script>

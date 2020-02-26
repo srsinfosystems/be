@@ -1,0 +1,117 @@
+<script type="text/template" id="partner_register_template">
+
+		<div class="response_message hide">
+			<div class="alert alert-danger hide">
+			</div>
+			<div class="alert alert-success hide">
+			</div>			
+		</div>
+
+
+
+		<div class="row resend_link hide">
+			<div class="col-sm-12 text-center">
+				<input type="hidden" id="last_req_id" value="">
+				<button class="btn green" type="submit" onclick="partner_register.resendLink()"> {{translationsData.resend_link}}</button>
+			</div>
+		</div>
+			<!-- step 1 -->
+			<form action="javascript:;" class="login-form step1" method="post">
+			<h1>{{translationsData.Register}} </h1>
+				<div class="row">
+					<div class="col-xs-6">
+						<input name="partner_first_name" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.firstname}}" id="PartnerFirstName" type="text">
+						</div>
+					<div class="col-xs-6">
+						<input name="partner_last_name" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.lastname}}" id="PartnerLastName" type="text">	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6 email_section">
+						<div class="load_img  hide" style="position: absolute;right: 16px;top: 6px;">
+							<img src="/img/loading.gif">
+						</div>
+						<input name="email" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.email}}" id="PartnerEmail" type="email">
+						<label class="help-inline help-small hide help-block" style="position:absolute;top:32px">{{translationsData.invalidemail_msg}}</span>
+						</div>
+					<div class="col-xs-6">
+						<input name="cellphone" class="form-control form-control-solid placeholder-no-fix form-group" style="padding-left:45px" placeholder="{{translationsData.cellphone}}" id="PartnerPhone" type="text">
+					</div>
+				</div>
+				<input type="hidden" id="from_w" value="">
+				<input type="hidden" id="fromwdata" value="">
+				<div class="row">
+					<div class="col-sm-12 text-right">
+						<button class="btn green" type="submit" onclick="partner_register.checkStep()"> 
+							{{translationsData.Register}}
+							<i class="fa fa-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+  		<!-- step 1 -->                      
+		<!-- step 2 
+		<form class="step2 login-form" action="#">
+			<h1>{{translationsData.step}} 2/2</h1>
+			<div class="row">
+					<div class="col-xs-12">
+						<div class="load_img hide" style="position: absolute;right: 16px;top: 6px;">
+							<img src="/img/loading.gif">
+						</div>
+						<input name="partner_EIN" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.EIN}}" id="PartnerEIN" type="text">
+								<div id="show_ein_data" class="hide">
+									<div class="box">
+											<ul class="list-unstyled ungrouped">
+												<li><a href="javascript:void(0)" class="pull-right" onclick="partner_register.editEINData();"><i class="icon-pencil"></i></a></li>
+												<li><span id="b_name"></span></li>
+												<li><span id="postal_address"></span></li>	
+												<li><span id="postal_zip"></span></li>						
+												<li><span id="postal_city"></span>, <span id="postal_country"></span></li>
+											</ul>
+									</div>
+								</div>
+								<div id="edit_ein_data" class="hide">
+									<div class="box">
+											<ul class="list-unstyled ungrouped">
+												<li class="col-xs-8"><a href="javascript:void(0)" class="pull-right" onclick="partner_register.saveEINData();"><i class="icon-check"></i></a></li>
+												<li class="col-xs-8"><input name="b_name" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.b_name}}" id="EINb_name" type="text"></li>
+												<li class="col-xs-8"><textarea name="postal_address" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.postal_address}}" id="EINpostal_address"></textarea></li>	
+												<li class="col-xs-8"><input name="postal_zip" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="{{translationsData.postal_zip}}" id="EINpostal_zip" type="text"></li>				
+												<li class="col-xs-8"><input name="postal_city" class="form-control form-control-solid placeholder-no-fix form-group pull-left" placeholder="{{translationsData.postal_city}}" id="EINpostal_city" type="text" style="width:48%;margin-right:10px";>
+												<input name="postal_country" class="form-control form-control-solid placeholder-no-fix form-group" style="width:49%"; placeholder="{{translationsData.postal_country}}" id="EINpostal_country" type="text"></li>
+											</ul>
+									</div>
+								</div>
+					</div>
+			</div>
+
+			<div class="pull-left"> 
+					<label class="mt-checkbox mt-checkbox-outline">
+						<input type="checkbox" name="accept_terms" value="1" /> {{translationsData.accept}} <a href="#" target="_blank">{{translationsData.terms_of_service}}</a> {{translationsData.and}} <a href="#" target="_blank">{{translationsData.privacy_policy}}</a>
+						<span></span>
+					</label>
+			</div>
+			
+			<div class="form-actions">			
+				<button id="next_btn2" class="btn green pull-right" onclick="partner_register.checkForm()" disabled>
+					{{translationsData.Register}}
+				</button>  			   
+				<button type="button" id="previous_btn2" class="btn green pull-right" style="margin-right:8px" onclick="partner_register.showStep(1)">
+					{{translationsData.previous}} 
+				</button>   		 
+			</div>
+
+		</form>
+		 step 2 -->	
+		 <style>
+			.intl-tel-input.allow-dropdown{width:100%;}
+			.intl-tel-input .flag-container{height: 30px}
+			.country-list{width:271px}
+			.help-block{position:absolute;bottom:0}
+			.intl-tel-input input, .intl-tel-input input[type="text"], .intl-tel-input input[type="tel"]{margin-bottom:30px!important}
+			.help-block-error {
+				color: #e73d4a;
+			}
+			#accept_terms-error{top:14px}
+		</style>
+</script>

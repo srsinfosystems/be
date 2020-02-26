@@ -1,0 +1,94 @@
+<script type="text/template" id="meter_reading_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+	<h3>{{translationsData.Meterreading}}</h3>
+		
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="meter_reading_form" method="post" accept-charset="utf-8">
+				
+				<div class="control-group">
+					<label class="control-label">
+						{{translationsData.Lastreadvalue}}
+					</label>	
+					<div class="controls">
+						<span class="text">
+							{{last_read_value}} kWh
+						</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">
+						<span class="required">*</span>
+						{{translationsData.Currentmetervalue}}
+					</label>	
+					<div class="controls">
+						<input name="SlipsCurrentMeterValue" class="m-wrap span12 small-block" placeholder="{{translationsData.value}}" id="SlipsCurrentMeterValue" type="text" value="" onblur="meter_reading.checkValue()">
+						<span class="help-inline">kWh</span>
+					</div>
+				</div>
+
+				<div class="control-group" style="display:none">
+					<label class="control-label bold">
+						{{translationsData.Usage}}
+					</label>	
+					<div class="controls">
+						<span class="text bold threash">
+						</span>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">
+						{{translationsData.$bill_usage}}
+					</label>	
+					<div class="controls">
+						<select class="m-wrap span3" name="SlipsMeterAction" id="SlipsMeterAction">
+							<option value="Usage">{{translationsData.Yes}}</option>
+							<option value="Adjustment" selected="selected">{{translationsData.No}}</option>
+						</select>
+					</div>
+				</div>
+				<br/><br/>
+				<div id="show_send_sms_notification" class="control-group" style="display: none;">
+					<div class="phone-control-label" style="float: left;margin-left: 5%;">
+						<input name="SlipsSendSMSNotification" value="y" class="m-wrap span1 uni" id="SlipsSendSMSNotification" type="checkbox">
+					</div>
+					<label for="frm_print_and_send_invoiceSendSMSNotification" class="phone-checkbox-block3">
+						{{translationsData.SendSMSnotificationtoinvoicecontact}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="meter_reading_register">
+			{{translationsData.Register}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>	
+
+		<button style="display:none;" class="btn blue" type="button" id="meter_reading_invoice">
+			{{translationsData.Next}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>	
+
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div#uniform-penalty,div#uniform-deduct_hours{
+	margin-top: 8px;
+}
+#popups .form-horizontal .control-group{
+	margin-bottom:5px;
+}
+</style>
+</script>

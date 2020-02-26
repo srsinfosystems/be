@@ -1,0 +1,67 @@
+<script type="text/template" id="add_todo_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{#js_if "this.metadata.from == 'add'"}} 
+			<h3>{{translationsData.Addtodo}}</h3>
+		{{else}}
+			<h3>{{translationsData.Edittodo}}</h3>
+		{{/js_if}}
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_todo_form" method="post" accept-charset="utf-8">
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Title}}</label>	
+						<div class="controls">
+							{{#js_if "this.partnerTodo.name!= undefined"}} 
+								<textarea name="name" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Title}}" id="name" type="text">{{partnerTodo.name}}</textarea>
+							{{else}}
+								<textarea name="name" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Title}}" id="name" type="text"></textarea>
+							{{/js_if}}
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">{{translationsData.Duedate}}</label>	
+						<div class="controls">
+							{{#js_if "this.partnerTodo.due_date != undefined"}} 
+								<input name="due_date" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Duedate}}" id="due_date" type="text" value="{{partnerTodo.due_date}}">
+							{{else}}
+								<input name="due_date" class="m-wrap span9" maxlength="80"  placeholder="{{translationsData.Duedate}}" id="due_date" type="text">
+							{{/js_if}}
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="" style="float:left">
+		{{#js_if "this.metadata.from == 'edit'"}} 
+			<button class="btn red" type="button" id="delete_todo">
+				{{translationsData.Delete}}
+				<i class="icon-trash"></i>
+			</button>	
+		{{/js_if}}
+	</div>
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="add_todo_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div#uniform-penalty,div#uniform-deduct_hours{
+	margin-top: 8px;
+}
+#popups .form-horizontal .control-group{
+	margin-bottom:5px;
+}
+</style>
+</script>

@@ -1,0 +1,742 @@
+<script type="text/html" id="invoice_detailspop_template">
+	<div class="modal-header">
+			<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+			<h3>{{translationsData.Invoicedetails}}</h3>
+			
+		</div>	
+		<div class="modal-body" >
+
+		<form action="" class="form-horizontal form-view invoice_detailspop_temp" id="frmNewInvoice" name="frmNewInvoice" onsubmit="event.returnValue = false; return false;" method="post" accept-charset="utf-8">
+			<div class="row-fluid invoice">
+				<div class="portlet">
+					<div style="" class="portlet-body flip-scroll detail-view">
+						<div class="row-fluid">
+							<div class="span6">
+								<ul class="unstyled lis">
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Customer}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													{{#js_if "this.inv_cd.customer1 != ''"}}
+														<li>
+															{{#js_if "this.type == 'customer'"}}
+																{{inv_cd.customer1}}
+															{{else}}
+																<a href="javascript:;" style="color:#08c;text-decoration:none;" onclick="invoice_detailspop.showCustomer()">
+
+																{{inv_cd.customer1}}
+																</a>
+															{{/js_if}}														
+														</li>
+													{{/js_if}}
+													{{#js_if "this.inv_cd.customer1 != ''"}}
+														<li>
+															{{inv_cd.customer2}}
+														</li>
+													{{/js_if}}
+
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.address1) !='' "}}
+														<li>
+															{{getInvoicePageDetails.InvoiceDetail.address1}}
+														</li>
+													{{/js_if}}
+
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.address2) !='' "}}
+														<li>
+															{{getInvoicePageDetails.InvoiceDetail.address2}}
+														</li>
+													{{/js_if}}
+
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.zip) != '' || checkNull(this.getInvoicePageDetails.InvoiceDetail.city) != '' "}}
+														<li>
+															{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.zip) != '' "}}
+																{{getInvoicePageDetails.InvoiceDetail.zip}}
+															{{/js_if}}
+															{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.city) != '' "}}
+																&nbsp;{{getInvoicePageDetails.InvoiceDetail.city}}
+															{{/js_if}}										
+														</li>
+													{{/js_if}}
+
+													{{#js_if "(checkNull(this.getInvoicePageDetails.InvoiceDetail.company_country) != this.partner_country ) || this.partnerSetting.show_customer_country == 'y'"}}
+													{{getInvoicePageDetails.Country.country}}
+												{{/js_if}}
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<li class="li_one delivery_name">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Deliveryname}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_name) != ''"}}
+															{{getInvoicePageDetails.InvoiceDetail.delivery_name}}
+														{{/js_if}}												
+													</li>
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_address1) !='' "}}
+														<li>
+															{{getInvoicePageDetails.InvoiceDetail.delivery_address1}}
+														</li>
+													{{/js_if}}
+
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_address2) !='' "}}
+														<li>
+															{{getInvoicePageDetails.InvoiceDetail.delivery_address2}}
+														</li>
+													{{/js_if}}
+
+													{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_zip) != '' || checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_city) != '' "}}
+														<li>
+															{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_zip) != '' "}}
+																{{getInvoicePageDetails.InvoiceDetail.delivery_zip}}
+															{{/js_if}}
+															{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_city) != '' "}}
+																&nbsp;{{getInvoicePageDetails.InvoiceDetail.delivery_city}}
+															{{/js_if}}										
+														</li>
+													{{/js_if}}
+
+													{{#js_if "(checkNull(this.getInvoicePageDetails.InvoiceDetail.delivery_country_code) != this.partner_country) || this.partnerSetting.show_customer_country == 'y'"}}
+													{{getInvoicePageDetails.InvoiceDetail.delivery_country}}
+												{{/js_if}}
+
+												</ul>
+											</li>
+										</ul>
+									</li>
+									{{#js_if "this.type != 'customer'"}}
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Deliverymethod}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														<a id="delivery_methods"></a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<li class="li_one tracking_num">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.$trackh}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														<a id="tracking_num_a"></a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									{{/js_if}}
+								</ul>
+							</div>
+
+							<div class="span6">
+								<ul class="unstyled lis">
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.$invoiceh}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														{{#js_if "checkNull(this.getInvoicePageDetails.Invoice.invoice_number) != ''"}}
+															{{getInvoicePageDetails.Invoice.invoice_number}}
+														{{/js_if}}
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Invoicestatus}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li class="inv_status">
+														<a class="inv_status_str" href="javascript:;" onclick="invoice_detailspop.makeStatusEditable()">
+														{{#js_if "checkNull(this.inv_cd.inv_status) != ''"}}
+															{{inv_cd.inv_status}}
+														{{/js_if}}
+														</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									{{#js_if "checkNull(this.inv_cd.credit_memo) != ''"}}
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Creditmemo}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														{{inv_cd.credit_memo}}
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									{{/js_if}}
+
+									{{#js_if "checkNull(this.inv_cd.order_date) != ''"}}
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Orderdate}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														{{inv_cd.order_date}}
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+									{{/js_if}}
+
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Invoicedate}}:
+											</li>
+											<li class="li_two_two">
+												<ul class="unstyled lis">
+													<li>
+														{{#js_if "checkNull(this.inv_cd.invoice_date) != ''"}}
+															{{inv_cd.invoice_date}}
+														{{/js_if}}
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									<li class="li_one">
+										<ul class="unstyled lis">
+											<li class="text-bold li_two_one">
+												{{translationsData.Duedate}}:
+											</li>
+											<li class="li_two_two" >
+												<ul class="unstyled lis">
+													<li class="inv_due_date" >
+														{{#js_if "this.type == 'customer'"}}
+															{{inv_cd.due_date}}
+														{{else}}
+															<a href="javascript:;" onclick="invoice_detailspop.makeDueDateEditable();" class="inv_due_date_str" style="font-style:italic;color:#0D638F !important;">
+															{{#js_if "checkNull(this.inv_cd.due_date) != ''"}}
+															{{inv_cd.due_date}}
+															{{/js_if}}
+															</a>
+														{{/js_if}}
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+
+									{{#js_if "this.type != 'customer'"}}
+										<li class="li_one reminder_due_date" style="display:none">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Reminderduedate}}:
+												</li>
+												<li class="li_two_two" >
+													<ul class="unstyled lis">
+														<li class="inv_reminder_due_date" >
+															<a href="javascript:;" onclick="invoice_detailspop.makeReminderDueDateEditable();" class="inv_reminder_due_date_str" style="font-style:italic;color:#0D638F !important;">
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+									
+									{{#js_if "checkNull(this.getInvoicePageDetails.Invoice.kid) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.KID}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{getInvoicePageDetails.Invoice.kid}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+
+									
+									{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.partner_bank_account) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Bankaccount}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{js "formatBankAccount(this.getInvoicePageDetails.InvoiceDetail.partner_bank_account,this.partner_country)"}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+
+									{{#js_if "checkNull(this.inv_cd.invoiceMethod) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Invoicemethod}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{inv_cd.invoiceMethod}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+
+									{{#js_if "checkNull(this.inv_cd.order_number) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.$orderh}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															<a onclick="invoice_detailspop.goToOrder({{getInvoicePageDetails.Invoice.order_id}})">{{inv_cd.order_number}}
+															</a>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+									
+									{{#js_if "checkNull(this.inv_cd.our_ref) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Ourreference}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{inv_cd.our_ref}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+
+									{{#js_if "checkNull(this.inv_cd.bp_referrer) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Referrer}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{inv_cd.bp_referrer}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+
+									{{#js_if "checkNull(this.inv_cd.your_ref) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Yourreference}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{inv_cd.your_ref}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+									
+									{{#js_if "checkNull(this.inv_cd.phone) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													{{translationsData.Phonenumber}}:
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{inv_cd.phone}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+									{{#js_if "checkNull(this.getInvoicePageDetails.InvoiceDetail.msg_own_word) != ''"}}
+										<li class="li_one">
+											<ul class="unstyled lis">
+												<li class="text-bold li_two_one">
+													&nbsp;
+												</li>
+												<li class="li_two_two">
+													<ul class="unstyled lis">
+														<li>
+															{{getInvoicePageDetails.InvoiceDetail.msg_own_word}}
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									{{/js_if}}
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row-fluid invoice">
+				<div class="span12">
+					<div style="" class="portlet-body  profile" id="sale_temp_line">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="product_lines">
+								<thead class="">
+									<tr>
+										<th class="hidden-phone" width="8%"><i class="icon-list"></i> {{translationsData.$prodh}}</th>
+										<th><i class="icon-list"></i> {{translationsData.Description}}</th>
+										<th style="width: 8%; text-align: left;" id="show_location" class="loc_hide"><i class="icon-map-marker"></i> {{translationsData.$sales_location}}</th>
+										<th style="width:8%;text-align:left;">{{translationsData.Quantity}}</th>
+										
+										<th style="width:10%;text-align:left;" class="hidden-phone"> {{translationsData.Unit}}</th>
+										<th class="hidden-phone" style="width:11%;text-align:left;"> {{translationsData.UnitPrice}}</th>
+										<th style="width:10%;text-align:left;"> {{translationsData.TotalPrice}}</th>
+										<th class="class_sale_product_tax hidden-phone tax_hide" style="width:8%;"> {{translationsData.Taxrate}}</th>
+										<th class="class_sale_product_tax hidden-phone tax_hide" style="width:8%;"> {{translationsData.Taxamount}}</th>
+										<th style="width:11%;text-align:left;" class="hidden-phone"> {{translationsData.Discount}} ({{CUR_SYM}})</th>
+										<th style="width:10%;text-align:left;"> {{translationsData.$tota_inc_vat}}</th>
+										<th style="" class="checklist_hide"> {{translationsData.Checklist}}</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row-fluid invoice" style="margin-bottom:5px">
+			<div class="span5"></div>
+			<div class="span9 invoice-block summary_block well" style="margin:0">
+				<div class="row-fluid" style="display: flex;">
+					<div class="pvc_wrap span tax_summary" style="display: block"></div>
+					<div class="span" style="width:auto;float:right;">
+						<table class="calculations" style="width: 100%;float: left;margin: 0;padding: ">
+							<tr class="sum_bod">
+								<td class="text-left label_summary">
+									{{translationsData.Netamount}}&nbsp;&nbsp;
+								</td>
+								<td class="text-left">
+									{{CUR_SYM}}
+								</td>
+								<td class="text-right">
+									{{js "convertIntoLocalFormat(checkNull(this.getInvoicePageDetails.Invoice.net_amount))"}}
+								</td>
+							</tr>
+							{{#js_if "checkNull(this.getInvoicePageDetails.Invoice.total_discount) != '' && checkNull(this.getInvoicePageDetails.Invoice.total_discount) != 0"}}
+							<tr class="sum_bod">
+								<td class="text-left label_summary">
+									{{translationsData.Discount}}&nbsp;&nbsp;
+								</td>
+								<td class="text-left">
+									{{CUR_SYM}}
+								</td>
+								<td class="text-right">
+									{{js "convertIntoLocalFormat(checkNull(this.getInvoicePageDetails.Invoice.total_discount))"}}
+								</td>
+							</tr>
+							{{/js_if}}
+
+							<tr class="sum_bod">
+								<td class="text-left label_summary">{{translationsData.Total}}&nbsp;&nbsp;</td>
+								<td class="text-left">
+									{{CUR_SYM}}
+								</td>
+								<td class="text-right">
+									{{js "convertIntoLocalFormat(checkNull(this.getInvoicePageDetails.Invoice.total))"}}
+								</td>
+							</tr>
+							{{#js_if "checkNull(this.getInvoicePageDetails.Invoice.round_off) != '' && checkNull(this.getInvoicePageDetails.Invoice.round_off) != 0"}}
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.Roundoff}}&nbsp;&nbsp;</td>
+									<td class="text-left">
+										{{CUR_SYM}}
+									</td>
+									<td class="text-right">
+										{{js "convertIntoLocalFormat(-1 * checkNull(this.getInvoicePageDetails.Invoice.round_off))"}}
+									</td>
+								</tr>
+							{{/js_if}}
+
+							{{#js_if "checkNull(this.partnerSetting.apply_tax) != 'n'"}}
+								<tr class="sum_bod">
+									<td class="text-left label_summary">{{translationsData.MVA}}&nbsp;&nbsp;</td>
+									<td class="text-left">
+										{{CUR_SYM}}
+									</td>
+									<td class="text-right">
+										{{js "convertIntoLocalFormat(checkNull(this.getInvoicePageDetails.Invoice.total_vat))"}}
+									</td>
+								</tr>
+							{{/js_if}}
+
+							<tr class="sum_bod bold" style="border-top:1px solid;border-bottom-width:4px;border-bottom-style:double;">
+								<td class="text-left label_summary">{{translationsData.Totaltopay}}&nbsp;</td>
+								<td class="text-left">
+									{{CUR_SYM}}
+								</td>
+								<td class="text-right">
+									{{js "convertIntoLocalFormat(checkNull(this.getInvoicePageDetails.Invoice.gross_amount))"}}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			<div class="row-fluid" style="margin: 5px 0">
+				<a class="pull-right btn big green btn_create_invoice_f" style="margin-bottom:2px;" id="btn_create_invoice_f" target="_blank" href="{{base_url}}invoice/invoice_details/{{getInvoicePageDetails.Invoice.id}}">{{translationsData.Openinvoiceinnewwindow}}<i class="m-icon-big-swapright m-icon-white"></i></a>
+			</div>
+
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="tabbable tabbable-custom boxless">
+						<ul class="nav nav-tabs">
+
+							<li id="tab_quote_1"  class="custom_tabs payments_tab" style="display:none" class="active" onclick="invoice_detailspop.showTab('payments')">
+								<a href="#tab0" data-toggle="tab" >
+									{{translationsData.Paymentdetails}}
+								</a>
+							</li>
+
+							<li id="tab_quote_2" class="custom_tabs transactions_tab"  class="active" onclick="invoice_detailspop.showTab('transactions')">
+								<a href="#tab1" data-toggle="tab" >
+									{{translationsData.Journalentries}}
+								</a>
+							</li> 
+
+							{{#js_if "this.type == 'partner'"}}
+								<li id="tab_quote_3" class="custom_tabs notes_tab" style="position:relative" onclick="invoice_detailspop.showTab('notes')">
+									<span style="position: absolute; z-index: 9994; float: left; right: 0; top: -15px; padding: 4px 8px; border-radius: 12px !important;display:none" class="badge badge-important" id="invoice_note_counter">0</span>
+									<a href="#tab2" data-toggle="tab" >
+										{{translationsData.Invoicesnotes}}
+									</a>
+								</li> 
+
+								<li id="tab_quote_4" class="custom_tabs reminders_tab" style="position:relative" onclick="invoice_detailspop.showTab('reminders')">
+									<a href="#tab4" data-toggle="tab" >
+										{{translationsData.Distribution}}
+									</a>
+								</li>
+
+								<li id="tab_quote_5" class="custom_tabs history_tab" style="position:relative" onclick="invoice_detailspop.showTab('history')">
+									<a href="#tab4" data-toggle="tab" >
+										{{translationsData.History}}
+									</a>
+								</li>
+							{{/js_if}}
+							<li id="tab_quote_6" data-name="installments" class="custom_tabs installments_tab" style="position:relative" onclick="invoice_detailspop.showTab('installments')">
+								{{#js_if "this.installment_exists > 0"}}
+									<span style="position: absolute; z-index: 9994; float: left; right: 0; top: -15px; padding: 4px 8px; border-radius: 12px !important;" class="badge badge-important" id="invoice_note_counter">{{translationsData.Active}}</span>
+								{{/js_if}}
+								<a href="#tab6" data-toggle="tab" >
+									{{translationsData.Installments}}
+								</a>
+							</li>
+						</ul>
+						<div class="tab-content">					
+							<div class="tab-pane active" id="invoice_tab_content">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+		<div id="installment_form" style="display:none">
+			<div class="row-fluid flexs">
+				<div class="flexx1">
+					<div class="control-group">
+						<label>{{translationsData.Numberofinstallments}}</label>
+						
+						<div class="input-prepend input-append">
+							<span class="add-on add-minus">-</span>
+							<input name="no_of_install" id="no_of_install" class="m-wrap span9" value="2" pattern="^[0-9]*$"  type="text" >
+							<span class="add-on add-plus">+</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="flexx">
+					<div class="control-group">
+						<label>{{translationsData.Installmentfrequency}}</label>
+						<select name="install_freq" id="install_freq" class="m-wrap span12" value="" type="text" onchange="invoice_detailspop.changeDays(event.target.value);">
+							<option selected="selected" value="monthly">{{translationsData.Monthly}}</option>
+							<option value="days">{{translationsData.Days}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="flexx2" style="display:none">
+					<div class="control-group">
+						<label>{{translationsData.Numberofdays}}</label>
+						
+						<div class="input-prepend input-append">
+							<span class="add-on add-minus">-</span>
+							<input name="no_of_days" id="no_of_days" class="m-wrap span9" value="1" type="text" pattern="^[0-9]*$" >
+							<span class="add-on add-plus">+</span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="flexx">
+					<div class="control-group">
+						<label class="due_date_of">{{translationsData.Duedateoffirstinstallment}}</label>
+						<input name="first_due_date" id="first_due_date" class="m-wrap span12" value="" type="text" >
+					</div>
+				</div>
+
+				<div class="flexx margin-zero">
+					<div class="control-group">
+						<label>{{translationsData.Installmentnotification}}</label>
+						<select name="install_notification" id="install_notification" class="m-wrap span12" value="">
+							
+						</select>
+					</div>
+				</div>
+
+
+			</div>
+			
+		</div>
+	</div>
+	<style>
+		.add-on{
+			cursor:pointer;
+		}
+		.flexx,.flexx1,.flexx2{
+			float:left;
+			padding-right:10px;
+			box-sizing: border-box;
+		}
+		div#s2id_install_freq,div#s2id_install_notification{
+			margin-left:0 !important;
+		}
+		.margin-zero{
+			margin-left:0 !important;
+		}
+		.my-btn{
+			filter: none;
+			border: 0;
+			outline: none;
+			box-shadow: none !important;
+			text-shadow: none;
+			display: inline-block;
+			margin-bottom: 0;
+			text-align: center;
+			font-size: 13px;
+			line-height: 1.5;
+			padding: 4px 10px 5px;
+			vertical-align: middle;
+			cursor: pointer;
+			color: #ffffff;
+		}
+		.dropdown.open .dropdown-toggle{
+			color:#fff;
+		}
+		.mytextarea {
+		    height: 60px !important;
+		    width: 87%;
+		}
+		.inv_err{
+			border-color: rgb(224, 34, 34) !important;
+			border-width: 2px !important;
+			border-style: solid !important;
+		}
+		.li_one{
+			float:left;
+			width:100%;
+			margin-bottom:5px;
+		}
+		.li_two_one{
+			float:left;
+			width:40%;
+		}
+		.li_two_two{
+			float:left;
+			width:60%;
+		}
+		.text-bold{
+			font-weight:bold;
+		}
+		ul.lis{
+			float:left;
+			width:100%;
+		}
+		#delivery_methods,#tracking_num_a{
+			padding-top:0 !important;
+		}
+		.input-mini{
+			text-align: center;
+			margin: 0 5px;
+			width:22px;!important
+		}
+		#custom_delivery_note{
+			white-space: pre-line;
+		}
+	</style>
+</script>

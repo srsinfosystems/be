@@ -1,0 +1,384 @@
+<script type="text/html" id="add_new_customer_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+	<h3>{{translationsData.Addnewcustomer}}</h3>
+	
+</div>	
+<div class="modal-body" id="add_new_customer">
+	<div class="row-fluid">
+		<div class="span12 " id="show_ein_information">
+			<div id="einphone" class="span10" style="margin: 0 auto;float:none">
+				<div class="control-group">
+					<div class="controls controls-customer-ein">
+						<input name="data[EIN][ein]" class="m-wrap span11" tabindex="1" id="EINEin" placeholder="{{einplace}}" type="text"><a id="btn_search_breg_customer" class="btn blue resize" onclick="add_new_customer.getEinPhone();">&nbsp;<i class="icon-search m-icon-white"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="einphoneresult" class="row-fluid">
+			<div class="span10" style="margin: 0 auto;float:none;margin-left:50px !important;" id="show_ein_details">
+				<div id="show_ein_details_duplicate"></div>
+				<div id="show_ein_details_data"></div>
+			</div>
+		</div>
+		<img id="hiddenNewCustomerImg" src="{{host_url}}app/webroot/img/loading.gif"; style="margin-left:50%;display:none" />
+
+		<div class="span12 boxed table-responsive" style="display:none;" id="show_customer_details">
+			<div class="row-fluid">
+				<div class="span6">
+					<!-- Customer information -->
+					<div class="row-fluid">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th colspan="2">{{translationsData.Customerinformation}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="width:30%"><span class="required">*</span>{{translationsData.Customertype}}</td>
+									<td style="width:70%">
+										<!-- <i class="icon-user-md"></i> -->
+										<a href="javscript:;" id="CustomerUserGroupId"></a>
+									</td>
+								</tr>
+								<tr>
+									<td><span class="required">*</span>{{translationsData.Customercountry}}</td>
+									<td>
+										<!-- <i class="icon-globe"></i> -->
+										<a href="javscript:;" id="CustomerHomeCountry"></a>
+									</td>
+								</tr>
+								{{#js_if "this.default_fields.customer_ein_required!=0"}}
+								<tr class="business">
+									<td>
+										{{#js_if "this.default_fields.customer_ein_required==2"}}
+											<span class="required">*</span>
+										{{/js_if}}
+										{{translationsData.EIN}}
+										</td>
+									<td>
+										<!-- <i class="icon-briefcase"></i> -->
+										<a href="javscript:;" id="customer_ein"></a>
+										<!--<input name="ein" autocomplete="off" style="" class="m-wrap placeholder-no-fix span12 show_ein" placeholder="{{translationsData.EIN}}" maxlength="30" tabindex="3" id="CustomerEin" type="text" readonly="readonly">
+										
+										<input name="customer_ein" autocomplete="off" style="display: none;" class="m-wrap placeholder-no-fix span12 hide_ein" placeholder="{{translationsData.EIN}}" id="CustomerNormalEin" tabindex="4" maxlength="30" type="text">00>-->
+									</td>
+								</tr>
+								{{/js_if}}
+
+								<tr class="business">
+									<td><span class="required">*</span>{{translationsData.Companyname}}</td>
+									<td><a href="javscript:;" id="CustomerCustomerName"></a></td>
+								</tr>
+
+								<tr class="consumer">
+									<td><span class="required">*</span>{{translationsData.Firstname}}</td>
+									<td><a href="javscript:;" id="CustomerConsumerFirstName"></a></td>
+								</tr>
+								<tr class="consumer">
+									<td><span class="required">*</span>{{translationsData.Lastname}}</td>
+									<td><a href="javscript:;" id="CustomerConsumerLastName"></a></td>
+								</tr>
+								{{#js_if "this.default_fields.customer_birth_date_required!=0"}}
+								<tr class="consumer">
+									<td>
+										{{#js_if "this.default_fields.customer_birth_date_required==2"}}
+											<span class="required">*</span>
+										{{/js_if}}									
+										{{translationsData.Dateofbirth}}
+									</td>
+									<td><a data-type="dobb" href="javscript:;" id="CustomerConsumerDateOfBirth"></a></td>
+								</tr>
+								{{/js_if}}
+
+								<tr>
+									<td><span class="required">*</span>{{translationsData.Postaladdress}}</td>
+									<td>
+										<a href="javscript:;" id="cust_postal_address" data-type="address5"></a>
+									</td>
+								</tr>
+								
+								{{#js_if "this.default_fields.customer_delivery_address_required!=0"}}
+								<tr class="skip">
+									<td>
+										{{translationsData.Deliveryaddress}}
+									</td>
+									<td>
+										<a href="javscript:;" id="cust_delivery_address" data-type="address6"  tabindex="-1" ></a>
+									</td>
+								</tr>
+								{{/js_if}}
+
+							</tbody>
+						</table>
+					</div>
+					<!-- Customer information -->
+
+					<!-- Contact information -->
+					<div class="row-fluid">
+						<table class="table  table-hover table-bordered">
+							<thead>
+								<tr>
+									<th colspan="2">{{translationsData.Contactinformation}}</th>
+								</tr>
+								
+							</thead>
+							<tbody>
+								<tr class="business">
+									<td style="width:30%">{{translationsData.Firstname}}</td>
+									<td style="width:70%"><a href="javscript:;" id="CustomerFirstName"></a></td>
+								</tr>
+								<tr class="business">
+									<td style="width:30%">{{translationsData.Lastname}}</td>
+									<td style="width:70%"><a href="javscript:;" id="CustomerLastName"></a></td>
+								</tr>
+
+								{{#js_if "this.default_fields.customer_email_required!=0"}}
+								<tr>
+									<td style="width:30%">
+										{{#js_if "this.default_fields.customer_email_required==2"}}
+											<span class="required">*</span>
+										{{/js_if}}
+										{{translationsData.Customeremail}}
+									</td>
+									<td style="width:70%"><a href="javscript:;" id="CustomerEmail"></a></td>
+								</tr>
+								{{/js_if}}
+								
+								{{#js_if "this.default_fields.customer_phone_required!=0"}}
+								<tr>
+									<td style="width:30%">
+										{{#js_if "this.default_fields.customer_phone_required==2"}}
+											<span class="required">*</span>
+										{{/js_if}}
+										{{translationsData.Customerlandline}}
+									</td>
+									<td style="width:70%">
+										
+										<a href="javscript:;" data-type="cellcode2"  id="CustomerPhone"></a>
+									</td>
+								</tr>
+								{{/js_if}}
+
+								{{#js_if "this.default_fields.customer_cellphone_required!=0"}}
+								<tr >
+									<td style="width:30%">
+										{{#js_if "this.default_fields.customer_cellphone_required==2"}}
+											<span class="required">*</span>
+										{{/js_if}}
+										{{translationsData.Customercellphone}}
+									</td>
+									<td style="width:70%">
+										<a href="javscript:;" data-type="cellcode1" id="CustomerCellphone"></a>
+									</td>
+								</tr>
+								{{/js_if}}
+
+								
+
+
+															
+								
+							</tbody>
+						</table>
+					</div>
+					<!-- Contact information -->
+
+					
+				</div>
+				<div class="span6">
+					<!-- Sales and communication -->
+					<div class="row-fluid">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr>
+									<th colspan="2">{{translationsData.Salesandcommunication}}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="prefer_dist">
+									<td style="width:30%">{{translationsData.Preferreddistribution}}</td>
+									<td style="width:70%">
+										<a href="javscript:;" id="preferred_distribution"></a>
+									</td>
+								</tr>
+								<tr class="alter_dist" style="display:none">
+									<td>{{translationsData.Alternatedistribution}}</td>
+									<td>
+										<a href="javscript:;" id="alternate_distribution"></a>
+									</td>
+								</tr>
+
+								<tr class="custom_inv_con" style="display:none">
+									<td>{{translationsData.Invoicecontact}}</td>
+									<td>
+										<a href="javscript:;" id="CustomerDefaultContact"></a>
+									</td>
+								</tr>
+								<tr class="custom_inv" style="display:none">
+									<td>{{translationsData.Custominvoiceemail}}</td>
+									<td>
+										<a href="javscript:;" id="CustomerConsumerCustomEmail"></a>
+									</td>
+								</tr>
+								<tr>
+									<td>{{translationsData.Customergroup}}</td>
+									<td>
+										<a href="javscript:;" id="customer_group"></a>
+									</td>
+								</tr>
+								<tr class="price_group" style="display:none">
+									<td>{{translationsData.Pricegroup}}</td>
+									<td>
+										<a href="javscript:;" id="price_group"></a>
+									</td>
+								</tr>
+
+								<tr class="mass_comm">
+									<td>{{translationsData.Newslettersandupdates}}</td>
+									<td>
+										<a href="javscript:;" id="newsletter_and_updates"></a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<!-- Sales and communication -->
+
+					<!-- Other information -->
+					{{#if show_on_registration }}
+					<div class="row-fluid">
+						<div class="row-fluid">
+							<table class="table table-hover table-bordered">
+								<thead>
+									<tr>
+										<th colspan="2">{{translationsData.Otherinformation}}</th>
+									</tr>
+								</thead>
+								<tbody id="custom_field_tb">
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+					{{/if}}
+					<!-- other information -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+
+		<button class="btn black update span add_cust" onclick="add_new_customer.hideform();" id="back_submit" style="display:none"><i class="m-icon-swapleft m-icon-white"></i> {{translationsData.Back}}</button>
+
+		<button class="btn green update span no_cust" onclick="add_new_customer.showform('manual');" id="add_new_task_submit"><i class="icon-pencil"></i> {{translationsData.Manualregistration}}</button>	
+		{{#js_if "anc_meta.fromdoc != 'transfer'"}}
+
+			<button class="btn purple update span add_cust" id="proceed_to_sales_documnet" onclick="add_new_customer.proceedCustomer('salesDocument')" style="display:none"><i class="icon-ok"></i> {{translationsData.Saveandcreatenewsalesdocument}}</button>
+			
+			<button class="btn green update span add_cust" id="proceed_to_save_task" onclick="add_new_customer.proceedCustomer('openTasks')" style="display:none"><i class="icon-ok"></i> {{translationsData.Saveandcreatenewtask}}</button>
+			
+			{{#js_if "anc_meta.fromdoc == 'saveSalesDocument'"}}
+				<button class="btn blue update span add_cust" id="proceed_to_customer" onclick="add_new_customer.proceedCustomer('salesDocument')" style="display:none"><i class="icon-plus"></i> {{translationsData.Save}}</button>
+			{{else}}
+				<button class="btn blue update span add_cust" id="proceed_to_customer" onclick="add_new_customer.proceedCustomer()" style="display:none"><i class="icon-plus"></i> {{translationsData.Save}}</button>
+			{{/js_if}}
+
+		{{else}}
+			<button class="btn blue update span add_cust" id="proceed_to_customer" onclick="add_new_customer.proceedCustomer('transfer')" style="display:none"><i class="icon-plus"></i> {{translationsData.Save}}</button>
+		{{/js_if}}
+		
+
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Close}}
+		</button>
+	</div>
+	<div id="ungrouped_data" style="display:none"></div>
+	<div id="grouped_data" style="display:none"></div>
+	<style>
+		.large_customer{
+			width: 1000px;
+		}
+		.label-mass{width:220px !important;}
+			.controls-mass{margin-left:235px !important;}
+		
+			.label-customer{width:185px !important;}
+			.controls-customer{margin-left:200px !important;}
+			// .controls-customer-ein{margin-left:50px !important;}
+			.span8_cc{width:66.812% !important;}
+		}
+		.modal_bottom_line{
+			border-bottom: 1px solid #efefef;
+			margin-bottom: 2em;
+			margin-top: 0;
+		}
+		.general_inf{margin-top: 0 !important;}
+		#business_title h4{margin-top: 0 !important;}	
+		#business_title{padding-bottom: 5px;}
+		.radioadj label{
+			display: inline-block;
+			margin: 9px 17px 0 3px;
+		}
+		.controls > .radio, .controls > .checkbox{
+			margin : 0 15px 0 0 !important;
+		}
+		.checkadjust .checker{
+			margin-top: 7px;
+		}
+		
+		.box{
+			border:solid 1px #e5eff6;
+			padding: 4px;
+			margin:4px 0 !important;
+			background: #fcfcfc;
+		}
+		.boxed{
+			padding: 4px;
+			margin:4px 0 !important;
+		}
+		.box:hover{
+			background: #f5fafd;
+			border-color: #e5eff6;
+			cursor: pointer;
+		}
+		.ungrouped p {
+			width:33%;
+			float:left;
+		}
+		.ungrouped div:first-child {
+			width:33%;
+			float:left;
+		}
+		.ungrouped div:nth-child(2) {
+			width:62%;
+			float:left;
+		}
+		.ungrouped div:last-child{
+			width:5%;
+			float:left;
+		}
+		.ungrouped li {
+			float: left;	
+			width: 100%;
+		}
+		a.editable-click:focus{
+			outline: thin dotted #333 !important;
+			outline: 5px auto -webkit-focus-ring-color;
+		}
+		span.required{
+			color:#e02222;
+		}
+		#cust_postal_address p,#cust_delivery_address p {
+			margin:0
+		}
+	</style>
+</div>
+
+
+</script>

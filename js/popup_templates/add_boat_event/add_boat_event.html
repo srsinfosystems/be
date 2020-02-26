@@ -1,0 +1,192 @@
+<script type="text/html" id="add_boat_event_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{#js_if "this.abe_meta.from == 'edit'"}}
+			<h3>{{translationsData.Editboatstorageevent}}</h3>
+		{{else}}
+		<h3>{{translationsData.Addboatstorageevent}}</h3>
+		{{/js_if}}
+		
+</div>	
+<div class="modal-body">
+	<div class="row-fluid form-horizontal" id="add_boat_event_form">
+		<div class="span12">
+		
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+					<div class="controls">
+						<input name="name" class="m-wrap span9"  placeholder="{{translationsData.Name}}" value="{{boat_event.name}}" id="name" type="text">
+					</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Type}}</label>	
+				<div class="controls">
+					<select id="type" name="type" class="m-wrap span9">
+						<option value="up" {{#js_if "this.boat_event.type == 'up'"}}selected="selected"{{/js_if}}>{{translationsData.Outofwater}}</option>
+						<option value="out" {{#js_if "this.boat_event.type == 'out'"}}selected="selected"{{/js_if}}>{{translationsData.Backonwater}}</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Date}}</label>	
+				<div class="controls ">
+					<input type="text" id="date" name="date" class="m-wrap span9">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Starttime}}</label>	
+				<div class="controls">
+					<input type="text" id="start_time" name="start_time" class="m-wrap span9">
+				</div>
+			</div>	
+
+			<!-- <div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Endtime}}</label>	
+
+				<div class="controls">
+            		<input id="end_time"  name="end_time"  type="text" class="m-wrap span9">
+        		</div>
+        	</div> -->
+
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Notifications}}</label>	
+				<div class="controls">
+					<div  style="margin-top:5px" id="notific">
+						<input name="notifications" class="m-wrap span9"  value=""  type="checkbox">
+					</div>
+				</div>
+			</div>	
+
+			{{#js_if "this.abe_meta.from == 'edit'"}}
+				<div class="control-group notif_table">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover table-bordered">
+							<tbody>
+								{{#each pbn}}
+									{{ListHelper this}}	
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			{{/js_if}}
+		</div>
+	</div>	
+</div>
+
+<div class="modal-footer">
+
+	<div class="btn-group " style="width: 100%">
+		{{#js_if "this.abe_meta.from == 'edit'"}}
+		<div class="" style="float:left">
+			<button class="btn red " type="button" onclick="add_boat_event.delete()" id="edit_schedule_btn_delete">
+				{{translationsData.Delete}}
+				<i class="icon-trash"></i>
+			</button>	
+		</div>
+		{{/js_if}}
+		<button class="btn blue hide_expire" type="button" id="add_boat_event_btn_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear hide_expire" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style type="text/css">
+.bootstrap-timepicker.dropdown-menu {
+    border-radius: 4px 4px 4px 4px;
+    display: none;
+    left: 0;
+    margin-top: 1px;
+    padding: 4px;
+    top: 0;
+    min-width: 10px;
+    z-index: 99999;
+}
+.bootstrap-timepicker.dropdown-menu.open {
+    display: inline-block;
+}
+.bootstrap-timepicker.dropdown-menu:before {
+    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    left: 6px;
+    position: absolute;
+    top: -7px;
+}
+.bootstrap-timepicker.dropdown-menu:after {
+    border-bottom: 6px solid #FFFFFF;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    left: 7px;
+    position: absolute;
+    top: -6px;
+}
+.bootstrap-timepicker.modal {
+    margin-left: -100px;
+    margin-top: 0;
+    top: 30%;
+    width: 200px;
+}
+.bootstrap-timepicker.modal .modal-header h3 {
+    font-size: 16px !important;
+    margin-top: 3px;
+    margin-bottom: 3px;    
+}
+.bootstrap-timepicker.modal .modal-content {
+    padding: 0;
+}
+.bootstrap-timepicker table {
+    margin: 0;
+    width: 100%;
+}
+.bootstrap-timepicker table td {
+    height: 30px;
+    margin: 0;
+    padding: 2px;
+    text-align: center;
+}
+.bootstrap-timepicker table td span {
+    width: 100%;
+}
+.bootstrap-timepicker table td a {
+    border: 1px solid transparent;
+    display: inline-block;
+    margin: 0;
+    outline: 0 none;
+    padding: 8px 0;
+    width: 3em;
+}
+.bootstrap-timepicker table td a:hover {
+    background-color: #EEEEEE;
+    border-color: #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    text-decoration: none;
+}
+.bootstrap-timepicker table td a i {
+    margin-top: 2px;
+}
+.bootstrap-timepicker table td input {
+    margin: 0;
+    text-align: center;
+    width: 25px;
+}
+.bootstrap-timepicker-component .add-on {
+    cursor: pointer;
+}
+.bootstrap-timepicker-component .add-on i {
+    display: block;
+    height: 16px;
+    width: 16px;
+}
+
+</style>
+</script>

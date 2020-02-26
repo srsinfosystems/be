@@ -1,0 +1,123 @@
+<script type="text/template" id="add_custom_group_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{#js_if "this.meta_data.from == 'add'"}} 
+			<h3>{{translationsData.Addcustomgroup}}</h3>
+		{{else}}
+			<h3>{{translationsData.Editcustomgroup}}</h3>
+		{{/js_if}}
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="add_custom_group_form" method="post" accept-charset="utf-8">
+				<div class="control-group">
+					<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+					<div class="controls">
+						{{#js_if "this.meta_data.from == 'add'"}} 
+							<input name="name" class="m-wrap span9" placeholder="{{translationsData.Name}}" id="name" type="text" >
+						{{else}}
+							<input name="name" class="m-wrap span9" placeholder="{{translationsData.Name}}" id="name" type="text" value="{{this.partnerCommunicationGroup[0].PartnerCommunicationGroup.name}}">
+						{{/js_if}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span1"></div>
+		<div class="span10">
+			<div class="subject-info-box-1 span5">
+				<label>{{translationsData.Customers}}</label>
+				<input type="text" class="m-wrap span12" id="search_all_cust" placeholder="{{translationsData.Search}}">
+				<select multiple class="form-control" id="lstBox1">
+					
+				</select>
+			</div>
+
+			<div class="subject-info-arrows text-center span2">
+				<br /><br />
+				<input type='button' id='btnAllRight' value='>>' class="btn btn-default" /><br />
+				<input type='button' id='btnRight' value='>' class="btn btn-default" /><br />
+				<input type='button' id='btnLeft' value='<' class="btn btn-default" /><br />
+				<input type='button' id='btnAllLeft' value='<<' class="btn btn-default" />
+			</div>
+
+			<div class="subject-info-box-2 span5">
+				<label>{{translationsData.Customersingroup}}</label>
+				<input type="text" class="m-wrap span12" id="search_cust_in_group" placeholder="{{translationsData.Search}}">
+				<select multiple class="form-control" id="lstBox2">
+				</select>
+			</div>
+		</div>
+		<div class="span1"></div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="add_custom_group_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+	<input type="hidden" id="error_message_btn_text" value="{{translationsData.Alertmessage}}">
+</div>
+<style>
+.selected-left {
+  float: left;
+  width: 88%;
+}
+
+.selected-right {
+  float: left;
+}
+
+.selected-right button {
+  display: block;
+  margin-left: 4px;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 517px) {
+  .selected-right button {
+    display: inline;
+    margin-bottom: 5px;
+  }
+}
+
+
+
+.subject-info-box-1 select,
+.subject-info-box-2 select {
+  height: 280px;
+  width:100%;
+  padding: 0;
+}
+
+.subject-info-box-1 select option,
+.subject-info-box-2 select option {
+  padding: 4px 10px 4px 10px;
+}
+
+.subject-info-box-1 select option:hover,
+.subject-info-box-2 select option:hover {
+  background: #EEEEEE;
+}
+
+
+.subject-info-arrows input {
+  width: 70%;
+  margin-bottom: 5px;
+}
+.disabled{
+
+	visibility:hidden;
+
+}
+
+</style>
+</script>

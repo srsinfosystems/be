@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>My page</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="dist/jquery.fancybox.min.css">
+</head>
+<body>
+
+	<!-- Your HTML content goes here -->
+
+	<!-- JS -->
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="dist/jquery.fancybox.min.js"></script>
+	<a href="image.jpg" data-fancybox>
+		<img src="thumbnail.jpg" alt="test" />
+	</a>
+	<a href="image.jpg" data-fancybox>
+		<img src="thumbnail.jpg" alt="test" />
+	</a>
+	<a href="image.jpg" data-fancybox>
+		<img src="thumbnail.jpg" alt="test" />
+	</a>
+	<script type="text/javascript">
+		$("[data-fancybox]").fancybox({
+			buttons : [
+			        'fullScreen',
+			    
+			        'close'
+			    ],
+		});
+	</script>
+</body>

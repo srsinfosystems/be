@@ -1,0 +1,40 @@
+<script type="text/template" id="verify_twofa_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Authentication}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+				<form class="form-horizontal form-view">
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>Code</label>
+						<div class="controls">
+							<input name="verification_code" class="m-wrap span10" value="" placeholder="{{translationsData.Verificationcode}}" id="verification_code" type="text">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue verify_code" type="button">
+			{{translationsData.Verify}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Close}}
+		</button>
+	</div>
+</div>
+<style>
+
+.img-responsive{
+	width:200px;
+	height:200px;
+}
+</style>
+</script>

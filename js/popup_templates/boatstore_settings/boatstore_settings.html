@@ -1,0 +1,70 @@
+<script type="text/html" id="boatstore_settings_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.BoatStorage}}</h3>
+</div>
+<div class="modal-body">
+	<div class="row-fluid form-horizontal" id="boatstore_settings_form">
+		<div class="span12">
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Invoicehaulingboatsoutofthewater}}</label>	
+				<div class="controls">
+					<div class="switch switch-small" id="enable_boat_storage_up" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}" style="margin-top: 4px;">
+						<input name="enable_boat_storage_up" class="m-wrap span11 no-uni"  type="checkbox">
+					</div>
+				</div>
+			</div>	
+
+			<div class="control-group sel_up_prod">
+				<label class="control-label">{{translationsData.Selectproduct}}</label>
+				<div class="controls">
+					<input id="boat_product_up_sett" readonly="readonly" class="m-wrap " type="text" name=""><a style="padding: 8.5px 14px;" class="btn icn-only red rem_boat_prod_up_sett" onclick="boatstore_settings.removeProdUp();"><i class="icon-remove"></i></a><a class="btn icn-only green" style="padding: 8.5px 14px;" data-width="800" onclick="show_modal(this);" href="javascript:;" data-url="{{base_url}}settings/search_new_product?from=boat_product_up_sett" ><i class="m-icon-swapright m-icon-white" style="margin-top:3px"></i></a>
+					<input type="hidden" id="boat_product_up_sett_id" value="">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><span class="required">*</span>{{translationsData.Invoiceputtingboatsbackonwater}}</label>	
+				<div class="controls">
+					<div class="switch switch-small" id="enable_boat_storage_out" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}" style="margin-top: 4px;">
+						<input name="enable_boat_storage_out" class="m-wrap span11 no-uni"  type="checkbox">
+					</div>
+				</div>
+			</div>	
+
+			<div class="control-group sel_out_prod">
+				<label class="control-label">{{translationsData.Selectproduct}}</label>
+				<div class="controls">
+					<input id="boat_product_out_sett"  readonly="readonly" class="m-wrap " type="text" name=""><a style="padding: 8.5px 14px;" class="btn icn-only red rem_boat_prod_out_sett" onclick="boatstore_settings.removeProdOut();"><i class="icon-remove"></i></a><a class="btn icn-only green" style="padding: 8.5px 14px;" data-width="800" onclick="show_modal(this);" href="javascript:;" data-url="{{base_url}}settings/search_new_product?from=boat_product_out_sett" ><i class="m-icon-swapright m-icon-white" style="margin-top: 3px"></i></a>
+					<input type="hidden" id="boat_product_out_sett_id" value="">
+				</div>
+			</div>
+
+
+			<div class="control-group">
+				<label class="control-label">{{translationsData.Notificationssenttoowner}}</label>
+				<div class="controls">
+					<table style="width:100%">
+						{{#each notifc_list_arr}}
+							{{ListHelperA this}}
+						{{/each}}
+					</table>
+				</div>
+			</div>
+			
+		</div>
+	</div>	
+</div>
+
+<div class="modal-footer">
+	<div class="btn-group " style="width: 100%">
+		<button class="btn blue" type="button" id="boatstore_settings_btn_save" onclick="boatstore_settings.saveData()">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+</script>

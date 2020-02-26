@@ -1,0 +1,113 @@
+/** --------------- Responsive Calendar Style ----------------- */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	#all_calendars .calenderview{
+		width: 100%;
+	}
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+	#all_calendars .calenderview{
+		width: 100%;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+	#all_calendars .calenderview{
+		width: 100%;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	#all_calendars .calenderview{
+		width: 100%;
+	}
+}
+
+/* iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+	
+}
+
+/* iPads (portrait) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+	#all_calendars .calenderview{
+		width: 48%;
+		margin-right: 10px;
+	}
+}
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+	#all_calendars .calenderview{
+		width: 32%;
+		margin-right: 10px;
+	}
+
+	/* one item */
+	#all_calendars #inner_row .calenderview:nth-child(1):nth-last-child(1) {
+		width: 100%;
+	}
+
+	/* two items */
+	#all_calendars #inner_row .calenderview:nth-child(1):nth-last-child(2),
+	#all_calendars #inner_row .calenderview:nth-child(2):nth-last-child(1) {
+		width: 48%;
+	}
+
+	/* three items */
+	#all_calendars #inner_row .calenderview:nth-child(1):nth-last-child(3),
+	#all_calendars #inner_row .calenderview:nth-child(2):nth-last-child(2),
+	#all_calendars #inner_row .calenderview:nth-child(3):nth-last-child(1) {
+		width: 32%;
+	}
+
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+	
+}
+
+
+/** ---------------- Custom Calendar Style -------------------- */
+#all_calendars .calenderview{
+		float: left;
+		clear: right;
+}
+#all_calendars h2, #calendar_dashboard h2{
+	color: #111;
+    font-size: 14px !important;
+    font-weight: 400;
+    line-height: 20px;
+    float:right;
+    margin-left:5px;
+}
+.fc-view, .fc-view > table{
+	position: inherit;
+}

@@ -1,0 +1,108 @@
+<script type="text/template" id="admin_messages_template">
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Settings}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.NewsandOperationalmessages}}</a>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar">
+					<li class="btn-group">
+						<button class="dropdown-toggle btn blue" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" type="button">
+							<span class="hidden-phone">{{translationsData.Actions}}</span><i class="icon-cogs visible-phone"></i><i class="icon-angle-down"></i>
+						</button>
+						<ul role="menu" class="dropdown-menu pull-right">
+							<li>
+								<a style="cursor:pointer" onclick="admin_messages.showPopup(1)">
+									<i class="icon-plus" style="color:#000000"></i>
+									{{translationsData.Add}}
+								</a>
+							</li>
+						</ul>
+					</li>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+
+		</div>
+	</div>
+	<span class="char_w_h" style="display:none">a</span>
+	<div class="row-fluid" style="margin-bottom:10px">
+		<div class="portlet-body profile">
+			<div class="table-responsive form-inline ">
+				<table class="table table-striped table-bordered table-hover" id="admin_message_list">
+					<thead>
+						<tr>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.$sr_no}}
+							</th>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.Title}}
+							</th>
+							<th>
+								<i class="icon-certificate"></i>
+								{{translationsData.Content}}
+							</th>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.Category}}
+							</th>
+							<th>
+								<i class="icon-time"></i>
+								{{translationsData.Fromdate}}
+							</th>
+							<th>
+								<i class="icon-time"></i>
+								{{translationsData.Todate}}
+							</th>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.Showondashboard}}
+							</th>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.Sticky}}
+							</th>
+							<th>
+								<i class="icon-list"></i>
+								{{translationsData.Actions}}
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div id="empty_message" class="alert alert-error" style="text-align:center;display:none">{{translationsData.Norecordfound}}</div>
+			</div>
+		</div>
+	</div>
+	<style>
+		#admin_message_list{
+			width:100% !important;
+		}
+		.input-mini{
+			text-align: center;
+			margin: 0 5px;
+			width:22px;!important
+		}
+		.msg_content,.title_content{
+			margin:0;
+			color:#000 !important;
+			font-size:inherit,
+		}
+	</style>
+
+</script>

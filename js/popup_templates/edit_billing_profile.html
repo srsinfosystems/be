@@ -1,0 +1,120 @@
+<script type="text/template" id="edit_billing_profile_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.Editbillingprofile}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+				<div class="row-fluid">
+					<div class="span12">
+						<form action="/" class="form-horizontal" style="margin-bottom:0px;" id="edit_billing_profile_template_form" method="post" accept-charset="utf-8">
+								
+							<div class="control-group date_wrapper">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Name}}</label>	
+								<div class="controls">
+									<input name="name" class="m-wrap span9"  value="{{Billingprofile.PartnerBillingprofile.name}}" placeholder="{{translationsData.Name}}" id="name" type="text">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><span class="required">*</span>{{translationsData.Status}}</label>	
+								<div class="controls">
+									<select name="status" class="m-wrap span9"  value="" id="status">
+										<option value=''></option>
+
+										{{#js_if Billingprofile.PartnerBillingprofile.status}}
+											<option value='1' selected>{{translationsData.Active}}</option>
+										{{else}}
+											<option value='1'>{{translationsData.Active}}</option>
+										{{/js_if}}
+
+										{{#js_if Billingprofile.PartnerBillingprofile.status}}
+											<option value='0' >{{translationsData.Inactive}}</option>
+										{{else}}
+											<option value='0' selected>{{translationsData.Inactive}}</option>
+										{{/js_if}}
+											
+									</select>
+								</div>
+							</div> 	
+
+							<div class="control-group">
+								<div class="span12" style="margin: 0 auto;float: none;">
+									<div class="table-responsive">	
+										<table class="table table-striped table-bordered table-hover">
+											<thead class="">
+												<th><input type="checkbox" class="delete_check_all"></th>
+												<th  style="width:15%">{{translationsData.Product}}</th>
+												<th>{{translationsData.Type}}</th>
+												<th>{{translationsData.Basis}}</th>
+												<th style="width:50%">{{translationsData.Criteria}}</th>
+
+											</thead>
+											<tbody id="edit_billing_profile_product_tbody">
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="btn-group">
+									<button class="btn blue" type="button" id="edit_billing_profile_btn_delete" style="display:none">
+										<i class="icon-plus"></i>
+										{{translationsData.Deleteproduct}}
+									</button>
+
+									<button class="btn blue" type="button" id="edit_billing_profile_btn_new">
+										<i class="icon-plus"></i>
+										{{translationsData.Addproduct}}										
+									</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>	
+		</div>	
+	</div>	
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="edit_billing_profile_btn_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+div.radio{
+	margin-top: 9px;
+}
+
+.ui-autocomplete{
+	z-index:10150;
+}
+.criteria_p{
+	display:inline-block;
+}
+.criteria_ul{
+	width: 100%;
+	display: block;
+	list-style-type: none;
+	margin: 0;
+}
+.inp{
+	border: 1px solid #e5e5e5 !important;
+	pediting: 6px 6px !important;
+	background:transparent !important;
+	box-shadow: none !important;
+	width:30px !important;
+	margin: 0 8px;
+	text-align:center;
+}
+
+</style>
+</script>

@@ -1,0 +1,86 @@
+<script type="text/template" id="quote_notes_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		<h3>{{translationsData.$nw_nt_or_fllu}}</h3>
+
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal form-view" style="margin-bottom:0px;" id="quote_notes_form" method="post" accept-charset="utf-8">
+
+				<div class="control-group">
+					<label class="control-label">{{translationsData.Note}}</label>	
+					<div class="controls">
+						<textarea name="description" rows="6" class="m-wrap span10" cols="30" id="description"></textarea>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">{{translationsData.Followup}}</label>	
+					<div class="controls">
+						<select name="cancel_followup" class="m-wrap span10" id="cancel_followup">
+							<option value="n">{{translationsData.None}}</option>
+							<option value="y">{{translationsData.$do_a_fllu}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group followedup_quote_w">
+					<div class="controls">
+						<select name="followedup_quote" class="m-wrap span10" id="followedup_quote">
+							{{#each followedUpList}}
+									<option value="{{@key}}">{{this}}</option>						
+							{{/each}}
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group followedup_staff_w">
+					<div class="controls">
+						<select name="followedup_staff" class="m-wrap span10" id="followedup_staff">
+							{{#each followedupStaff}}
+									<option value="{{@key}}">{{this}}</option>						
+							{{/each}}
+						</select>
+					</div>
+				</div>
+				
+				<div class="control-group followedup_task_type_w">
+					<div class="controls">
+						<select name="followedup_task_type" class="m-wrap span10" id="followedup_task_type">
+							{{#each taskTypes}}
+									<option value="{{@key}}">{{this}}</option>						
+							{{/each}}
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group followup_date_w">
+					<label class="control-label">{{translationsData.Date}}</label>
+					<div class="controls">
+						<div data-date-format="{{translationsData.date_format_f}}" readonly="readonly" class="input-append date form_datetime span11" id="startDate">
+							<input name="followup_date" placeholder="{{translationsData.Start}}" class="m-wrap span9 phone-resize-text" id="followup_date" type="text">
+							<span class="add-on"><i class="icon-remove"></i></span>
+							<span class="add-on"><i class="icon-calendar"></i></span>
+						</div>
+					</div>
+				</div>		
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="quote_notes_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+</script>

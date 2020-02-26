@@ -1,0 +1,49 @@
+<script type="text/html" id="distribution_types_template">
+
+<div class="row-fluid" >
+	<div class="span12">
+
+		<div class="portlet box green">
+			<div class="portlet-title dark-bottom-border">
+				<div class="caption"><i class="icon-globe"></i> {{translationsData.Distribution}}</div>
+				<div class="tools"><a href="javascript:;" class="collapse"></a></div>
+			</div>
+			
+			<div class="portlet-body">
+				<div class="portlet-body form" style="padding: 0">
+					<!--<div class="row-fluid">
+						<div class="span12">
+							<div class="btn-group" style="float:right;">
+								<button class="btn purple" onclick="distribution_types.add()" >
+								<i class="icon-plus"></i> {{translationsData.Add}}
+								</button>
+							</div>
+						</div>
+					</div>-->
+					<div class="profile" style="clear:both;">
+						<div class="table-responsive">	
+							<table class="table table-striped table-bordered table-hover" style="margin-top:23px;" id="tbl_tax1">
+								<thead class="">
+									<tr>
+										<th><i class="icon-list"></i> {{translationsData.Name}}</th>
+										<th><i class="icon-list"></i> {{translationsData.Commonname}}</th>
+										<th><i class="icon-list"></i> {{translationsData.Description}}</th>
+										<th><i class="icon-list"></i> {{translationsData.Status}}</th>
+										
+										<th><i class="icon-ok"></i> {{translationsData.Actions}}</th>
+									</tr>
+								</thead>
+								<tbody id="tax_table_tbody">
+									{{#each distribution_types}}
+										{{dtTableHelper DocumentMethod}}
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</div>
+</script>

@@ -1,0 +1,87 @@
+<script type="text/template" id="addedit_message_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+		{{#js_if "this.aem_meta.from == 'add'"}} 
+			<h3>{{translationsData.Addmessage}}</h3>
+		{{else}}
+			<h3>{{translationsData.Editmessage}}</h3>
+		{{/js_if}}
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+				<form action="/" class="form-horizontal form-view" style="margin-bottom:0px;" id="addedit_message_form" method="post" accept-charset="utf-8">
+				
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Title}}</label>	
+						<div class="controls">
+							<input name="title" class="m-wrap span9" placeholder="{{translationsData.Title}}" id="title" type="text" value="">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Content}}</label>	
+						<div class="controls">
+							<textarea name="content" style="height:150px" class="m-wrap span9" placeholder="{{translationsData.Content}}" id="content"></textarea>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Category}}</label>	
+						<div class="controls">
+							<select name="category" class="m-wrap span9" placeholder="{{translationsData.Category}}" id="category">
+								<option value="news">{{translationsData.News}}</option>
+								<option value="op_msg">{{translationsData.Operationalmessage}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Validfrom}}</label>
+						<div class="controls">		
+							<input name="from_date" date-format="{{date_format_f}}" autocomplete="off"  class="m-wrap span9" id="from_date" type="text" value="">	
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Validthrough}}</label>
+						<div class="controls">		
+							<input name="to_date" date-format="{{date_format_f}}" autocomplete="off"  class="m-wrap span9" id="to_date" type="text" value="">	
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Showondashboard}}</label>
+						<div class="controls">			
+							<div class="switch switch-small" style="margin-top:5px" id="show_on_dashboard" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+								<input type="checkbox" class="toggle" id="" name="show_on_dashboard"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group sticky_wrapper hide">
+						<label class="control-label"><span class="required">*</span>{{translationsData.Sticky}}</label>
+						<div class="controls">		
+							<div class="switch switch-small" style="margin-top:5px"  id="sticky" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}">
+								<input type="checkbox" class="toggle" id="" name="sticky"/>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="addedit_message_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+</script>

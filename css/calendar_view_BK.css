@@ -1,0 +1,242 @@
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	
+	#all_calendars .calenderview{
+		width:100%;float:left;clear:right;
+	}
+
+	#widget{
+		width:100%;/* changed- auto 23_06_14 */
+	}
+
+}
+
+
+/* Smartphones (landscape) ----------- */
+@media only screen 
+and (min-width : 321px) {
+
+
+	
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen 
+and (max-width : 320px) {
+/* Styles */
+}
+
+/* Tablets, iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+/* Styles */
+
+	#all_calendars .calenderview{
+		min-width: 350px;float:left;clear:right;
+	}
+
+	#all_calendars .calenderview{
+		width: 450px;
+	}
+
+	#widget{
+		width:230px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		/*width: 460px;*/
+		width:65%;
+		float:left;
+		margin-left: 20px;
+	}
+
+}
+
+/* Tablets, iPads (landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+/* Styles */
+	#all_calendars .calenderview{
+		float:left;clear:right;
+	
+	}
+
+	#all_calendars .calenderview{
+		/*width: 450px; 17_06*/
+		width:100%;
+	}
+
+
+	#widget{
+		width:230px;
+		/*margin-right: 20px;*/
+	}
+}
+
+
+
+
+@media only screen 
+and (min-width : 1224px) {
+
+    #all_calendars .calenderview{
+		min-width: 350px;float:left;clear:right;margin-left:20px;
+	
+	}
+
+	#all_calendars .calenderview{
+		width: 350px;
+	}
+
+
+	#widget{
+		min-width:220px;
+		width:280px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		width: 75%;float:left;margin-left: 20px;
+	}
+
+
+}
+
+@media only screen 
+and (min-width : 1280px) {
+
+    #all_calendars .calenderview{
+		min-width: 350px;float:left;clear:right;margin-left:20px;
+	
+	}
+
+	#all_calendars .calenderview{
+		width: 350px;
+	}
+
+
+	#widget{
+		min-width:220px;
+		width:280px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		width: 70%;float:left;margin-left: 20px;
+	}
+
+
+}
+
+@media only screen 
+and (min-width : 1280px) {
+
+    #all_calendars .calenderview{
+		min-width: 350px;float:left;clear:right;margin-left:20px;
+	
+	}
+
+	#all_calendars .calenderview{
+		
+		width: 350px;
+	}
+
+
+	#widget{
+		min-width:220px;
+		width:280px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		width: 70%;float:left;margin-left: 20px;
+	}
+
+
+}
+
+@media only screen 
+and (min-width : 1500px) {
+
+    #all_calendars .calenderview{
+		min-width: 350px;float:left;clear:right;margin-left:20px;
+	
+	}
+
+	#all_calendars .calenderview{
+		width: 350px;
+	}
+
+
+	#widget{
+		min-width:220px;
+		width:280px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		width: 75%;float:left;margin-left: 20px;
+	}
+
+
+}
+
+
+
+
+@media only screen 
+and (min-width : 1920px) {
+
+    #all_calendars .calenderview{
+		min-width: 400px;float:left;clear:right;margin-left:20px;
+	}
+
+	#all_calendars .calenderview{
+		width: 350px;
+	}
+
+	#widget{
+		min-width:220px;
+		width:280px;
+		/*margin-right: 20px;*/
+	}
+
+	#calendars{
+		width: 80%;float:left;margin-left: 20px;
+	}
+
+}
+/* ---- */
+@media only screen 
+and (max-width : 1280px) and (min-width : 1025px) {
+
+    #all_calendars .calenderview{
+		min-width: 330px;
+		/*width: 330px;*/
+		width:100%;
+	
+	}
+	#widget {
+		width:30%;
+		margin-right:10px;
+	}
+	#calendars{
+		width: 67%;
+		float:left;
+		margin-left: 20px;
+	}
+	#all_calendars .calendar {
+		width: 100%;		
+	}
+}
+
+
+
+

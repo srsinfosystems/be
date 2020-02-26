@@ -1,0 +1,110 @@
+<script type="text/html" id="add_sales_field_template">
+<div class="modal-header">
+    <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+    {{#js_if "'id' in this.asf_meta "}}
+        <h3>{{translationsData.Editsalesdocumentfield}}</h3>
+    {{else}}
+        <h3>{{translationsData.Addsalesdocumentfield}}</h3>
+    {{/js_if}}
+    
+        
+</div>  
+<div class="modal-body">
+    <div class="row-fluid form-horizontal" id="add_sales_field_form">
+        <div class="span12">
+            <div class="control-group">
+                <label class="control-label"><span class="required">*</span>{{translationsData.Fieldtype}}</label>  
+                <div class="controls">
+                    <select id="type" name="type" class="m-wrap span9">
+                        {{#js_if "this.customFieldsData.length > 0"}}
+                            <option value="customer_customfields">
+                                {{translationsData.Customerfields}}
+                            </option>
+                        {{/js_if}}
+
+                        <option value="contact_person">
+                            {{translationsData.Contactperson}}
+                        </option>
+                        <option value="text">
+                            {{translationsData.Textfield}}
+                        </option>
+                        <option value="date">
+                            {{translationsData.Date}}
+                        </option>
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="control-group customer_customfields_opt opt_div" style="display: none">
+                <label class="control-label"><span class="required">*</span>{{translationsData.Customerfields}}</label>  
+                <div class="controls">
+                    <select id="customer_custom_field_id" name="customer_custom_field_id" class="m-wrap span9">
+                        <option></option>
+                        {{#each customFieldsData}}
+                            <option value="{{CustomerCustomField.id}}">{{CustomerCustomField.custom_field}}</option>
+                        {{/each}}
+                    </select>
+                        
+                </div>
+            </div>
+            <div class="control-group contact_person_opt opt_div" style="display: none">
+                <label class="control-label"><span class="required">*</span>{{translationsData.Value}}</label>  
+                <div class="controls">
+                    <select type="text" id="display_value" name="display_value" class="m-wrap span9">
+                        <option value="name" selected="selected">{{translationsData.Name}}</option>
+                        <option value="name_email">{{translationsData.Nameandemail}}</option>
+                        <option value="name_phoneno">{{translationsData.Nameandphonenumber}}</option>
+                    </select>
+                        
+                </div>
+            </div>
+            <div class="control-group text_opt contact_person_opt date_opt opt_div" style="display: none">
+                <label class="control-label"><span class="required">*</span>{{translationsData.Label}}</label>  
+                <div class="controls">
+                    <input type="text" id="label" name="label" class="m-wrap span9">
+                        
+                </div>
+            </div>
+            <div class="control-group text_opt opt_div" style="display: none">
+                <label class="control-label">{{translationsData.Defaultvalue}}</label>  
+                <div class="controls">
+                    <input type="text" id="default_value" name="default_value" class="m-wrap span9">
+                </div>
+            </div>
+
+            <div class="control-group readonly_opt" style="display: none">
+                <label class="control-label">{{translationsData.Readonly}}</label>  
+                <div class="controls">
+                    <div class="switch switch-small readonly" data-on-label="{{translationsData.Yes}}" data-off-label="{{translationsData.No}}" >
+                        <input type="checkbox" class="" id="readonly" name="readonly"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group ">
+                <label class="control-label">{{translationsData.Visibility}}</label>  
+                <div class="controls">
+                    <div class="switch switch-small sales_field_statusz" data-on-label="{{translationsData.On}}" data-off-label="{{translationsData.Off}}" >
+                        <input type="checkbox" class="toggle" id="" name="sales_field_status" checked="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+<div class="modal-footer hide_expire">
+
+    <div class="btn-group " style="width: 100%">
+        <button class="btn blue" type="button" id="add_sales_field_btn_save" onclick="add_sales_field.save();">
+            {{translationsData.Save}}
+            <i class="m-icon-swapright m-icon-white"></i>
+        </button>       
+        <button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+            {{translationsData.Cancel}}
+        </button>
+    </div>
+</div>
+<style type="text/css">
+</style>
+</script>

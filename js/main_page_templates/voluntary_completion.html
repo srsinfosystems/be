@@ -1,0 +1,367 @@
+<script type="text/template" id="voluntary_completion_template">
+
+	<div class="row-fluid">
+		<div class="span12 dash_header">
+			<div class="nw-page-bar">
+				<ul class="nw-page-breadcrumb">
+					<li class="hidden-phone">
+						<i class="icon-home"></i>
+						<a style="cursor:pointer;" href="{{translationsData.dashboardurl}}">{{translationsData.Dashboard}}</a>
+					</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i>
+						<a style="text-decoration:none;cursor:auto;">{{translationsData.Voluntarywork}}</a>
+						</li>
+					<li class="hidden-phone">
+						<i class="icon-data icon-circle"></i><span>{{translationsData.Completion}}</span>
+					</li>
+				</ul>
+				<div class="nw-page-toolbar reviewdata">
+					<li class="btn-group">
+						<button style="display:none;" disabled="" class="rmdis btn btn-outline green" id="voluntary_completion_save" onclick="voluntary_completion.save()">
+							<i class="icon-ok"></i>
+							{{translationsData.Registerandcomplete}}
+							
+						</button>
+
+					</li>
+					<li class="btn-group">
+						<button style="display:none;" class="rmdis  btn btn-outline gray"  disabled=""  id="voluntary_completion_reset" onclick="voluntary_completion.reset()">
+							<i class="icon-remove"></i>
+							{{translationsData.Reset}}
+							
+						</button>
+					</li>
+						<!-- <button style="margin-right: 2px; margin-top: 1px;display:none;" class="rmdis btn btn-outline gray"  disabled=""  id="voluntary_completion_cancel" onclick="voluntary_completion.cancel()">
+							<i class="icon-remove"></i>
+							{{translationsData.Cancel}}
+							
+						</button> -->
+					
+					<li class="btn-group actions_btn rmdis"  style="display:none;">
+						<button class="dropdown-toggle btn blue" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" type="button">
+							<span class="hidden-phone">{{translationsData.Actions}}</span>
+							<i class="icon-angle-down"></i>
+						</button>
+						<ul role="menu" class="dropdown-menu pull-right">
+							<li>
+								<a style="cursor:pointer" onclick="voluntary_completion.show_report_modal();"><i class="icon-plus" style="color:#000000"></i>
+									{{translationsData.Generateparticipantslist}}
+								</a>
+							</li>
+						</ul>
+					</li>
+				</div>
+
+				<div style="clear:both;"></div>
+			</div>
+			<h3 class="page-title"></h3>	
+		</div>
+	</div>
+	<!-- width:100%;float:left;  -->
+	<div id="completion_wrapper" class="row-fluid" style="width:100%;float:left;">
+	
+		<div class="span5" id="scd_cal">
+			<div class="portlet box green "  style="margin-bottom:0">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-calendar"></i> {{translationsData.Schedules}}</div>
+				</div>
+				<div class="portlet-body port1">
+					<div id="schedules_customers_calendar">
+					</div>	
+					<div id="completed_work_schedules" style="margin-top:10px">
+						<div class="row-fluid ">
+							<ol id="completed_work_schedules_ol" class="dd-list floatol">
+								<li class="dd-custom-item" style="text-align:center;display:none">
+									<!-- <img src="{{translationsData.loaderurl}}"> -->
+								</li>
+							</ol>	
+						</div>
+						<div class="row-fluid desc"> 
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>	
+
+		<div class="span7" id="scd_cust">
+			<div class="portlet box green calendar" style="">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-tasks"></i> {{translationsData.Customers}}</div>
+				</div>
+				<div class="portlet-body port3">
+					<div id="schedules_customers">
+						<ol id="schedules_customers_ol" class="dd-list floatol">
+							{{translationsData.Selectschedule}}								
+						</ol>												
+					</div>	
+				</div>
+			</div>
+		</div>	
+
+		<!--<div class="span3" id="">
+			<div class="portlet box green calendar" style="">
+				<div class="portlet-title">
+					<div class="caption"><i class="icon-tasks"></i> {{translationsData.Workdetails}}</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="control-group"  id="work_description_wrapper">
+								{{translationsData.Selectschedule}}	
+							</div>																		
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+	</div>
+
+	<!--<div class="btn-group-box phone-btn-top btn_group" style="max-width:100%;">
+		<button style="color: rgb(255, 255, 255); margin-right: 2px; margin-top: 1px;display:none;" disabled="" class="rmdis btn btn-outline green" id="voluntary_completion_save" onclick="voluntary_completion.save()">
+		{{translationsData.Registerandcomplete}}
+		<i class="icon-ok"></i>
+		</button>
+
+		<button style=" margin-right: 2px; margin-top: 1px;display:none;" class="rmdis btn-outline btn btn_clear"  disabled=""  id="voluntary_completion_reset" onclick="voluntary_completion.reset()">
+		{{translationsData.Reset}}
+		<i class="icon-remove"></i>
+		</button>
+
+		<button style="margin-right: 2px; margin-top: 1px;display:none;" class="rmdis btn-outline btn btn_clear"  disabled=""  id="voluntary_completion_cancel" onclick="voluntary_completion.cancel()">
+		{{translationsData.Cancel}}
+		<i class="icon-remove"></i>
+		</button>
+	</div> -->
+
+		
+	<style>
+	#schedules_customers_calendar{
+		cursor:pointer;
+	}
+	#completion_wrapper .form-horizontal .controls{
+		margin-left:0;
+	}
+	#completion_wrapper .form-horizontal .control-label{
+		width:auto;
+	}
+	.adj-inp{
+		background-color: #fff !important;
+	}
+	#completion_wrapper .dropdown-submenu {
+   	 	position: relative;
+	}
+
+	#completion_wrapper .dropdown-submenu .dropdown-menu {
+	    top: 0;
+	    left: 100%;
+	    margin-top: -1px;
+	}
+	.fc-bg tr{
+		cursor:pointer !important;
+	}
+	.fc-event-container{
+		display:none
+	}
+	.dd-custom-handle{
+			height:auto;
+			width: auto;
+			display: inline-block;
+			cursor: pointer;
+			padding: 3px;
+			color: #333;
+			text-decoration: none;
+			font-weight: 400;
+			box-sizing: border-box;
+			
+			z-index:-1;
+			float:left;
+		}
+		.dd-custom-item{
+			display: inline-block;
+		    position: relative;
+		    margin: 0;
+		    padding: 0;
+		    font-size: 13px;
+		    width: 100%;
+		    background-color: #F0F0F0;
+			border: 0.1em solid #F0F0F0;
+		    margin-bottom:5px !important;
+			box-sizing:border-box;
+		}
+		.floatol{
+    		width:100%;
+    	}
+    	.span_status{
+    		min-height:auto !important;
+    		border:solid 0.1em rgb(28, 121, 194);
+    		padding: 0 2px;
+    		border-radius:2px !important;
+    		font-size:0.8em;
+    	}
+    	.span_status_open{
+    		color:rgb(28, 121, 194);
+    		border:solid 0.1em rgb(28, 121, 194);
+    	}
+    	.span_status_reg{
+    		color:#35aa47;
+    		border:solid 0.1em #35aa47;
+    	}
+    	.span_status_can{
+    		color:#d64635;
+    		border:solid 0.1em #d64635;
+    	}
+    	.span_status_edit{
+    		color:rgb(28, 121, 194);
+    		border:solid 0.1em rgb(28, 121, 194);
+    		min-height:auto !important;
+			margin:0 !important;
+    	}
+    	.span_status_edit_p{
+			width:auto!important;
+			margin:0 !important;
+			background-color: #F0F0F0;
+			padding: 3px;
+			text-align:center;
+			cursor:pointer;
+			float:right !important;
+		}
+    	.dd-custom-item-customer{
+		    margin-bottom:5px;    		
+    	}
+    	.customer_li{
+    		list-style-type:none;
+    		margin:0;
+			height:auto;
+			width: 100%;
+			display: table;
+			cursor: pointer;
+			padding: 3px;
+			color: #333;
+			text-decoration: none;
+			font-weight: 400;
+			box-sizing: border-box;
+			background-color: #F0F0F0;
+			border: 0.1em solid #F0F0F0;
+			
+		}
+		.customer_li li{
+			display:table-cell;
+		}
+		.customer_li_action{
+			text-align:right;
+		}
+		.customer_li_name,.customer_li_presencecheck{
+			vertical-align:middle;
+		}
+		.my-btn{
+			filter: none;
+		    border: 0;
+		    padding: 7px 14px;
+		    cursor: pointer;
+		    outline: none;
+		    box-shadow: none !important;
+		    border-radius: 0 !important;
+		    text-shadow: none;
+		    display: inline-block;
+		    *display: inline;
+		    margin-bottom: 0;
+		    *margin-left: .3em;
+		    font-size: 14px;
+		    line-height: 20px;
+		    text-align: center;
+		    font-size: 13px;
+		    line-height: 1;
+		    padding: 4px 10px 5px;
+		    vertical-align: middle;
+		    cursor: pointer;
+		    color: #ffffff!important;
+		    border-radius: 3px;
+
+		}
+		#completion_wrapper .actions_c{
+			min-width:125px;
+			text-align:left;
+		}
+		#completion_wrapper .actions_c li{
+		    display: inline-block;
+		    width:100%;
+		    padding: 2px 5px;
+			box-sizing: border-box;
+			cursor:pointer;
+			font-size:12px;
+		}
+		#completion_wrapper .actions_c li:hover{
+		    background-color: #F0F0F0;
+		}
+		#completion_wrapper .actions_d li:hover,#content .dropdown-menu > li > a:hover,#content .dropdown-menu > li > a:focus,#content .dropdown-submenu:hover > a,#content .dropdown-submenu:focus > a{
+			/*background:transparent !important;*/
+			 color:#000 !important;
+		}
+
+		#completion_wrapper .actions_d{
+			min-width:125px;
+			text-align:left;
+		}
+		#completion_wrapper .actions_d li{
+			font-size:12px;
+		    display: inline-block;
+		    width:100%;
+		    padding: 2px 5px;
+			box-sizing: border-box;
+			cursor:pointer;
+		}
+		#completion_wrapper .actions_d li:hover,#content .dropdown-menu > li > a:hover,#content .dropdown-menu > li > a:focus,#content .dropdown-submenu:hover > a,#content .dropdown-submenu:focus > a{
+		    background-color: transparent;
+		    background:transparent;
+		}
+		#completion_wrapper .dropdown-menu li > a{
+			padding:0;
+		}
+		#completion_wrapper .dropdown-submenu > a::after{
+			right: 12px;
+		}
+		.absence_hours,.absence_reasons{
+			min-width:48px;
+			margin:0;
+			line-height:1;
+
+		}
+		#completion_wrapper .select2-container .select2-choice{
+			line-height: 19px !important;
+			height: 21px !important;
+		}
+		#completion_wrapper .absence_hours_wrapper,.absence_reason_wrapper{
+			margin-left:5px;
+		}
+		#completion_wrapper .work_description{
+			background-color:#fff !important;
+		}
+		#completion_wrapper .planned_work{
+			background-color:#fff !important;
+		}
+		#completion_wrapper .selected_border{
+			border:solid 0.1em #35aa47;
+		}
+
+		#completion_wrapper .vc_show{
+			display:block !important;
+		}
+		#completion_wrapper li.customer_li_presencecheck{
+			max-width:12px;
+		}
+		.btn.btn-outline{
+			cursor: pointer;
+			display: inline-block;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857;
+			margin-bottom: 0;
+			padding: 5px 8px;
+			text-align: center;
+			vertical-align: middle;
+			white-space: nowrap;
+		}
+	</style>
+</script>

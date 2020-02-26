@@ -1,0 +1,34 @@
+<script type="text/template" id="invoice_addnote_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+	<h3>{{translationsData.Addnote}}</h3>
+</div>	
+<div class="modal-body">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet-body form">
+			<form action="/" class="form-horizontal form-view" style="margin-bottom:0px;" id="invoice_addnote_form" method="post" accept-charset="utf-8">
+
+				<div class="control-group">
+					<label class="control-label">{{translationsData.Note}}<span class="required">*</span></label>	
+					<div class="controls">
+						<textarea name="description" placeholder="{{translationsData.Description}}" rows="6" class="m-wrap span10" cols="30" id="description"></textarea>
+					</div>
+				</div>	
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn blue" type="button" id="invoice_addnote_save">
+			{{translationsData.Save}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+</script>

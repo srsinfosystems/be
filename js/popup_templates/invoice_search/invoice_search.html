@@ -1,0 +1,141 @@
+<script type="text/html" id="invoice_search_template">
+<div class="modal-header">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+
+		<h3>{{translationsData.$ser_fil}}</h3>
+
+</div>	
+<div class="modal-body invoice_search">
+	<div class="row-fluid">
+		<div class="span12">
+			<form action="/bkengine/searches/search" class="form-horizontal" onsubmit="return false" style="margin-bottom:0px;" id="searchSearchForm" method="post" accept-charset="utf-8">
+				
+				{{#js_if "this.type == 'customer'"}}
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.Invoicenumber}}</label>
+								<div class="controls">
+									<input name="invoice_number" class="m-wrap span12" value="" placeholder="{{translationsData.Invoicenumber}}" id="searchInvoiceNumber" type="text">
+								</div>
+							</div>
+						</div>
+
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.Status}}</label>
+								<div class="controls">
+									<select name="invoice_status" class="m-wrap span12" style="margin-left:0% !important;" id="searchInvoiceStatus" tabindex="-1">
+										<option value=""></option>
+											{{#each invoice_statuss}}
+													<option value="{{@key}}">{{this}}</option>						
+											{{/each}}
+	
+									</select>
+								</div>
+							</div>
+						</div>
+																	 	
+					</div>
+					<div class="row-fluid">
+						
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.$our_ref}}</label>
+								<div class="controls">
+									<select name="our_ref" class="m-wrap span12" style="margin-left:0% !important;" id="searchOurRef" tabindex="-1">
+										<option value=""></option>
+										{{#js_if "this.getPartnerContactList.length != 0"}} 
+											{{#each getPartnerContactList}}
+													{{OurRefHelper @key this}}								
+											{{/each}}
+										{{/js_if}}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{else}}
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.Invoicenumber}}</label>
+								<div class="controls">
+									<input name="invoice_number" class="m-wrap span12" value="" placeholder="{{translationsData.Invoicenumber}}" id="searchInvoiceNumber" type="text">
+								</div>
+							</div>
+						</div>
+
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.Customer}}</label>
+								<div class="controls">
+									<input name="customer_number" class="m-wrap span12" value="" placeholder="{{translationsData.$cust_name_no}}" id="searchCustomerNumber" type="text">
+								</div>
+							</div>
+						</div>											 	
+					</div>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.Status}}</label>
+								<div class="controls">
+									<select name="invoice_status" class="m-wrap span12" style="margin-left:0% !important;" id="searchInvoiceStatus" tabindex="-1">
+										<option value=""></option>
+											{{#each invoice_statuss}}
+													<option value="{{@key}}">{{this}}</option>						
+											{{/each}}
+	
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">{{translationsData.$our_ref}}</label>
+								<div class="controls">
+									<select name="our_ref" class="m-wrap span12" style="margin-left:0% !important;" id="searchOurRef" tabindex="-1">
+										<option value=""></option>
+										{{#js_if "this.getPartnerContactList.length != 0"}} 
+											{{#each getPartnerContactList}}
+													{{OurRefHelper @key this}}								
+											{{/each}}
+										{{/js_if}}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{/js_if}}
+				<div class="row-fluid">
+					<div class="span6">
+						<div class="control-group">
+							<label class="control-label">{{translationsData.KID}}</label>
+							<div class="controls">
+								<input name="invoice_kid" class="m-wrap span12" value="" placeholder="{{translationsData.KID}}" id="searchInvoiceKid" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="btn-group">
+		<button class="btn green" type="button" id="invoice_search_save">
+			{{translationsData.Search}}
+			<i class="m-icon-swapright m-icon-white"></i>
+		</button>		
+		<button data-dismiss="modal" class="btn btn_clear" type="button"><i class="icon-remove"></i>
+			{{translationsData.Cancel}}
+		</button>
+	</div>
+</div>
+<style>
+#uniform-orderSearchNumber,.label_orderSearchNumber{
+	float:left
+}
+</style>
+</script>
