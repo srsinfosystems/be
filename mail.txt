@@ -1,0 +1,210 @@
+
+<br><br><style>
+body {
+    font-family: "Roboto","Helvetica Neue","Arial",sans-serif !important;    
+}
+
+@media screen and (min-width: 319px) and (max-width: 360px) {
+	.mass_logo_left{display:inline !important;}
+	.mass_logo_left .mass_logo_left_text{width:100% !important;} 
+	.mass_logo_right {float:left !important; clear:both !important; width:100% !important;}
+	.mass_logo_right .mass_logo_table{width:39% !important; min-width:39% !important; clear:both !important;} 
+	.mass_customer_left{clear:both;padding-top: 5%;display:block !important;}
+	.mass_customer_left .mass_customer_left_text{width:100% !important;}
+	.mass_customer_left .mass_customer_left_text .add_text_line{ margin: 0 32px 0 11px !important;} 
+	.mass_customer_right{float:left !important; clear:both !important; width:100% !important;}
+	.mass_customer_right .mass_customer_left_table{width:39% !important; min-width:39% !important; clear:both !important;} 
+}
+
+@media screen and (min-width: 361px) and (max-width: 420px) {
+	.mass_logo_left{display:inline !important;}
+	.mass_logo_left .mass_logo_left_text{width:100% !important;} 
+	.mass_logo_right {float:left !important; clear:both !important; width:100% !important;}
+	.mass_logo_right .mass_logo_table{width:44% !important; min-width:44% !important; clear:both !important;}
+	.mass_customer_left{clear:both;padding-top: 5%;display:block !important;}
+	.mass_customer_left .mass_customer_left_text{width:100% !important;}
+	.mass_customer_left .mass_customer_left_text .add_text_line{ margin: 0 32px 0 11px !importanat;}  
+	.mass_customer_right{float:left !important; clear:both !important; width:100% !important;}
+	.mass_customer_right .mass_customer_right_table{width:44% !important; min-width:44% !important; clear:both !important;}   
+}
+
+@media screen and (min-width: 421px) and (max-width: 480px) {
+	.mass_logo_left{display:inline !important;}
+	.mass_logo_left .mass_logo_left_text{width:100% !important;} 
+	.mass_logo_right {float:left !important; clear:both !important;}
+	.mass_logo_right .mass_logo_table{margin:0 auto !important; clear:both !important;} 
+	.mass_customer_left{clear:both;padding-top: 5%;display:block !important;}
+	.mass_customer_left .mass_customer_left_text{width:100% !important;} 
+	.mass_customer_right{float:left !important; clear:both !important; width:100% !important;}
+	.mass_customer_right .mass_customer_right_table{width:50% !important; min-width:50% !important; clear:both !important}
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+	.mass_logo_left{display:inline !important;}
+	.mass_logo_left .mass_logo_left_text{width:100% !important;}
+	.mass_logo_left .mass_logo_left_text .mass_logo_left_text_left{justify-content: center !important;  max-width: 80% !important;} 
+	.mass_logo_right {float:left !important; clear:both !important;width:100% !important;}
+	.mass_logo_right .mass_logo_table{width:auto !important;min-width:auto !important;} 
+	.mass_customer_left{clear:both;padding-top: 5%;display:block !important;}
+	.mass_customer_left .mass_customer_left_text{ align-content: center;align-items: center;justify-content: center;max-width: 80%;}
+	.mass_customer_right{float:left !important; clear:both !important; width:100% !important;}
+	.mass_customer_right .mass_customer_right_table{width:50% !important; min-width:50% !important; clear:both !important}
+}	
+   
+</style>
+				<div style="font-family: Roboto,Helvetica Neue,Arial,sans-serif !important;  letter-spacing: -0.1px;    line-height: 1.4;overflow: hidden;    position: relative; min-height: 100%;    padding-top: 24px; overflow: hidden !important; box-sizing: border-box;    display: flex;"  id="invoice">
+			<div >
+				<div style=" box-sizing: border-box;background: #ffffff none repeat scroll 0 0;    max-width: 100%;    min-width: 100%;    overflow: hidden;    width: 100%; box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);" >
+				<br /><div style="box-sizing: border-box;    display: flex; align-content: flex-start;    align-items: flex-start; justify-content: space-between;" class="mass_logo_left">
+						<div style="width:50%; box-sizing: border-box;    display: flex; flex-direction: column;color: rgba(0, 0, 0, 0.54);    line-height: 22px;" class="mass_logo_left_text">
+							<div style="box-sizing: border-box;    display: flex; align-content: center;    align-items: center;    max-width: 100%; justify-content: flex-start; margin-bottom: 80px;"  class="mass_logo_left_text_left">
+								<div style="align-items: flex-start;box-sizing: border-box;    display: flex; align-content: center;    align-items: center !important;    max-width: 100%;  justify-content: center !important;  height: 156px;    width: 156px; min-width:156px;" >
+									<div></div>									
+								</div>
+								<div style="background-color: rgba(0, 0, 0, 0.12); height: 144px; margin: 0px 45px 0px 42px; width: 1px;" >
+								</div>
+								<table style=" width: 210px; color: rgba(0, 0, 0, 0.54);font-size: 15px;" >
+									<tr><td >SRS INFÓSYSTÆMS</td></tr>
+									<tr><td >Att: 143, Thakre bhawan Øbhyankar nagar</td></tr>
+									<tr><td >440011 Nagpur</td></tr><tr><td >
+										<span >Org. nr.</span>: <span >NO 555544449 MVA</span>
+									</td></tr>
+									<tr><td >
+										<span >E-post</span>: <a target="_blank" href="mailto:srs.infosystems@gmail.com" style="color:rgba(0, 0, 0, 0.54); text-decoration:none;"  >srs.infosystems@gmail.com</a>
+									</td></tr></table>
+							</div>
+						</div>
+						<div style="width:50%; float:right;" class="mass_logo_right">
+							<table style="font-size: 15px; width:100%;  min-width:100%; max-width:100%;" class="mass_logo_table">
+								<tbody>
+									<tr style="font-size: 35px;    font-weight: 300; line-height:25px;" >
+										<td style="padding-bottom: 32px;color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right; width:60%;" >Fakturanr.</td>
+										<td style="padding-bottom: 32px; color: black;word-wrap:break-word;word-break: break-all; width:43%; " >1323</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right; width:60%; " >Fakturadato</td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " >01.04.16</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >Forfallsdato</td>
+										<td style="color: red;word-wrap:break-word;word-break: break-all; width:43%; " >15.04.16</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" ></td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " ></td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >KID</td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " >03958041547</td>
+									</tr>									
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >Betal til konto</td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " >1111 11 11111</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >&Aring; betale</td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " >kr. 1250,00</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >V&aring;r ref.</td>
+										<td style="color: black;word-wrap:break-word;word-break: break-all; width:43%; " >FGDTY HGH</td>
+									</tr>
+									<tr>
+										<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60%;" >Deres ref.</td>
+										<td style="word-wrap:break-word;word-break: break-all; width:43%;"  ><a style="text-decoration:none; color:black;" target="_blank" href="mailto:priyanka@srs-infosystems.com">priyanka@srs-infosystems.com</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div style="box-sizing: border-box;    display: flex; align-content: flex-start;    align-items: flex-start; justify-content: space-between;" class="mass_customer_left">
+						<div style="box-sizing: border-box;    display: flex; flex-direction: column;color: rgba(0, 0, 0, 0.54); " class="mass_customer_left_text">
+							<div style="box-sizing: border-box;    display: flex; align-content: center;    align-items: center;    max-width: 100%; justify-content: flex-start;"  >
+								<div style="box-sizing: border-box;    display: flex; align-content: center;    align-items: center;    max-width: 100%; justify-content: flex-end; font-size: 24px;    font-weight: 300;    width: 156px; min-width:156px;" >
+									<div >KUNDE</div>
+								</div>
+								<div style="background-color: rgba(0, 0, 0, 0.12);    height: 144px; max-height: 144px;    margin: 0px 45px 0px 42px;    width: 1px;" class="add_text_line">
+								</div>
+								<table style=" width: 210px;color: rgba(0, 0, 0, 0.54);font-size: 15px; " >
+									<tr><td>test cust</td></tr>
+									<tr><td> </td></tr>
+									<tr><td>34234234 qwew</td></tr></table>
+							</div>    
+ 						</div>
+						<div style="width:50%; float:right; box-sizing: border-box;    display: flex; flex-direction: column;color: rgba(0, 0, 0, 0.54); " class="mass_customer_right">
+							<div style="box-sizing: border-box;    display: flex; align-content: center;    align-items: center;    max-width: 100%; width:100%; justify-content: flex-start;"  class="mass_customer_left_table">
+								<div style="box-sizing: border-box;    display: flex; align-content: center;    align-items: center;    max-width: 0%; justify-content: flex-end; font-size: 24px;    font-weight: 300;    width: 0px;" ></div>
+								<div style="height: 144px; max-height: 144px;" ></div>
+								<table style="font-size: 15px; width:100%;  min-width:100%; max-width:100%;" class="mass_customer_right_table">
+									<tbody><tr>
+												<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60.5%;" >Leveringsnavn</td>
+												<td style="color: black; word-wrap:break-word;word-break: break-all; width:43%;" >test cust</td>
+											</tr><tr>
+												<td style="color: rgba(0, 0, 0, 0.54);    padding-right: 16px;    text-align: right;  width:60.5%;" ></td>
+												<td style="color: black; word-wrap:break-word;word-break: break-all; width:43%;" >34234234 qwew</td>
+											</tr></tbody>
+								</table>
+							</div>	
+						</div>
+					</div><div >
+						<table style="border: medium none;    border-spacing: 0;    text-align: left;    width: 98%;font-size: 15px;    margin-top: 96px;" align="center">
+							<thead>
+								<tr>
+									<th style=" padding-left: 24px;border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 204px;    padding: 16px 8px 16px 0;    white-space: nowrap;" >&#xA0;&#xA0;Beskrivelse</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 50px;    padding: 16px 8px;    white-space: nowrap; text-align:right;" >Antall</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 60px;    padding: 16px 8px;    white-space: nowrap; text-align:right;" >Enh</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 100px;    padding: 16px 8px;    white-space: nowrap; text-align:right;" >Enhetspris</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 80px;    padding: 16px 8px;    white-space: nowrap; text-align:right;" >Rabatt</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 60px;    padding: 16px 8px;    white-space: nowrap; text-align:right;" >MVA</th>
+									<th style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    color: rgba(0, 0, 0, 0.54);    font-weight: 500;    min-width: 130px;   padding: 16px 0 16px 8px;    white-space: nowrap;text-align: right;" >Totalt&#xA0;&#xA0;&#xA0;</th>
+								</tr>
+							</thead>
+							<tbody><tr >
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px 16px 0;">
+										<div >&#xA0;&#xA0;Apple</div>
+									</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px; text-align:right;" >1,00</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px; text-align:right;" >kg.</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px; text-align:right;" >kr 1000,00</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px; text-align:right;" >kr 0.00</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 8px; text-align:right;" >25%</td>
+									<td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);    padding: 16px 0 16px 8px; text-align: right;" >kr 1250,00&#xA0;&#xA0;&#xA0;</td>
+								</tr></tbody>
+						</table>
+						<table style="border: medium none;    border-spacing: 0;    text-align: left;    width: 98%; margin: 32px 0 96px;" align="center">
+							<tbody>
+								<tr >
+									<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 8px 8px 16px;      text-align: left;" >Netto</td>
+									<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 0 8px 8px;      text-align: right;" >kr 1000,00&#xA0;</td>
+								</tr><tr >
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 8px 8px 16px;    text-align: left;" >Utg&aring;ende MVA (25%)</td>
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 0 8px 8px;      text-align: right;" >kr 250,00&#xA0;</td>
+									</tr><tr >
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 8px 8px 16px;      text-align: left;" >Rabatt</td>
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 0 8px 8px;      text-align: right;" >kr 0,00&#xA0;</td>
+									</tr><tr >
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 8px 8px 16px;     text-align: left;padding-bottom: 32px;" >Avrunding</td>
+										<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding: 8px 0 8px 8px;      text-align: right;padding-bottom: 32px;" >kr 0,00&#xA0;</td>
+									</tr><tr >
+									<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding-left:10px; padding-top:10px;   text-align: left;border-top: 1px solid rgba(0, 0, 0, 0.12);    color: black;    font-size: 35px;    font-weight: 300;  " >Totalt</td>
+									<td style="border-bottom: medium none;    color: rgba(0, 0, 0, 0.54);    font-size: 17px;    font-weight: 500;    padding-top:10px;      text-align: right;border-top: 1px solid rgba(0, 0, 0, 0.12);    color: black;    font-size: 35px;    font-weight: 300; " >kr 1250,00</td>
+								</tr>
+							</tbody>
+						</table>	
+										
+					</div>
+					<div ><div style="color: rgba(0, 0, 0, 0.54);    font-size: 12px;    font-weight: 500;    line-height: 18px; text-decoration:none;    margin-bottom: 24px; white-space: pre-line;" >Takk for at du har valgt Egoria!  Her følger faktura for din avtale. Ved spørsmål, kontakt oss gjerne via vår kundeportal, http://support.egoria.no. Vi minner for øvrig om våre avtalevilkår, som er å finne på våre nettsider. Vi ser frem til å betjene deg som kunde.
+
+Denne fakturaen er distribuert via InFaktura, www.infaktura.no</div><div style="box-sizing: border-box;    display: flex; justify-content: flex-start;    align-content: flex-start;    align-items: flex-start;" >
+							<div style="color: rgba(0, 0, 0, 0.54);    font-size: 12px;    font-weight: 500;    line-height: 18px;" >
+								Dette er en e-postfaktura. <a style="text-decoration:none;" href="https://www.minbefaring.no/SRS/customer/invoice/inv_pdf?key=10axXPQerCInk" target="_blank">Klikk her</a> for &aring; &aring;pne faktura i nettleseren.
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>			
+		</div>
+
+<br><br>Regards, 
+<br>SRS INFÓSYSTÆMS

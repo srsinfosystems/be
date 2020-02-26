@@ -1,3 +1,4 @@
+
 /* =========================================================
  * bootstrap-colorpicker.js 
  * http://www.eyecon.ro/bootstrap-colorpicker
